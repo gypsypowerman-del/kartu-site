@@ -3,6 +3,7 @@ import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
 import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects, services } from "@/content/site";
+import { pageImages } from "@/content/page-images";
 
 export default function HomePage() {
   return (
@@ -27,7 +28,7 @@ export default function HomePage() {
           </div>
           <RevealImage className="home-studio__media">
             <Parallax speed={0.18} className="home-studio__parallax">
-              <Photo src="/images/photos/home-01.jpg" alt="KARTÚ interior detail" sizes="(min-width: 901px) 50vw, 100vw" className="photo--fill" />
+              <Photo src={pageImages["home-studio"]} alt="Hallway, Beregovoy Residential Complex" sizes="(min-width: 901px) 50vw, 100vw" className="photo--fill" />
             </Parallax>
           </RevealImage>
         </section>

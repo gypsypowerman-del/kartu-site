@@ -1,0 +1,438 @@
+{
+ "beregovoy-01": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-02": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-03": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-04": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-05": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-06": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-07": {
+  "w": 1440,
+  "h": 2400
+ },
+ "beregovoy-08": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-09": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-10": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-11": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-12": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-13": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-14": {
+  "w": 1440,
+  "h": 2400
+ },
+ "beregovoy-15": {
+  "w": 1440,
+  "h": 2400
+ },
+ "beregovoy-16": {
+  "w": 1440,
+  "h": 2400
+ },
+ "beregovoy-17": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-18": {
+  "w": 1200,
+  "h": 2400
+ },
+ "beregovoy-19": {
+  "w": 1920,
+  "h": 2400
+ },
+ "beregovoy-20": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-01": {
+  "w": 2400,
+  "h": 1800
+ },
+ "city-bay-02": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-03": {
+  "w": 1800,
+  "h": 2400
+ },
+ "city-bay-04": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-05": {
+  "w": 1800,
+  "h": 2400
+ },
+ "city-bay-06": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-07": {
+  "w": 1806,
+  "h": 2400
+ },
+ "city-bay-08": {
+  "w": 1892,
+  "h": 2400
+ },
+ "city-bay-09": {
+  "w": 1798,
+  "h": 2400
+ },
+ "city-bay-10": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-11": {
+  "w": 1800,
+  "h": 2400
+ },
+ "city-bay-12": {
+  "w": 2400,
+  "h": 1800
+ },
+ "city-bay-13": {
+  "w": 2400,
+  "h": 1806
+ },
+ "city-bay-14": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-15": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-16": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-17": {
+  "w": 1920,
+  "h": 2400
+ },
+ "city-bay-18": {
+  "w": 1806,
+  "h": 2400
+ },
+ "family-house-01": {
+  "w": 2400,
+  "h": 1600
+ },
+ "family-house-02": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-03": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-04": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-05": {
+  "w": 2400,
+  "h": 1600
+ },
+ "family-house-06": {
+  "w": 2400,
+  "h": 1600
+ },
+ "family-house-07": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-08": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-09": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-10": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-11": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-12": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-13": {
+  "w": 2400,
+  "h": 1600
+ },
+ "family-house-14": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-15": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-16": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-17": {
+  "w": 2400,
+  "h": 1600
+ },
+ "family-house-18": {
+  "w": 1600,
+  "h": 2400
+ },
+ "family-house-19": {
+  "w": 1600,
+  "h": 2400
+ },
+ "home-hero": {
+  "w": 2400,
+  "h": 1350
+ },
+ "home-studio": {
+  "w": 1440,
+  "h": 2400
+ },
+ "jewellery-studio-01": {
+  "w": 2400,
+  "h": 1602
+ },
+ "jewellery-studio-02": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-03": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-04": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-05": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-06": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-07": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-08": {
+  "w": 2400,
+  "h": 1602
+ },
+ "jewellery-studio-09": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-10": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-11": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-12": {
+  "w": 1602,
+  "h": 2400
+ },
+ "jewellery-studio-13": {
+  "w": 1602,
+  "h": 2400
+ },
+ "sea-side-01": {
+  "w": 2048,
+  "h": 1363
+ },
+ "sea-side-02": {
+  "w": 1290,
+  "h": 2022
+ },
+ "sea-side-03": {
+  "w": 1271,
+  "h": 1227
+ },
+ "sea-side-04": {
+  "w": 1363,
+  "h": 2048
+ },
+ "sea-side-05": {
+  "w": 1014,
+  "h": 2048
+ },
+ "sea-side-06": {
+  "w": 2048,
+  "h": 1363
+ },
+ "sea-side-07": {
+  "w": 1023,
+  "h": 2048
+ },
+ "services-01": {
+  "w": 1600,
+  "h": 2400
+ },
+ "services-02": {
+  "w": 1602,
+  "h": 2400
+ },
+ "services-03": {
+  "w": 1920,
+  "h": 2400
+ },
+ "services-04": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-01": {
+  "w": 2400,
+  "h": 1800
+ },
+ "shepherds-bush-02": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-03": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-04": {
+  "w": 2400,
+  "h": 1600
+ },
+ "shepherds-bush-05": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-06": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-07": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-08": {
+  "w": 2400,
+  "h": 1800
+ },
+ "shepherds-bush-09": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-10": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-11": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-12": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-13": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-14": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-15": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-16": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-17": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-18": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-19": {
+  "w": 2400,
+  "h": 1800
+ },
+ "shepherds-bush-20": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-21": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-22": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-23": {
+  "w": 1800,
+  "h": 2400
+ },
+ "shepherds-bush-24": {
+  "w": 1800,
+  "h": 2400
+ },
+ "studio-01": {
+  "w": 1800,
+  "h": 2400
+ },
+ "studio-02": {
+  "w": 2400,
+  "h": 1600
+ }
+}

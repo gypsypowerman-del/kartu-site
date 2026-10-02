@@ -25,6 +25,11 @@ body = re.sub(r"<script\b[^>]*>.*?</script>", "", body, flags=re.S)
 body = re.sub(r'<div hidden="">.*?</div>', "", body, count=1, flags=re.S)
 body = re.sub(r'href="/(?!/)[^"]*"', 'href="#" data-soon=""', body)
 
+# Images: make paths relative and list them so they can be published alongside the page
+body = body.replace('"/images/', '"images/').replace(', /images/', ', images/')
+used = sorted(set(re.findall(r'(images/[^\s",]+\.(?:webp|avif|svg|png|jpg))', body)))
+(dst.parent / "preview-files.txt").write_text("\n".join(used))
+
 motion = (root.parent / "scripts" / "preview-motion.js").read_text()
 
 page = f"""<title>KARTÚ Home Preview</title>

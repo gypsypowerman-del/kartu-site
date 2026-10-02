@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Nav, Photo, TextLink } from "@/components/ui";
+import { pageImages } from "@/content/page-images";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,7 +43,7 @@ export default function HomeHero() {
   return (
     <section className="hero" ref={root}>
       <div className="hero__media">
-        <Photo src="/images/photos/home-02.jpg" alt="KARTÚ interior, Shepherd's Bush Maisonette" priority position="center 38%" className="photo--fill" />
+        <Photo src={pageImages["home-hero"]} alt="KARTÚ interior, Shepherd's Bush Maisonette" priority position="center 38%" className="photo--fill" />
       </div>
       <div className="hero__scrim" />
       <Nav overlay />

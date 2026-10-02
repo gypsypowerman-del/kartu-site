@@ -10,7 +10,6 @@ export type Project = {
   scope: string;
   thumb: string;   // Home card, 3/4
   index: string;   // Projects index card, 4/3
-  orient: string;
   hero: string;
   conceptName: string;
   concept: string;

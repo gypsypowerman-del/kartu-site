@@ -14,13 +14,17 @@ Source of truth for design: the approved **KARTÚ Design System** (claude.ai art
 - Logo: real SVG/PNG files from `/public/images/logo/` only. Never set the logo in text. White on hero/overlay, black elsewhere. Footer uses the K symbol.
 - Fonts: Agatho Light (display), Futura PT 300–600 (UI/body). Self-hosted WOFF2. Licence for web use must be confirmed before launch.
 - No rounded corners, no shadows, no gradients except `--hero-scrim`.
-- Motion: subtle and soft — `--ease-out`, durations from tokens. Always honour `prefers-reduced-motion`.
+- Motion: GSAP + Lenis. Line-mask headline reveals, blind image reveals, gentle parallax, pinned projects scene on Home (desktop only).
+  Decided 2 Oct 2026 by the project lead, overriding handover brief §8.3 ("no parallax or dramatic zoom") — **must be shown to the founders for sign-off.**
+  Always honour `prefers-reduced-motion` (everything static).
 
 ## Naming (BEM-like, mirrors design sections)
 `section-element--modifier`, e.g. `hero-title`, `hero-sub`, `projects-card--wide`, `studio-founders`.
 Use the same names in components, CSS classes and when discussing fixes.
 
 ## Images
+- Sources: `~/Downloads/Assets - KARTU WEBSITE/03_PROJECTS/*` (originals). `assets-src/manifest.json` maps every web file to its original.
+- Galleries use the complete approved set in folder order (handover §3). Hero = first file; Projects-index and Home thumbnails are the client-specified files.
 - Originals go in `/assets-src/photos/` (git-ignored if large). Run `npm run images` to generate AVIF/WebP at 640/1080/1600/2400 into `/public/images/photos/`.
 - Always `next/image` (or the `Photo` component) with `sizes`, real `alt` text, lazy-loading below the fold. Hero images get `priority`.
 - Mixed ratios: `object-fit: cover` at fixed ratios; wide images always start a new row.
@@ -45,3 +49,5 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Font web licence + WOFF2 sign-off.
 - Sea-side Residence high-res photography (current set is low-res).
 - Founder portraits for Studio page.
+- Motion layer vs client brief §8.3 (see Motion above).
+- Home hero: approved crop of 9153 (door jamb removed); hero video deferred, markup should stay video-ready.
