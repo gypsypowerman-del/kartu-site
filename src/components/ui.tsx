@@ -1,6 +1,9 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { asset, LOGO_READY, PHOTOS_READY } from "@/content/assets";
+import photoMeta from "@/content/photo-meta.json";
+
+const META = photoMeta as Record<string, { w: number; h: number }>;
 
 const NAV = [
   { href: "/projects/", label: "Projects" },
@@ -57,7 +60,10 @@ export function Photo({
   className?: string;
   position?: string;
 }) {
-  const style: CSSProperties = ratio ? { aspectRatio: ratio } : {};
+  const stemName = src.split("/").pop()!.replace(/\.\w+$/, "");
+  const m = META[stemName];
+  const natural = m ? `${m.w}/${m.h}` : undefined;
+  const style: CSSProperties = ratio ? { aspectRatio: ratio } : natural && !className.includes("photo--fill") ? { aspectRatio: natural } : {};
   if (!PHOTOS_READY) {
     const name = src.split("/").pop()?.replace(/\.\w+$/, "");
     return (
@@ -77,6 +83,8 @@ export function Photo({
       <img
         src={`${stem}-1600.webp`}
         alt={alt}
+        width={m?.w}
+        height={m?.h}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
         decoding="async"
@@ -110,9 +118,8 @@ export function Footer() {
           <div className="footer__contact">
             <span>London, UK</span>
             <a href="mailto:hello@kartuinteriors.com">hello@kartuinteriors.com</a>
-            <a href="https://instagram.com/" rel="noopener" target="_blank">
-              Instagram
-            </a>
+            {/* TODO: client to confirm the Instagram handle */}
+            <span>Instagram</span>
           </div>
           <nav className="footer__nav" aria-label="Footer">
             {NAV.map((n) => (
@@ -162,5 +169,56 @@ export function ContactBand({ title = "Start a conversation.", link = "Get in to
         <TextLink href="/contact/">{link}</TextLink>
       </Wrap>
     </section>
+  );
+}
+
+/* ---------- Grid + content blocks ---------- */
+export function Grid12({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`grid12 ${className}`}>{children}</div>;
+}
+
+export function ColourBlock({ tone = "khaki", title, children, className = "" }: { tone?: "khaki" | "sky"; title?: string; children: ReactNode; className?: string }) {
+  return (
+    <div className={`colour-block colour-block--${tone} ${className}`}>
+      {title && <h3 className="colour-block__title">{title}</h3>}
+      <div className="colour-block__body">{children}</div>
+    </div>
+  );
+}
+
+export function Stage({ index, title, children, className = "" }: { index: string; title: string; children: ReactNode; className?: string }) {
+  return (
+    <div className={`stage ${className}`}>
+      <div className="stage__index">{index}</div>
+      <div>
+        <h3 className="stage__title">{title}</h3>
+        <p className="stage__body">{children}</p>
+      </div>
+    </div>
+  );
+}
+
+export function ProjectMeta({ items, className = "" }: { items: { label: string; value: string; wide?: boolean }[]; className?: string }) {
+  return (
+    <dl className={`project-meta ${className}`}>
+      {items.map((it) => (
+        <div key={it.label} className={it.wide ? "project-meta__item project-meta__item--wide" : "project-meta__item"}>
+          <dt>{it.label}</dt>
+          <dd>{it.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export function NextProject({ slug, title, location }: { slug: string; title: string; location: string }) {
+  return (
+    <Link href={`/projects/${slug}/`} className="next-project">
+      <Wrap>
+        <div className="next-project__label">Next project</div>
+        <h2 className="next-project__title">{title}</h2>
+        <div className="next-project__location">{location}</div>
+      </Wrap>
+    </Link>
   );
 }
