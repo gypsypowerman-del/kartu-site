@@ -33,7 +33,7 @@ export default function ServicesPage() {
             </FadeUp>
             <figure className="svc svc--fig1">
               <RevealImage>
-                <Photo src={pageImages["services-01"]} alt="Joinery and kitchen detail, Family House" sizes="(min-width: 901px) 40vw, 100vw" />
+                <Photo src={pageImages["services-01"]} alt="Joinery and kitchen detail, Family House" sizes="(min-width: 901px) 40vw, 100vw" priority />
               </RevealImage>
             </figure>
             <FadeUp className="svc svc--block1">

@@ -43,7 +43,7 @@ export default function HomeHero() {
   return (
     <section className="hero" ref={root}>
       <div className="hero__media">
-        <Photo src={pageImages["home-hero"]} alt="KARTÚ interior, Shepherd's Bush Maisonette" priority position="center 38%" className="photo--fill" />
+        <Photo src={pageImages["home-hero"]} alt="KARTÚ interior, Shepherd's Bush Maisonette" priority sizes="(max-aspect-ratio: 16/9) 189vh, 100vw" position="center 38%" className="photo--fill" />
       </div>
       <div className="hero__scrim" />
       <Nav overlay />

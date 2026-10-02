@@ -9,8 +9,10 @@ export const metadata: Metadata = {
   description: "Selected residential and commercial projects across the UK and Europe.",
 };
 
-// Aligned grid: two projects per row, wide (7 cols) + narrow (5 cols) alternating, 4/3, equal heights.
-const span = (i: number) => (i % 4 === 0 || i % 4 === 3 ? "projects-grid__item--wide" : "projects-grid__item--narrow");
+// Two projects per row, wide + narrow alternating. Widths follow the image ratios (4/3 and 1/1),
+// so both photos in a row share one height (≈ the approved 7/5 column split).
+const isWide = (i: number) => i % 4 === 0 || i % 4 === 3;
+const ratioOf = (i: number) => (isWide(i) ? 4 / 3 : 1);
 
 export default function ProjectsPage() {
   return (
@@ -27,14 +29,21 @@ export default function ProjectsPage() {
           </header>
 
           <div className="projects-grid">
-            {projects.map((p, i) => (
-              <Link key={p.slug} href={`/projects/${p.slug}/`} className={`project-card projects-grid__item ${span(i)}`}>
-                <RevealImage>
-                  <Photo src={p.index} alt={`${p.title}, ${p.location}`} ratio="4/3" sizes="(min-width: 901px) 55vw, 100vw" priority={i < 2} />
-                </RevealImage>
-                <span className="project-card__title project-card__title--index">{p.title}</span>
-                <span className="project-card__location">{p.location}</span>
-              </Link>
+            {[0, 2, 4].map((start) => (
+              <div key={start} className="projects-grid__row">
+                {projects.slice(start, start + 2).map((p, j) => {
+                  const i = start + j;
+                  return (
+                    <Link key={p.slug} href={`/projects/${p.slug}/`} className="project-card projects-grid__item" style={{ flex: `${ratioOf(i)} 1 0` }}>
+                      <RevealImage>
+                        <Photo src={p.index} alt={`${p.title}, ${p.location}`} ratio={isWide(i) ? "4/3" : "1/1"} sizes="(min-width: 561px) 55vw, 100vw" priority={i < 2} />
+                      </RevealImage>
+                      <span className="project-card__title project-card__title--index">{p.title}</span>
+                      <span className="project-card__location">{p.location}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             ))}
           </div>
         </Wrap>

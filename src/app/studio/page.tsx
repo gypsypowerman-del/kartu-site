@@ -37,7 +37,7 @@ export default function StudioPage() {
             </FadeUp>
             <figure className="studio-composition__figure">
               <RevealImage>
-                <Photo src={pageImages["studio-01"]} alt="KARTÚ interior detail" sizes="(min-width: 901px) 40vw, 100vw" />
+                <Photo src={pageImages["studio-01"]} alt="KARTÚ interior detail" sizes="(min-width: 901px) 40vw, 100vw" priority />
               </RevealImage>
             </figure>
             <Parallax speed={0.1} className="studio-composition__detail">
@@ -50,6 +50,7 @@ export default function StudioPage() {
             </FadeUp>
           </Grid12>
 
+          <Grid12>
           <FadeUp className="studio-text">
             <p>
               Both originally from Lithuania, we found the name for the studio in our native language. We create together as founders, and we create together with our clients. We see
@@ -64,6 +65,7 @@ export default function StudioPage() {
               For us, good design is not about imposing a signature style. It is about finding the right answer together — for the people, the place, and the way life happens within it.
             </p>
           </FadeUp>
+          </Grid12>
 
           <div className="studio-founders">
             {["Anna Prycheva", "Jurgita MacNaughton"].map((name) => (

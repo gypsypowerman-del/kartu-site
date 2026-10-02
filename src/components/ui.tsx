@@ -5,6 +5,12 @@ import photoMeta from "@/content/photo-meta.json";
 
 const META = photoMeta as Record<string, { w: number; h: number }>;
 
+/** Natural width/height ratio of a photo (1.5 for 3:2 landscape). */
+export function photoRatio(src: string) {
+  const m = META[src.split("/").pop()!.replace(/\.\w+$/, "")];
+  return m ? m.w / m.h : 1;
+}
+
 const NAV = [
   { href: "/projects/", label: "Projects" },
   { href: "/studio/", label: "Studio" },

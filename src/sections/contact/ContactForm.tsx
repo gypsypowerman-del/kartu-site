@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 
 /** Short enquiry form. Until the serverless endpoint is connected (open item),
  *  a successful submit shows the confirmation state, as in the approved prototype. */
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
+  const doneRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (sent) doneRef.current?.focus();
+  }, [sent]);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -17,7 +21,7 @@ export default function ContactForm() {
   if (sent) {
     return (
       <div className="contact-form__done" role="status">
-        <h2 className="contact-form__done-title">Thank you for getting in touch.</h2>
+        <h2 className="contact-form__done-title" tabIndex={-1} ref={doneRef}>Thank you for getting in touch.</h2>
         <p>We’ll come back to you shortly.</p>
       </div>
     );

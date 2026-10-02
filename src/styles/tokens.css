@@ -1,12 +1,12 @@
 /* KARTÚ design tokens — ported 1:1 from the approved Design System (UI kit).
    Fonts self-hosted as WOFF2. Web-use licence for Agatho / Futura PT must be confirmed before launch. */
 
-@font-face{font-family:"Agatho";src:url("/fonts/agatho-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"Agatho Caps";src:url("/fonts/agatho-light-caps.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-300.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Agatho";src:url("./fonts/agatho-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Agatho Caps";src:url("./fonts/agatho-light-caps.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("./fonts/futura-pt-300.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("./fonts/futura-pt-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("./fonts/futura-pt-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("./fonts/futura-pt-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 
 :root{
   /* Brand palette — no other colours anywhere */

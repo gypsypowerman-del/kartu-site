@@ -26,7 +26,7 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
       const counter = el.querySelector<HTMLElement>(".projects-scene__current");
 
       gsap.set(slides.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
-      gsap.set(titles.slice(1), { yPercent: 100, autoAlpha: 0 });
+      gsap.set(titles.slice(1), { yPercent: 100, opacity: 0 });
 
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut", duration: 1 },
@@ -36,11 +36,28 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
           end: () => `+=${window.innerHeight * (n - 1) * 0.9}`,
           pin: true,
           scrub: 0.6,
-          snap: { snapTo: 1 / (n - 1), duration: 0.5, ease: "power1.inOut" },
+          snap: { snapTo: 1 / (n - 1), duration: 0.5, ease: "power1.inOut", inertia: false },
           onUpdate: (self) => {
             if (counter) counter.textContent = String(Math.min(n, Math.round(self.progress * (n - 1)) + 1)).padStart(2, "0");
           },
         },
+      });
+
+      // Keyboard: tabbing to a project's caption scrolls the scene to that project
+      const st = tl.scrollTrigger!;
+      const onFocus = (idx: number) => () => {
+        const y = st.start + ((st.end - st.start) * idx) / (n - 1);
+        const lenis = (window as unknown as { __lenis?: { scrollTo: (y: number, o: { immediate: boolean }) => void } }).__lenis;
+        if (lenis) lenis.scrollTo(y, { immediate: true });
+        else window.scrollTo({ top: y, behavior: "auto" });
+        ScrollTrigger.update();
+        const box = el.querySelector<HTMLElement>(".projects-scene__captions");
+        if (box) box.scrollTop = 0;
+      };
+      const handlers = titles.map((t, idx) => {
+        const h = onFocus(idx);
+        t.addEventListener("focus", h);
+        return () => t.removeEventListener("focus", h);
       });
 
       for (let i = 1; i < n; i++) {
@@ -48,9 +65,10 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
         tl.to(slides[i], { clipPath: "inset(0% 0% 0% 0%)" }, at)
           .fromTo(slides[i].querySelector(".photo"), { scale: 1.15 }, { scale: 1 }, at)
           .to(slides[i - 1].querySelector(".photo"), { scale: 0.94, autoAlpha: 0.6 }, at)
-          .to(titles[i - 1], { yPercent: -100, autoAlpha: 0, duration: 0.6 }, at)
-          .to(titles[i], { yPercent: 0, autoAlpha: 1, duration: 0.6 }, at + 0.4);
+          .to(titles[i - 1], { yPercent: -100, opacity: 0, duration: 0.6 }, at)
+          .to(titles[i], { yPercent: 0, opacity: 1, duration: 0.6 }, at + 0.4);
       }
+      return () => handlers.forEach((off) => off());
     }, el);
     return () => mm.revert();
   }, [n]);
@@ -98,7 +116,7 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
         {projects.map((p) => (
           <Link key={p.slug} href={`/projects/${p.slug}/`} className="project-card">
             <RevealImage>
-              <Photo src={p.thumb} alt={p.title} ratio="3/4" sizes="100vw" />
+              <Photo src={p.thumb} alt={p.title} ratio="3/4" sizes="(min-width: 901px) 300px, (min-width: 561px) 50vw, 100vw" />
             </RevealImage>
             <span className="project-card__title">{p.title}</span>
             <span className="project-card__location">{p.location}</span>

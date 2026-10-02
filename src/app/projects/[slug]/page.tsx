@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap } from "@/components/ui";
+import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects } from "@/content/site";
 import type { Placement } from "@/content/types";
@@ -37,6 +37,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </Grid12>
       );
     }
+    // Side-by-side photos: widths proportional to their ratios, so heights match and nothing is cropped
+    if (row.length === 2) {
+      const pair = [p.gallery[gi++], p.gallery[gi++]].filter(Boolean);
+      return (
+        <div key={k} className="gallery-row gallery-pair" style={{ ["--pair-r" as string]: pair.reduce((a, src) => a + photoRatio(src), 0) }}>
+          {pair.map((src, j) => (
+            <figure key={src} className="gallery-figure" style={{ flex: `${photoRatio(src)} 1 0` }}>
+              <RevealImage>
+                <Photo src={src} alt={`${p.title} — view ${gi - pair.length + j + 1}`} sizes="(min-width: 561px) 50vw, 100vw" />
+              </RevealImage>
+            </figure>
+          ))}
+        </div>
+      );
+    }
     return (
       <Grid12 key={k} className="gallery-row">
         {row.map((cls) => {
@@ -57,7 +72,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <Nav />
+      <Nav current="projects" />
       <main id="main">
         <div className="project-hero">
           <Photo src={p.hero} alt={`${p.title} — ${p.location}`} priority sizes="100vw" />
