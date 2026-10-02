@@ -1,0 +1,114 @@
+/* KARTÚ design tokens — ported 1:1 from the approved Design System (UI kit).
+   Fonts self-hosted as WOFF2. Web-use licence for Agatho / Futura PT must be confirmed before launch. */
+
+@font-face{font-family:"Agatho";src:url("/fonts/agatho-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Agatho Caps";src:url("/fonts/agatho-light-caps.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-300.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-500.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Futura PT";src:url("/fonts/futura-pt-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  /* Brand palette — no other colours anywhere */
+  --kartu-black:#000000;
+  --kartu-white:#ffffff;
+  --kartu-khaki:#DEDACF;
+  --kartu-taupe:#A3968E;      /* palette only — fails contrast, never for text */
+  --kartu-taupe-text:#675D57; /* readable sibling: labels, captions, locations */
+  --kartu-terracotta:#943901; /* submit hover, focus outline — never a link colour */
+  --kartu-sky:#84B6CD;
+
+  --ink-1:#000000; --ink-2:#2a2a2a; --ink-3:#3a3a3a;
+  --line-1:#eeeeee; --line-2:#efece5; --line-3:#e4e1da; --line-4:#e6e3dc; --line-input:#cccccc;
+
+  --surface-page:var(--kartu-white);
+  --surface-block:var(--kartu-khaki);
+  --surface-accent:var(--kartu-sky);
+  --surface-inverse:var(--kartu-black);
+  --text-heading:var(--ink-1);
+  --text-body:var(--ink-2);
+  --text-footer:var(--ink-3);
+  --text-muted:var(--kartu-taupe-text);
+  --border-footer:var(--line-1);
+  --border-nav:var(--line-2);
+  --border-list:var(--line-3);
+  --border-footer-bottom:var(--line-4);
+  --border-input:var(--line-input);
+  --border-input-focus:var(--kartu-black);
+  --focus-ring:var(--kartu-terracotta);
+  --button-hover:var(--kartu-terracotta);
+  --hero-scrim:linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.12) 38%,rgba(0,0,0,.62) 100%);
+
+  /* Type */
+  --font-display:"Agatho",Georgia,"Times New Roman",serif;
+  --font-display-caps:"Agatho Caps",Georgia,serif;
+  --font-sans:"Futura PT","Futura","Century Gothic",sans-serif;
+  --weight-light:300; --weight-book:400; --weight-medium:500; --weight-demi:600;
+
+  --text-hero:62px; --text-h1:54px; --text-h1-page:46px; --text-h1-compact:40px;
+  --text-cta-band:44px; --text-h2:40px; --text-h3:34px; --text-h3-stage:26px;
+  --text-lead:19px; --text-row:19px; --text-card-title:18px; --text-body-lg:17px;
+  --text-body:16px; --text-footer:15px; --text-cta:15px; --text-nav:14px;
+  --text-small:14px; --text-label:13px;
+
+  --leading-display:1.08; --leading-body:1.6; --leading-cta:1.2;
+
+  --type-hero:var(--weight-light) var(--text-hero)/var(--leading-display) var(--font-display);
+  --type-h1:var(--weight-light) var(--text-h1)/var(--leading-display) var(--font-display);
+  --type-h1-page:var(--weight-light) var(--text-h1-page)/var(--leading-display) var(--font-display);
+  --type-h1-compact:var(--weight-light) var(--text-h1-compact)/var(--leading-display) var(--font-display);
+  --type-h2:var(--weight-light) var(--text-h2)/var(--leading-display) var(--font-display);
+  --type-h3:var(--weight-light) var(--text-h3)/var(--leading-display) var(--font-display);
+  --type-h3-stage:var(--weight-light) var(--text-h3-stage)/var(--leading-display) var(--font-display);
+  --type-cta-band:var(--weight-light) var(--text-cta-band)/var(--leading-display) var(--font-display);
+  --type-lead:var(--weight-light) var(--text-lead)/var(--leading-body) var(--font-sans);
+  --type-body-lg:var(--weight-light) var(--text-body-lg)/var(--leading-body) var(--font-sans);
+  --type-body:var(--weight-light) var(--text-body)/var(--leading-body) var(--font-sans);
+  --type-row:var(--weight-light) var(--text-row)/var(--leading-body) var(--font-sans);
+  --type-card-title:var(--weight-book) var(--text-card-title)/var(--leading-body) var(--font-sans);
+  --type-footer:var(--weight-light) var(--text-footer)/var(--leading-body) var(--font-sans);
+  --type-cta:var(--weight-book) var(--text-cta)/var(--leading-cta) var(--font-sans);
+  --type-nav:var(--weight-book) var(--text-nav)/var(--leading-body) var(--font-sans);
+  --type-small:var(--weight-light) var(--text-small)/var(--leading-body) var(--font-sans);
+  --type-label:var(--weight-light) var(--text-label)/var(--leading-body) var(--font-sans);
+
+  /* Spacing */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px; --space-6:32px;
+  --space-7:40px; --space-8:48px; --space-9:56px; --space-10:72px; --space-11:96px; --space-12:132px;
+
+  --page-max:1400px; --page-gutter:56px;
+  --logo-width:132px; --footer-symbol:112px;
+  --section-padding:132px; --grid-gap:48px; --grid-row-gap:72px; --grid-drop:88px;
+  --thumb-gap:96px; --thumb-row-max:1080px;
+
+  --radius-ui:0;
+  --rule-hairline:1px solid var(--border-list);
+  --cta-underline-gap:3px;
+
+  /* Motion — subtle, soft, natural */
+  --ease-out:cubic-bezier(.22,.61,.36,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);  /* was referenced but undefined in the prototype */
+  --ease-default:ease;
+  --duration-fast:200ms;
+  --duration-hover:350ms;
+  --duration-base:500ms;                     /* was referenced but undefined in the prototype */
+  --duration-slow:800ms;
+  --hover-opacity:0.6; --hover-opacity-image:0.82; --hover-opacity-band:0.85;
+
+  --ratio-thumb:3/4; --ratio-hero:16/9;
+}
+
+/* Breakpoints: tablet ≤900px, phone ≤560px */
+@media (max-width:900px){
+  :root{
+    --page-gutter:32px; --section-padding:96px; --grid-gap:32px;
+    --text-hero:48px; --text-h1:44px; --text-h1-page:38px; --text-h2:34px; --text-cta-band:36px;
+  }
+}
+@media (max-width:560px){
+  :root{
+    --page-gutter:24px; --section-padding:72px; --grid-gap:24px; --logo-width:104px; --footer-symbol:84px;
+    --text-hero:38px; --text-h1:36px; --text-h1-page:32px; --text-h1-compact:32px; --text-h2:30px;
+    --text-h3:28px; --text-cta-band:30px; --text-lead:17px;
+  }
+}
