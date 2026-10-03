@@ -3,11 +3,17 @@
 import { createElement, useLayoutEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motionEnabled } from "./enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const EASE = "power3.out"; // ≈ --ease-out
 const motionOK = "(prefers-reduced-motion: no-preference)";
+
+// Print / save-as-PDF: jump every entrance animation to its end state
+if (typeof window !== "undefined") {
+  window.addEventListener("beforeprint", () => ScrollTrigger.getAll().forEach((t) => t.animation?.progress(1)));
+}
 
 /** Headline revealed line by line from under a mask.
  *  Pass the lines explicitly so breaks are designed, not left to the browser. */
@@ -34,6 +40,7 @@ export function RevealLines({
     if (!el) return;
     const mm = gsap.matchMedia();
     mm.add(motionOK, () => {
+      if (!motionEnabled()) return;
       gsap.from(el.querySelectorAll(".reveal-line__inner"), {
         yPercent: 105,
         duration: 1.1,
@@ -65,9 +72,10 @@ export function FadeUp({ children, className, style, delay = 0 }: { children: Re
     if (!el) return;
     const mm = gsap.matchMedia();
     mm.add(motionOK, () => {
+      if (!motionEnabled()) return;
       gsap.from(el, {
         y: 28,
-        autoAlpha: 0,
+        opacity: 0, // not autoAlpha: visibility:hidden would make links inside unfocusable
         duration: 1,
         ease: EASE,
         delay,
@@ -92,6 +100,7 @@ export function RevealImage({ children, className, style }: { children: ReactNod
     const media = el.firstElementChild as HTMLElement | null;
     const mm = gsap.matchMedia();
     mm.add(motionOK, () => {
+      if (!motionEnabled()) return;
       const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 88%", once: true } });
       tl.from(el, { clipPath: "inset(100% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" });
       if (media) tl.from(media, { scale: 1.12, duration: 1.8, ease: EASE }, 0);
@@ -113,6 +122,7 @@ export function Parallax({ children, speed = 0.12, className, style }: { childre
     if (!el) return;
     const mm = gsap.matchMedia();
     mm.add(`${motionOK} and (min-width: 561px)`, () => {
+      if (!motionEnabled()) return;
       gsap.fromTo(
         el,
         { yPercent: -speed * 50 },

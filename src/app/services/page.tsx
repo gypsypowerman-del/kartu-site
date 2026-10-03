@@ -1,13 +1,11 @@
+import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { ColourBlock, ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Stage, Wrap } from "@/components/ui";
 import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
 import { stages } from "@/content/site";
 import { pageImages } from "@/content/page-images";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: "A full-service interior design studio — from first conversation and site visit to procurement and implementation.",
-};
+export const metadata: Metadata = pageMeta({ path: "/services/", og: "services", title: "Services", description: "A full-service interior design studio — from first conversation and site visit to procurement and implementation." });
 
 export default function ServicesPage() {
   const S = stages;

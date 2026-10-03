@@ -1,12 +1,10 @@
+import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { Eyebrow, Footer, Nav, Wrap } from "@/components/ui";
 import { FadeUp, RevealLines } from "@/motion/reveal";
 import ContactForm from "@/sections/contact/ContactForm";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Start a conversation with KARTÚ — interior design studio based in London, working across the UK and internationally.",
-};
+export const metadata: Metadata = pageMeta({ path: "/contact/", og: "contact", title: "Contact", description: "Start a conversation with KARTÚ — interior design studio based in London, working across the UK and internationally." });
 
 export default function ContactPage() {
   return (

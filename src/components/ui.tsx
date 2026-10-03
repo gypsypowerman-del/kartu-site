@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { asset, LOGO_READY, PHOTOS_READY } from "@/content/assets";
+import { asset, INSTAGRAM_URL, LOGO_READY, PHOTOS_READY } from "@/content/assets";
 import photoMeta from "@/content/photo-meta.json";
 
 const META = photoMeta as Record<string, { w: number; h: number }>;
@@ -124,8 +124,11 @@ export function Footer() {
           <div className="footer__contact">
             <span>London, UK</span>
             <a href="mailto:hello@kartuinteriors.com">hello@kartuinteriors.com</a>
-            {/* TODO: client to confirm the Instagram handle */}
-            <span>Instagram</span>
+            {INSTAGRAM_URL && (
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                Instagram
+              </a>
+            )}
           </div>
           <nav className="footer__nav" aria-label="Footer">
             {NAV.map((n) => (
@@ -160,10 +163,10 @@ export function TextLink({ href, children, tone = "ink" }: { href: string; child
 
 export function ServiceRow({ index, title, last }: { index: string; title: string; last?: boolean }) {
   return (
-    <div className={`service-row ${last ? "service-row--last" : ""}`}>
+    <li className={`service-row ${last ? "service-row--last" : ""}`}>
       <span>{title}</span>
       <span className="service-row__index">{index}</span>
-    </div>
+    </li>
   );
 }
 

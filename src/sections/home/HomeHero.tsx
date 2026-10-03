@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Nav, Photo, TextLink } from "@/components/ui";
 import { pageImages } from "@/content/page-images";
+import { motionEnabled } from "@/motion/enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,7 @@ export default function HomeHero() {
     if (!el) return;
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
+      if (!motionEnabled()) return;
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
       intro
         .from(".hero__media", { scale: 1.08, duration: 2.2, ease: "power2.out" }, 0)

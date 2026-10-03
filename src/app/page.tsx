@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
+import { pageMeta } from "@/content/seo";
 import { ContactBand, Eyebrow, Footer, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
 import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
 import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects, services } from "@/content/site";
 import { pageImages } from "@/content/page-images";
+
+export const metadata: Metadata = pageMeta({ path: "/", og: "home" });
 
 export default function HomePage() {
   return (
@@ -40,9 +44,11 @@ export default function HomePage() {
               <TextLink href="/services/">Explore our services</TextLink>
             </div>
             <FadeUp className="home-services__list">
-              {services.map((s, i) => (
-                <ServiceRow key={s} index={String(i + 1).padStart(2, "0")} title={s} last={i === services.length - 1} />
-              ))}
+              <ul className="home-services__items">
+                {services.map((s, i) => (
+                  <ServiceRow key={s} index={String(i + 1).padStart(2, "0")} title={s} last={i === services.length - 1} />
+                ))}
+              </ul>
             </FadeUp>
           </Wrap>
         </section>

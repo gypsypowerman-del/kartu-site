@@ -17,6 +17,8 @@ Source of truth for design: the approved **KARTÚ Design System** (claude.ai art
 - Motion: GSAP + Lenis. Line-mask headline reveals, blind image reveals, gentle parallax, pinned projects scene on Home (desktop only).
   Decided 2 Oct 2026 by the project lead, overriding handover brief §8.3 ("no parallax or dramatic zoom") — **must be shown to the founders for sign-off.**
   Always honour `prefers-reduced-motion` (everything static).
+  **Motion is progressive enhancement** (lesson, 3 Oct 2026): content is visible in the HTML by default; animations only run when `html.js-motion` is set by the inline head script (`src/motion/enabled.ts`), which skips automated browsers (`navigator.webdriver`) so screenshot/review tools and print never capture hidden blocks as empty space. Gate every new animation with `motionEnabled()`. Never use `autoAlpha`/`visibility:hidden` on blocks that contain links (breaks keyboard focus) — animate `opacity`.
+  QA with Playwright: add init script `Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false})` to see the motion version.
 
 ## Naming (BEM-like, mirrors design sections)
 `section-element--modifier`, e.g. `hero-title`, `hero-sub`, `projects-card--wide`, `studio-founders`.
@@ -41,10 +43,16 @@ Use the same names in components, CSS classes and when discussing fixes.
 
 ## Workflow
 - Build one section at a time; check at 1440px and 390px (Playwright screenshots) before moving on.
-- Never commit secrets. Contact form posts to `/api/contact` (serverless); provider key in env.
+- Never commit secrets. Contact form posts to `NEXT_PUBLIC_FORM_ENDPOINT` (GitHub Actions variable `FORM_ENDPOINT`, e.g. Formspree). Without it the form opens a prefilled mailto. **Never show a success state without a real 2xx response.**
+- Share previews: `node scripts/og.mjs` regenerates `public/og/*.jpg` (1200×630) and the favicon. Set `SITE_URL` to the real domain at launch (canonical/og:url).
 - When a correction is given, add the lesson to this file so it isn't repeated.
 
 ## Open client decisions (do not resolve silently)
+- Instagram handle → `INSTAGRAM_URL` in `src/content/assets.ts` (footer item hidden until set).
+- Founder portraits → `FOUNDER_PORTRAITS` flag (block hidden until supplied).
+- Form provider + reply-time line on Contact (new copy, needs approval).
+- Home Studio split repeats the Beregovoy hallway photo used in the projects scene — propose a different `home-studio` image.
+- Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).
 - Hero image crop and scrim strength on Home.
 - Font web licence + WOFF2 sign-off.
 - Sea-side Residence high-res photography (current set is low-res).

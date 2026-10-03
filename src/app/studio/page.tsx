@@ -1,12 +1,11 @@
+import { FOUNDER_PORTRAITS } from "@/content/assets";
+import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { ColourBlock, ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Wrap } from "@/components/ui";
 import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
 import { pageImages } from "@/content/page-images";
 
-export const metadata: Metadata = {
-  title: "Studio",
-  description: "KARTÚ means “together” in Lithuanian — a London interior design studio founded by Anna Prycheva and Jurgita MacNaughton.",
-};
+export const metadata: Metadata = pageMeta({ path: "/studio/", og: "studio", title: "Studio", description: "KARTÚ means “together” in Lithuanian — a London interior design studio founded by Anna Prycheva and Jurgita MacNaughton." });
 
 export default function StudioPage() {
   return (
@@ -45,12 +44,12 @@ export default function StudioPage() {
                 <Photo src={pageImages["studio-02"]} alt="KARTÚ interior, open-plan living" sizes="(min-width: 901px) 50vw, 100vw" />
               </RevealImage>
             </Parallax>
-            <FadeUp className="studio-composition__aside">
-              What began as a friendship grew into a creative partnership, bringing these two perspectives together in a shared approach to interiors.
-            </FadeUp>
           </Grid12>
 
-          <Grid12>
+          <Grid12 className="studio-story">
+          <FadeUp className="studio-story__quote">
+            What began as a friendship grew into a creative partnership, bringing these two perspectives together in a shared approach to interiors.
+          </FadeUp>
           <FadeUp className="studio-text">
             <p>
               Both originally from Lithuania, we found the name for the studio in our native language. We create together as founders, and we create together with our clients. We see
@@ -67,13 +66,16 @@ export default function StudioPage() {
           </FadeUp>
           </Grid12>
 
-          <div className="studio-founders">
-            {["Anna Prycheva", "Jurgita MacNaughton"].map((name) => (
-              <div key={name} className="studio-founders__slot">
-                {name} — portrait to follow
-              </div>
-            ))}
-          </div>
+          {/* Founder portraits: shown once the client supplies them (open item) */}
+          {FOUNDER_PORTRAITS && (
+            <div className="studio-founders">
+              {["Anna Prycheva", "Jurgita MacNaughton"].map((name) => (
+                <div key={name} className="studio-founders__slot">
+                  {name}
+                </div>
+              ))}
+            </div>
+          )}
         </Wrap>
         <ContactBand />
       </main>

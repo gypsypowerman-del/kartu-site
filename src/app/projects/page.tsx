@@ -1,13 +1,11 @@
+import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Eyebrow, Footer, Nav, Photo, Wrap } from "@/components/ui";
+import { Eyebrow, Footer, Nav, Photo, Wrap, ContactBand } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Projects",
-  description: "Selected residential and commercial projects across the UK and Europe.",
-};
+export const metadata: Metadata = pageMeta({ path: "/projects/", og: "projects", title: "Projects", description: "Selected residential and commercial projects across the UK and Europe." });
 
 // Two projects per row, wide + narrow alternating. Widths follow the image ratios (4/3 and 1/1),
 // so both photos in a row share one height (≈ the approved 7/5 column split).
@@ -47,6 +45,7 @@ export default function ProjectsPage() {
             ))}
           </div>
         </Wrap>
+        <ContactBand />
       </main>
       <Footer />
     </>

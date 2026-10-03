@@ -1,8 +1,9 @@
+import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { Footer, Nav, Wrap } from "@/components/ui";
 import { privacyIntro, privacySections, privacyUpdated } from "@/content/privacy";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = pageMeta({ path: "/privacy/", og: "home", title: "Privacy Policy" });
 
 export default function PrivacyPage() {
   return (
