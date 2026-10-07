@@ -518,7 +518,7 @@ export const contactChannels: {
   whatsapp: string;
   /** Telegram username without "@", e.g. "kartu_studio" */
   telegram: string;
-} = { booking: "", whatsapp: "", telegram: "" };
+} = { booking: "", whatsapp: "447768392053", telegram: "" }; // WhatsApp: +44 (0) 7768 392053 (client, 07/10)
 
 export const conversation = {
   call: {
