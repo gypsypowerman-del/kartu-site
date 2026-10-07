@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects } from "@/content/site";
-import { immersive } from "@/content/immersive";
+import { immersiveRows } from "@/content/immersive";
 import type { PairVariant, Placement, Project } from "@/content/types";
 import ImmersiveProject from "@/sections/project/ImmersiveProject";
 
@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
-  const alt = immersive[p.slug];
+  const alt = immersiveRows(p); // all projects use the immersive layout (decision 07/10)
 
   return (
     <>

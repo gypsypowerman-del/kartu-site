@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Photo, TextLink, Wrap, photoRatio } from "@/components/ui";
+import { Photo, TextLink, Wrap } from "@/components/ui";
 import { RevealImage } from "@/motion/reveal";
 import type { Project } from "@/content/types";
 import { DESKTOP_IMAGE_MOTION, motionEnabled } from "@/motion/enabled";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const SCENE_RATIO = 2 / 3;
 
 /** Desktop: a pinned scene — each project's photo opens over the previous one
  *  and the caption switches cleanly to the project in view (no scroll snapping).
@@ -80,9 +82,7 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
       for (let i = 1; i < n; i++) {
         const at = i - 1;
         // slides differ slightly in width, so the outgoing one fades while the next opens
-        tl.to(slides[i], { yPercent: 0 }, at)
-          .to(photos[i], { yPercent: 0 }, at)
-          .to(slides[i - 1], { autoAlpha: 0 }, at);
+        tl.to(slides[i], { yPercent: 0 }, at).to(photos[i], { yPercent: 0 }, at);
       }
       return () => {
         handlers.forEach((off) => off());
@@ -120,13 +120,16 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
             </div>
           </div>
 
-          <div className="projects-scene__frame" style={{ ["--frame-r" as string]: Math.max(...projects.map((p) => photoRatio(p.thumb))) }}>
+          {/* one shared 2:3 frame: each photo wipes over the previous one exactly (07/10 — the
+              three photos are 3:4, 3:5 and 2:3, and differing widths made the wipe look ragged).
+              Portrait, never square; at most ~11% is trimmed from one edge. */}
+          <div className="projects-scene__frame" style={{ ["--frame-r" as string]: SCENE_RATIO }}>
             {projects.map((p, i) => (
               <Link
                 key={p.slug}
                 href={`/projects/${p.slug}/`}
                 className="projects-scene__slide"
-                style={{ zIndex: i + 1, ["--r" as string]: photoRatio(p.thumb) }}
+                style={{ zIndex: i + 1, ["--r" as string]: SCENE_RATIO }}
                 aria-hidden="true"
                 tabIndex={-1}
               >

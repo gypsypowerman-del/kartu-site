@@ -76,6 +76,14 @@ export default function ImmersiveProject({ p, rows }: { p: Project; rows: Immers
             </div>
           );
         }
+        if (row.kind === "banner") {
+          // the client's crop of the hero (same band as the classic template)
+          return (
+            <div key={k} className="imm-row imm-row--banner project-hero">
+              <Photo src={row.image} alt={alt()} priority sizes="100vw" position={row.position} />
+            </div>
+          );
+        }
         if (row.kind === "row") {
           const sum = row.images.reduce((a, s) => a + photoRatio(s), 0);
           return (
