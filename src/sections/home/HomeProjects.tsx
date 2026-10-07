@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Photo, TextLink, Wrap } from "@/components/ui";
+import { Photo, TextLink, Wrap, photoRatio } from "@/components/ui";
 import { RevealImage } from "@/motion/reveal";
 import type { Project } from "@/content/types";
 import { motionEnabled } from "@/motion/enabled";
@@ -13,8 +13,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 /** Desktop: a pinned scene — each project's photo opens over the previous one
  *  and the caption switches cleanly to the project in view (no scroll snapping).
+ *  Photos keep their own proportions (client: "don't make the squares format").
  *  Phone / reduced motion / no JS / automated browsers: a plain stack of cards. */
-export default function HomeProjects({ projects }: { projects: Project[] }) {
+export default function HomeProjects({ projects }: { projects: Pick<Project, "slug" | "title" | "concept" | "thumb">[] }) {
   const root = useRef<HTMLElement>(null);
   const n = projects.length;
 
@@ -29,7 +30,7 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
       const counter = el.querySelector<HTMLElement>(".projects-scene__current");
 
       gsap.set(slides[0], { clipPath: "inset(0% 0% 0% 0%)" });
-      gsap.set(slides.slice(1), { clipPath: "inset(100% 0% 0% 0%)" });
+      gsap.set(slides.slice(1), { clipPath: "inset(101% 0% 0% 0%)" });
 
       let active = -1;
       const setActive = (idx: number) => {
@@ -63,6 +64,7 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
         ScrollTrigger.update();
         const box = el.querySelector<HTMLElement>(".projects-scene__captions");
         if (box) box.scrollTop = 0;
+        setActive(idx);
       };
       const handlers = titles.map((t, idx) => {
         const h = onFocus(idx);
@@ -72,9 +74,10 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
 
       for (let i = 1; i < n; i++) {
         const at = i - 1;
+        // slides differ slightly in width, so the outgoing one fades while the next opens
         tl.to(slides[i], { clipPath: "inset(0% 0% 0% 0%)" }, at)
-          .fromTo(slides[i].querySelector(".photo"), { scale: 1.15 }, { scale: 1 }, at)
-          .to(slides[i - 1].querySelector(".photo"), { scale: 0.96, autoAlpha: 0.7 }, at);
+          .fromTo(slides[i].querySelector(".photo"), { scale: 1.12 }, { scale: 1 }, at)
+          .to(slides[i - 1], { autoAlpha: 0 }, at);
       }
       return () => {
         handlers.forEach((off) => off());
@@ -102,18 +105,26 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
               {projects.map((p) => (
                 <Link key={p.slug} href={`/projects/${p.slug}/`} className="projects-scene__caption">
                   <span className="projects-scene__name">{p.title}</span>
-                  <span className="projects-scene__location">{p.location}</span>
                   <span className="projects-scene__concept">{p.concept}</span>
                 </Link>
               ))}
             </div>
 
-            <TextLink href="/projects/">View all projects</TextLink>
+            <div className="projects-scene__more">
+              <TextLink href="/projects/">View all projects</TextLink>
+            </div>
           </div>
 
-          <div className="projects-scene__frame">
+          <div className="projects-scene__frame" style={{ ["--frame-r" as string]: Math.max(...projects.map((p) => photoRatio(p.thumb))) }}>
             {projects.map((p, i) => (
-              <Link key={p.slug} href={`/projects/${p.slug}/`} className="projects-scene__slide" style={{ zIndex: i + 1 }} aria-hidden="true" tabIndex={-1}>
+              <Link
+                key={p.slug}
+                href={`/projects/${p.slug}/`}
+                className="projects-scene__slide"
+                style={{ zIndex: i + 1, ["--r" as string]: photoRatio(p.thumb) }}
+                aria-hidden="true"
+                tabIndex={-1}
+              >
                 <Photo src={p.thumb} alt="" sizes="(min-width: 901px) 55vw, 100vw" className="photo--fill" />
               </Link>
             ))}
@@ -127,10 +138,9 @@ export default function HomeProjects({ projects }: { projects: Project[] }) {
         {projects.map((p) => (
           <Link key={p.slug} href={`/projects/${p.slug}/`} className="project-card">
             <RevealImage>
-              <Photo src={p.thumb} alt={p.title} ratio="3/4" sizes="(min-width: 901px) 28vw, (min-width: 561px) 50vw, 100vw" />
+              <Photo src={p.thumb} alt={p.title} sizes="(min-width: 901px) 28vw, (min-width: 561px) 50vw, 100vw" />
             </RevealImage>
             <span className="project-card__title">{p.title}</span>
-            <span className="project-card__location">{p.location}</span>
           </Link>
         ))}
         <TextLink href="/projects/">View all projects</TextLink>

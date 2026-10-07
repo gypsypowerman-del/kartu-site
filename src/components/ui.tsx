@@ -130,13 +130,6 @@ export function Footer() {
               </a>
             )}
           </div>
-          <nav className="footer__nav" aria-label="Footer">
-            {NAV.map((n) => (
-              <Link key={n.href} href={n.href}>
-                {n.label}
-              </Link>
-            ))}
-          </nav>
           <Logo kind="symbol" className="footer__symbol" />
         </div>
         <div className="footer__bottom">
@@ -195,13 +188,17 @@ export function ColourBlock({ tone = "khaki", title, children, className = "" }:
   );
 }
 
-export function Stage({ index, title, children, className = "" }: { index: string; title: string; children: ReactNode; className?: string }) {
+export function Stage({ index, title, body, className = "" }: { index: string; title: string; body: string[]; className?: string }) {
   return (
     <div className={`stage ${className}`}>
       <div className="stage__index">{index}</div>
       <div>
         <h3 className="stage__title">{title}</h3>
-        <p className="stage__body">{children}</p>
+        <div className="stage__body">
+          {body.map((t) => (
+            <p key={t}>{t}</p>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -220,13 +217,12 @@ export function ProjectMeta({ items, className = "" }: { items: { label: string;
   );
 }
 
-export function NextProject({ slug, title, location }: { slug: string; title: string; location: string }) {
+export function NextProject({ slug, title }: { slug: string; title: string }) {
   return (
     <Link href={`/projects/${slug}/`} className="next-project">
       <Wrap>
         <div className="next-project__label">Next project</div>
         <h2 className="next-project__title">{title}</h2>
-        <div className="next-project__location">{location}</div>
       </Wrap>
     </Link>
   );

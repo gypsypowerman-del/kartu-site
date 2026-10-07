@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/content/seo";
 import { ContactBand, Eyebrow, Footer, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
+import IntroScreen from "@/sections/home/IntroScreen";
 import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
-import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
+import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects, services } from "@/content/site";
 import { pageImages } from "@/content/page-images";
 
@@ -12,11 +13,12 @@ export const metadata: Metadata = pageMeta({ path: "/", og: "home" });
 export default function HomePage() {
   return (
     <>
+      <IntroScreen />
       <HomeHero />
 
       <main id="main">
         {/* Approved build shows the first three projects */}
-        <HomeProjects projects={projects.slice(0, 3)} />
+        <HomeProjects projects={projects.slice(0, 3).map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
 
         <section className="home-studio" aria-labelledby="home-studio-title">
           <div className="home-studio__text">
@@ -30,10 +32,9 @@ export default function HomePage() {
               <TextLink href="/studio/">Discover the Studio</TextLink>
             </FadeUp>
           </div>
+          {/* 9385.jpg at its original proportions (client: don't change the format) */}
           <RevealImage className="home-studio__media">
-            <Parallax speed={0.18} className="home-studio__parallax">
-              <Photo src={pageImages["home-studio"]} alt="Hallway, Beregovoy Residential Complex" sizes="(min-width: 901px) 50vw, 100vw" className="photo--fill" />
-            </Parallax>
+            <Photo src={pageImages["home-studio"]} alt="Washstand and arched mirror under the skylight, Shepherd's Bush Maisonette" sizes="(min-width: 901px) 42vw, 100vw" />
           </RevealImage>
         </section>
 
@@ -41,7 +42,6 @@ export default function HomePage() {
           <Wrap>
             <div className="section-heading">
               <RevealLines as="h2" lines={["Services"]} className="section-heading__title" />
-              <TextLink href="/services/">Explore our services</TextLink>
             </div>
             <FadeUp className="home-services__list">
               <ul className="home-services__items">
@@ -49,6 +49,9 @@ export default function HomePage() {
                   <ServiceRow key={s} index={String(i + 1).padStart(2, "0")} title={s} last={i === services.length - 1} />
                 ))}
               </ul>
+              <div className="home-services__more">
+                <TextLink href="/services/">Explore our services</TextLink>
+              </div>
             </FadeUp>
           </Wrap>
         </section>

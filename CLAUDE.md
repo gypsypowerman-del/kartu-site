@@ -47,15 +47,27 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Share previews: `node scripts/og.mjs` regenerates `public/og/*.jpg` (1200×630) and the favicon. Set `SITE_URL` to the real domain at launch (canonical/og:url).
 - When a correction is given, add the lesson to this file so it isn't repeated.
 
+## Client debrief 06/10 — decisions now in the build
+- Intro screen before Home: taupe (#A3968E, the brand colour shown in the debrief), white logo centred, click to enter (short fade), no auto-redirect. Shown once per browser session when the visit starts on Home (`src/sections/home/IntroScreen.tsx`, gate in `motionBootScript`).
+- City/country is never displayed (cards, scene, project meta, next-project band, meta descriptions). `location` stays in data only.
+- Photos keep their original proportions wherever the client picked them (Home scene, Home studio split = 9385, Projects index). Don't crop to squares.
+- Underlined text links sit directly under their text, 30px gap (Home scene, Home studio, Home services, contact band).
+- Footer: contact left, K symbol right, no nav.
+- Project heroes/crops: `heroPosition` per project (measured from the client's mock-ups). Gallery orders follow the client's lists; hero image is excluded from its gallery. Layout grammar for reordered galleries: landscape → full row, portraits → pairs (auto even / lead-l / lead-r rhythm), a lone portrait → mid. `{ pair: "lead-l" }` pins a pair's variant.
+- Family House: client order listed ADI_8274 twice and omitted ADI_8174 → 8174 placed in the repeated slot (confirm).
+- Shepherd's Bush uses the experimental immersive template (`src/content/immersive.ts`); other projects stay classic until the client approves it.
+- Studio: no interior photography; two 3:4 founder portrait placeholders (`founders` in site.ts — set `photo` when supplied).
+- Services: copy per debrief; compact split layout; images services-01/02/03 kept, kitchen detail replaced by 9374 + 9292.
+- Agatho has no Ú glyph — never set "KARTÚ" in Agatho; use Futura PT.
+
 ## Open client decisions (do not resolve silently)
 - Instagram handle → `INSTAGRAM_URL` in `src/content/assets.ts` (footer item hidden until set).
-- Founder portraits → `FOUNDER_PORTRAITS` flag (block hidden until supplied).
+- Founder portraits → `founders[].photo` in site.ts (khaki 3:4 placeholders until supplied).
+- Hero video: spec delivered; set `heroVideo` in `src/content/page-images.ts` when the files arrive.
 - Form provider + reply-time line on Contact (new copy, needs approval).
-- Home Studio split repeats the Beregovoy hallway photo used in the projects scene — propose a different `home-studio` image.
 - Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).
 - Hero image crop and scrim strength on Home.
 - Font web licence + WOFF2 sign-off.
 - Sea-side Residence high-res photography (current set is low-res).
-- Founder portraits for Studio page.
 - Motion layer vs client brief §8.3 (see Motion above).
 - Home hero: approved crop of 9153 (door jamb removed); hero video deferred, markup should stay video-ready.

@@ -11,14 +11,14 @@ mkdirSync(OUT, { recursive: true });
 const pages = {
   home: "home-hero",
   projects: "shepherds-bush-09",
-  studio: "studio-01",
+  studio: "shepherds-bush-22",
   services: "services-01",
   contact: "services-03",
-  "shepherds-bush": "home-hero", // approved crop of the same view (01 has a dark door-jamb band)
-  beregovoy: "beregovoy-01",
+  "shepherds-bush": "shepherds-bush-02", // 9173 копия — the client's main image for this project
+  beregovoy: "beregovoy-19",
   "jewellery-studio": "jewellery-studio-01",
-  "city-bay": "city-bay-01",
-  "family-house": "family-house-01",
+  "city-bay": "city-bay-13",
+  "family-house": "family-house-13",
   "sea-side": "sea-side-01",
 };
 

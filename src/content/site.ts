@@ -10,7 +10,7 @@ export const projects: Project[] = [
     "size": "107 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/shepherds-bush-09.jpg",
-    "index": "/images/photos/shepherds-bush-01.jpg",
+    "index": "/images/photos/shepherds-bush-02.jpg",
     "hero": "/images/photos/shepherds-bush-01.jpg",
     "conceptName": "Home of Hidden Charms",
     "concept": "A home full of discovery.",
@@ -105,31 +105,31 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Remote Implementation Support",
     "thumb": "/images/photos/beregovoy-16.jpg",
     "index": "/images/photos/beregovoy-09.jpg",
-    "hero": "/images/photos/beregovoy-01.jpg",
+    "hero": "/images/photos/beregovoy-19.jpg",
     "conceptName": "The Eye Has to Travel",
     "concept": "A canvas for the eye to explore.",
     "conceptText": "Inspired by Diana Vreeland’s words, “The eye has to travel,” we imagined the home as a canvas for the eye to explore. Light walls become a quiet backdrop, with points along the journey formed by objects, textures, fabrics, patterns, scents and details. The eye follows the lines, while the hand discovers the textures. Italy meets France, with British influences woven in and Moscow adding its own rhythm.",
     "story": "This remote project presented an unusual spatial challenge: the apartment’s wave-like line of windows created a geometry that required a particularly thoughtful approach to planning. We managed to retain all the spaces originally intended within the apartment, while also creating a more generous entrance and circulation area with additional integrated storage. The interior was then shaped as a light, sophisticated setting with room to evolve.",
     "gallery": [
-      "/images/photos/beregovoy-02.jpg",
       "/images/photos/beregovoy-03.jpg",
+      "/images/photos/beregovoy-02.jpg",
+      "/images/photos/beregovoy-01.jpg",
+      "/images/photos/beregovoy-06.jpg",
       "/images/photos/beregovoy-04.jpg",
       "/images/photos/beregovoy-05.jpg",
-      "/images/photos/beregovoy-06.jpg",
+      "/images/photos/beregovoy-20.jpg",
       "/images/photos/beregovoy-07.jpg",
-      "/images/photos/beregovoy-08.jpg",
+      "/images/photos/beregovoy-17.jpg",
+      "/images/photos/beregovoy-18.jpg",
       "/images/photos/beregovoy-09.jpg",
+      "/images/photos/beregovoy-08.jpg",
       "/images/photos/beregovoy-10.jpg",
       "/images/photos/beregovoy-11.jpg",
-      "/images/photos/beregovoy-12.jpg",
-      "/images/photos/beregovoy-13.jpg",
       "/images/photos/beregovoy-14.jpg",
       "/images/photos/beregovoy-15.jpg",
       "/images/photos/beregovoy-16.jpg",
-      "/images/photos/beregovoy-17.jpg",
-      "/images/photos/beregovoy-18.jpg",
-      "/images/photos/beregovoy-19.jpg",
-      "/images/photos/beregovoy-20.jpg"
+      "/images/photos/beregovoy-12.jpg",
+      "/images/photos/beregovoy-13.jpg"
     ],
     "layout": [
       [
@@ -172,7 +172,8 @@ export const projects: Project[] = [
       [
         "mid"
       ]
-    ]
+    ],
+    "heroPosition": "center 58%"
   },
   {
     "slug": "jewellery-studio",
@@ -198,9 +199,9 @@ export const projects: Project[] = [
       "/images/photos/jewellery-studio-08.jpg",
       "/images/photos/jewellery-studio-09.jpg",
       "/images/photos/jewellery-studio-10.jpg",
+      "/images/photos/jewellery-studio-13.jpg",
       "/images/photos/jewellery-studio-11.jpg",
-      "/images/photos/jewellery-studio-12.jpg",
-      "/images/photos/jewellery-studio-13.jpg"
+      "/images/photos/jewellery-studio-12.jpg"
     ],
     "layout": [
       [
@@ -224,13 +225,13 @@ export const projects: Project[] = [
         "half-r"
       ],
       [
-        "half-l",
-        "half-r"
-      ],
-      [
         "mid"
-      ]
-    ]
+      ],
+      {
+        "pair": "lead-l"
+      }
+    ],
+    "heroPosition": "center 66%"
   },
   {
     "slug": "city-bay",
@@ -240,30 +241,30 @@ export const projects: Project[] = [
     "size": "76 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Remote Implementation Support",
     "thumb": "/images/photos/city-bay-13.jpg",
-    "index": "/images/photos/city-bay-13.jpg",
-    "hero": "/images/photos/city-bay-01.jpg",
+    "index": "/images/photos/city-bay-14.jpg",
+    "hero": "/images/photos/city-bay-13.jpg",
     "conceptName": "Scandi Moonlight",
     "concept": "Character within calm.",
     "conceptText": "Inspired by the quiet atmosphere of moonlight, the concept combines softness and serenity with moments of warmth and playful expression — creating a home that feels peaceful, yet never predictable.",
     "story": "Developed entirely remotely, this project began with rethinking the original layout to create a more open, light-filled living space. Removing one of the smaller rooms allowed us to expand the main living area, bring in light from two windows and give the home a greater sense of space and flow.",
     "gallery": [
-      "/images/photos/city-bay-02.jpg",
-      "/images/photos/city-bay-03.jpg",
-      "/images/photos/city-bay-04.jpg",
-      "/images/photos/city-bay-05.jpg",
-      "/images/photos/city-bay-06.jpg",
-      "/images/photos/city-bay-07.jpg",
-      "/images/photos/city-bay-08.jpg",
-      "/images/photos/city-bay-09.jpg",
-      "/images/photos/city-bay-10.jpg",
-      "/images/photos/city-bay-11.jpg",
-      "/images/photos/city-bay-12.jpg",
-      "/images/photos/city-bay-13.jpg",
       "/images/photos/city-bay-14.jpg",
+      "/images/photos/city-bay-17.jpg",
       "/images/photos/city-bay-15.jpg",
       "/images/photos/city-bay-16.jpg",
-      "/images/photos/city-bay-17.jpg",
-      "/images/photos/city-bay-18.jpg"
+      "/images/photos/city-bay-18.jpg",
+      "/images/photos/city-bay-12.jpg",
+      "/images/photos/city-bay-09.jpg",
+      "/images/photos/city-bay-11.jpg",
+      "/images/photos/city-bay-10.jpg",
+      "/images/photos/city-bay-07.jpg",
+      "/images/photos/city-bay-05.jpg",
+      "/images/photos/city-bay-01.jpg",
+      "/images/photos/city-bay-08.jpg",
+      "/images/photos/city-bay-06.jpg",
+      "/images/photos/city-bay-02.jpg",
+      "/images/photos/city-bay-03.jpg",
+      "/images/photos/city-bay-04.jpg"
     ],
     "layout": [
       [
@@ -275,20 +276,22 @@ export const projects: Project[] = [
         "half-r"
       ],
       [
-        "half-l",
-        "half-r"
+        "mid"
       ],
       "STORY",
       [
-        "half-l",
-        "half-r"
-      ],
-      [
-        "half-l",
-        "half-r"
-      ],
-      [
         "full"
+      ],
+      [
+        "half-l",
+        "half-r"
+      ],
+      [
+        "half-l",
+        "half-r"
+      ],
+      [
+        "mid"
       ],
       [
         "full"
@@ -304,7 +307,8 @@ export const projects: Project[] = [
       [
         "mid"
       ]
-    ]
+    ],
+    "heroPosition": "center 64%"
   },
   {
     "slug": "family-house",
@@ -314,36 +318,35 @@ export const projects: Project[] = [
     "size": "120 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/family-house-14.jpg",
-    "index": "/images/photos/family-house-14.jpg",
-    "hero": "/images/photos/family-house-01.jpg",
+    "index": "/images/photos/family-house-12.jpg",
+    "hero": "/images/photos/family-house-13.jpg",
     "conceptName": "Elegant Sanctuary",
     "concept": "Warm, inviting, effortlessly refined.",
     "conceptText": "The scheme embraces natural materials, neutral colours and tonal shades, creating a sense of calm and cohesion throughout the home. Mid-century influences are blended with contemporary elements, while organic shapes and warm tones bring softness and character to the interiors.",
     "story": "The client had lived in the house for nearly 30 years and wanted to transform it into a home that would stand the test of time — calm, elegant, and timeless. The main challenge was to accommodate all of the client’s requirements without altering the existing walls.",
     "gallery": [
-      "/images/photos/family-house-02.jpg",
+      "/images/photos/family-house-17.jpg",
+      "/images/photos/family-house-12.jpg",
+      "/images/photos/family-house-01.jpg",
+      "/images/photos/family-house-18.jpg",
+      "/images/photos/family-house-14.jpg",
+      "/images/photos/family-house-15.jpg",
+      "/images/photos/family-house-16.jpg",
+      "/images/photos/family-house-19.jpg",
       "/images/photos/family-house-03.jpg",
+      "/images/photos/family-house-02.jpg",
+      "/images/photos/family-house-06.jpg",
       "/images/photos/family-house-04.jpg",
       "/images/photos/family-house-05.jpg",
-      "/images/photos/family-house-06.jpg",
       "/images/photos/family-house-07.jpg",
       "/images/photos/family-house-08.jpg",
       "/images/photos/family-house-09.jpg",
       "/images/photos/family-house-10.jpg",
-      "/images/photos/family-house-11.jpg",
-      "/images/photos/family-house-12.jpg",
-      "/images/photos/family-house-13.jpg",
-      "/images/photos/family-house-14.jpg",
-      "/images/photos/family-house-15.jpg",
-      "/images/photos/family-house-16.jpg",
-      "/images/photos/family-house-17.jpg",
-      "/images/photos/family-house-18.jpg",
-      "/images/photos/family-house-19.jpg"
+      "/images/photos/family-house-11.jpg"
     ],
     "layout": [
       [
-        "half-l",
-        "half-r"
+        "full"
       ],
       [
         "mid"
@@ -352,7 +355,8 @@ export const projects: Project[] = [
         "full"
       ],
       [
-        "full"
+        "half-l",
+        "half-r"
       ],
       "STORY",
       [
@@ -364,15 +368,10 @@ export const projects: Project[] = [
         "half-r"
       ],
       [
-        "half-l",
-        "half-r"
+        "mid"
       ],
       [
         "full"
-      ],
-      [
-        "half-l",
-        "half-r"
       ],
       [
         "mid"
@@ -383,8 +382,16 @@ export const projects: Project[] = [
       [
         "half-l",
         "half-r"
+      ],
+      [
+        "half-l",
+        "half-r"
+      ],
+      [
+        "mid"
       ]
-    ]
+    ],
+    "heroPosition": "center 36%"
   },
   {
     "slug": "sea-side",
@@ -394,7 +401,7 @@ export const projects: Project[] = [
     "size": "60 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/sea-side-01.jpg",
-    "index": "/images/photos/sea-side-01.jpg",
+    "index": "/images/photos/sea-side-04.jpg",
     "hero": "/images/photos/sea-side-01.jpg",
     "conceptName": "Designed by Nature",
     "concept": "Nature woven into every layer.",
@@ -438,25 +445,66 @@ export const services = [
   "Project Coordination"
 ] as const;
 
-export const stages: [string, string][] = [
+export const stages: [string, string[]][] = [
   [
     "Brief & Site",
-    "We begin by getting to know you, your space and the way you want to live in it. This usually includes an initial brief, a site visit and survey, allowing us to understand both the practical requirements and the ambitions for the project."
+    ["We begin by getting to know you, your space and the way you want to live in it. This usually includes an initial brief, a site visit and survey, allowing us to understand both the practical requirements and the ambitions for the project."]
   ],
   [
     "Spatial Planning & Concept",
-    "This is where the foundation of the project takes shape. We develop the spatial layout alongside the overall design concept, establishing how the space will work, feel and connect before moving into the detail."
+    ["This is where the foundation of the project takes shape. We develop the spatial layout alongside the overall design concept, establishing how the space will work, feel and connect before moving into the detail."]
   ],
   [
     "Design Development",
-    "We develop a monochrome 3D model so you can understand the proposed space in three dimensions, supported by moodboards and design collages for each room. Where required, we can also produce photorealistic 3D visualisations."
+    [
+      "We develop a 3D model so you can understand the proposed space in three dimensions, supported by moodboards and design collages for each room.",
+      "Photorealistic 3D visualisations are also available on request."
+    ]
   ],
   [
     "Design Implementation Drawings",
-    "Once the design is agreed, we translate it into a comprehensive set of drawings and specifications for implementation. These provide the information required by the construction team to realise the project as it was designed."
+    ["Once the design is agreed, we translate it into a comprehensive set of drawings and specifications for implementation. These provide the information required by the construction team to realise the project as it was designed."]
   ],
   [
     "Procurement & Implementation",
-    "We can manage the procurement of furniture, lighting, finishes and other specified items, coordinating suppliers, orders and deliveries. During construction, we remain involved through design implementation support."
+    [
+      "We manage the procurement of materials, furniture, lighting and fittings, coordinating suppliers, orders and deliveries.",
+      "During construction, we remain involved through design implementation support, working with the project team, responding to queries and reviewing the work against the agreed design."
+    ]
   ]
+];
+
+// Services page copy (debrief 06/10)
+export const servicesIntro =
+  "KARTÚ is a full-service interior design studio. Every project is different, but our full design service typically follows several key stages.";
+
+export const servicesBorders = {
+  title: "Designing across borders",
+  body: [
+    "Our studio is based in London, but our work has never been limited by geography. Our understanding of different markets and an international network of suppliers allow us to work confidently beyond the UK.",
+    "With projects across the United Kingdom, Lithuania, Russia and the UAE, we are experienced in developing interiors remotely as well as working on site. For remote projects, the process — from briefing through documentation — can be managed online, with regular meetings and a clear structure throughout."
+  ]
+};
+
+export const servicesIndependent = {
+  title: "Not every project needs the full process.",
+  body: [
+    "Each stage of our service can also work independently. You may need help finding the right layout and developing a concept for your home, support with sourcing and procurement, or a designer to help carry an existing project through implementation.",
+    "We step in where our expertise is most useful and shape the scope around what your project actually needs."
+  ]
+};
+
+// Studio page founders (debrief 06/10: portrait placeholders until the photographs arrive).
+// Set `photo` to an optimised image path (e.g. "/images/photos/founder-anna.jpg") to replace a placeholder.
+export const founders: { name: string; bio: string; photo: string | null }[] = [
+  {
+    name: "Anna Prycheva",
+    bio: "Anna came from events and creative production, bringing experience in developing ideas and turning them into carefully orchestrated experiences.",
+    photo: null
+  },
+  {
+    name: "Jurgita MacNaughton",
+    bio: "Jurgita came from finance, with a strong background in planning, structure, and commercial thinking.",
+    photo: null
+  }
 ];

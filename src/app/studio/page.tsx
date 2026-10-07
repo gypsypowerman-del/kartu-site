@@ -1,12 +1,13 @@
-import { FOUNDER_PORTRAITS } from "@/content/assets";
 import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
-import { ColourBlock, ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Wrap } from "@/components/ui";
-import { FadeUp, Parallax, RevealImage, RevealLines } from "@/motion/reveal";
-import { pageImages } from "@/content/page-images";
+import { ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Wrap } from "@/components/ui";
+import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
+import { founders } from "@/content/site";
 
 export const metadata: Metadata = pageMeta({ path: "/studio/", og: "studio", title: "Studio", description: "KARTÚ means “together” in Lithuanian — a London interior design studio founded by Anna Prycheva and Jurgita MacNaughton." });
 
+/** Built around the two founders' portraits (debrief 06/10): two vertical frames in dialogue,
+ *  offset from one another, with the existing Studio copy placed around them. No interior photography. */
 export default function StudioPage() {
   return (
     <>
@@ -24,58 +25,50 @@ export default function StudioPage() {
             </FadeUp>
           </header>
 
-          <Grid12 className="studio-composition">
-            <FadeUp className="studio-composition__block">
-              <ColourBlock>
-                <p>KARTÚ was founded by Anna Prycheva and Jurgita MacNaughton, whose paths came together in London after careers in very different worlds.</p>
-                <p>
-                  Anna came from events and creative production, bringing experience in developing ideas and turning them into carefully orchestrated experiences. Jurgita came from
-                  finance, with a strong background in planning, structure, and commercial thinking.
-                </p>
-              </ColourBlock>
+          <FadeUp className="studio-founded">
+            <p>KARTÚ was founded by Anna Prycheva and Jurgita MacNaughton, whose paths came together in London after careers in very different worlds.</p>
+          </FadeUp>
+
+          <Grid12 className="studio-duo">
+            {founders.map((f, i) => (
+              <figure key={f.name} className={`studio-duo__item studio-duo__item--${i === 0 ? "a" : "b"}`}>
+                <RevealImage>
+                  {f.photo ? (
+                    <Photo src={f.photo} alt={`Portrait of ${f.name}`} ratio="3/4" sizes="(min-width: 901px) 36vw, 100vw" />
+                  ) : (
+                    <div className="studio-duo__placeholder" aria-hidden="true" />
+                  )}
+                </RevealImage>
+                <figcaption className="studio-duo__caption">
+                  <span className="studio-duo__name">{f.name}</span>
+                  <span className="studio-duo__bio">{f.bio}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </Grid12>
+
+          <FadeUp className="studio-quote">
+            <p>What began as a friendship grew into a creative partnership, bringing these two perspectives together in a shared approach to interiors.</p>
+          </FadeUp>
+
+          <Grid12 className="studio-columns">
+            <FadeUp className="studio-columns__a">
+              <p>
+                Both originally from Lithuania, we found the name for the studio in our native language. We create together as founders, and we create together with our clients. We see
+                every project as a dialogue rather than the expression of a single point of view.
+              </p>
+              <p>That dialogue extends into the way we design. KARTÚ creates interiors through dialogue — bringing together emotion and structure, intuition and strategy, people and space.</p>
             </FadeUp>
-            <figure className="studio-composition__figure">
-              <RevealImage>
-                <Photo src={pageImages["studio-01"]} alt="KARTÚ interior detail" sizes="(min-width: 901px) 40vw, 100vw" priority />
-              </RevealImage>
-            </figure>
-            <Parallax speed={0.1} className="studio-composition__detail">
-              <RevealImage>
-                <Photo src={pageImages["studio-02"]} alt="KARTÚ interior, open-plan living" sizes="(min-width: 901px) 50vw, 100vw" />
-              </RevealImage>
-            </Parallax>
+            <FadeUp className="studio-columns__b">
+              <p>
+                Our different professional backgrounds allow us to approach a project from both sides: with creativity and emotional sensitivity, but also with structure, clarity and an
+                understanding of how ideas are translated into reality. We believe the best interiors need both.
+              </p>
+              <p>
+                For us, good design is not about imposing a signature style. It is about finding the right answer together — for the people, the place, and the way life happens within it.
+              </p>
+            </FadeUp>
           </Grid12>
-
-          <Grid12 className="studio-story">
-          <FadeUp className="studio-story__quote">
-            What began as a friendship grew into a creative partnership, bringing these two perspectives together in a shared approach to interiors.
-          </FadeUp>
-          <FadeUp className="studio-text">
-            <p>
-              Both originally from Lithuania, we found the name for the studio in our native language. We create together as founders, and we create together with our clients. We see
-              every project as a dialogue rather than the expression of a single point of view.
-            </p>
-            <p>That dialogue extends into the way we design. KARTÚ creates interiors through dialogue — bringing together emotion and structure, intuition and strategy, people and space.</p>
-            <p>
-              Our different professional backgrounds allow us to approach a project from both sides: with creativity and emotional sensitivity, but also with structure, clarity and an
-              understanding of how ideas are translated into reality. We believe the best interiors need both.
-            </p>
-            <p>
-              For us, good design is not about imposing a signature style. It is about finding the right answer together — for the people, the place, and the way life happens within it.
-            </p>
-          </FadeUp>
-          </Grid12>
-
-          {/* Founder portraits: shown once the client supplies them (open item) */}
-          {FOUNDER_PORTRAITS && (
-            <div className="studio-founders">
-              {["Anna Prycheva", "Jurgita MacNaughton"].map((name) => (
-                <div key={name} className="studio-founders__slot">
-                  {name}
-                </div>
-              ))}
-            </div>
-          )}
         </Wrap>
         <ContactBand />
       </main>
