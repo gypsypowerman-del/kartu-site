@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Nav, Photo, TextLink } from "@/components/ui";
 import { heroVideo, pageImages } from "@/content/page-images";
 import { asset } from "@/content/assets";
-import { ENTER_EVENT, introActive, motionEnabled } from "@/motion/enabled";
+import { DESKTOP_IMAGE_MOTION, ENTER_EVENT, introActive, motionEnabled } from "@/motion/enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,11 +34,6 @@ export default function HomeHero() {
         .from(".hero-sub, .hero__cta", { y: 24, autoAlpha: 0, duration: 1, stagger: 0.1 }, 0.75)
         .from(".nav--overlay", { autoAlpha: 0, duration: 1 }, 0.4);
 
-      gsap.to(".hero__media", {
-        yPercent: 14,
-        ease: "none",
-        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-      });
       gsap.to(".hero__content", {
         y: -60,
         autoAlpha: 0,
@@ -46,6 +41,15 @@ export default function HomeHero() {
         scrollTrigger: { trigger: el, start: "35% top", end: "85% top", scrub: true },
       });
       return () => window.removeEventListener(ENTER_EVENT, play);
+    }, el);
+    // the photo drifts with the scroll on desktop only
+    mm.add(DESKTOP_IMAGE_MOTION, () => {
+      if (!motionEnabled()) return;
+      gsap.to(".hero__media", {
+        yPercent: 14,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
+      });
     }, el);
     return () => mm.revert();
   }, []);

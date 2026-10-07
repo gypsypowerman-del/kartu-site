@@ -14,7 +14,8 @@ export default function SmoothScroll() {
   useEffect(() => {
     if (!motionEnabled()) return;
 
-    const lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3) });
+    // lerp 0.15 (default 0.1): the page follows the wheel closely — smooth, without feeling heavy
+    const lenis = new Lenis({ lerp: 0.15 });
     lenis.on("scroll", ScrollTrigger.update);
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
     // page stays still under the intro screen until the visitor enters

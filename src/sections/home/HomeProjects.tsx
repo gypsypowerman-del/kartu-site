@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Photo, TextLink, Wrap, photoRatio } from "@/components/ui";
 import { RevealImage } from "@/motion/reveal";
 import type { Project } from "@/content/types";
-import { motionEnabled } from "@/motion/enabled";
+import { DESKTOP_IMAGE_MOTION, motionEnabled } from "@/motion/enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,14 +23,19 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
     const el = root.current;
     if (!el) return;
     const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px)", () => {
+    mm.add(DESKTOP_IMAGE_MOTION, () => {
       if (!motionEnabled()) return;
       const slides = gsap.utils.toArray<HTMLElement>(".projects-scene__slide", el);
       const titles = gsap.utils.toArray<HTMLElement>(".projects-scene__caption", el);
       const counter = el.querySelector<HTMLElement>(".projects-scene__current");
 
-      gsap.set(slides[0], { clipPath: "inset(0% 0% 0% 0%)" });
-      gsap.set(slides.slice(1), { clipPath: "inset(101% 0% 0% 0%)" });
+      // each photo wipes up over the previous one: the slide rises while its photo holds still
+      // (two opposite transforms — composited, no clip-path repaint)
+      const photos = slides.map((s) => s.querySelector<HTMLElement>(".photo"));
+      // y:0 drops the CSS pre-paint offset GSAP would otherwise read as pixels
+      gsap.set(slides[0], { y: 0, yPercent: 0 });
+      gsap.set(slides.slice(1), { y: 0, yPercent: 101 });
+      gsap.set(photos.slice(1), { yPercent: -101 });
 
       let active = -1;
       const setActive = (idx: number) => {
@@ -75,8 +80,8 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
       for (let i = 1; i < n; i++) {
         const at = i - 1;
         // slides differ slightly in width, so the outgoing one fades while the next opens
-        tl.to(slides[i], { clipPath: "inset(0% 0% 0% 0%)" }, at)
-          .fromTo(slides[i].querySelector(".photo"), { scale: 1.12 }, { scale: 1 }, at)
+        tl.to(slides[i], { yPercent: 0 }, at)
+          .to(photos[i], { yPercent: 0 }, at)
           .to(slides[i - 1], { autoAlpha: 0 }, at);
       }
       return () => {

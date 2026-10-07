@@ -3,7 +3,7 @@
 import { createElement, useLayoutEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motionEnabled } from "./enabled";
+import { DESKTOP_IMAGE_MOTION, motionEnabled } from "./enabled";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,25 +91,32 @@ export function FadeUp({ children, className, style, delay = 0 }: { children: Re
   );
 }
 
-/** Image opens like a blind (bottom → top) while settling from 1.12 to 1. */
+/** Image opens like a blind (bottom → top). Desktop only.
+ *  Built from two opposite transforms (the mask slides up, the photo holds still), so the
+ *  browser only moves an existing layer — no clip-path repaint or zoom re-raster per frame. */
 export function RevealImage({ children, className, style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    const media = el.firstElementChild as HTMLElement | null;
+    const inner = el?.firstElementChild as HTMLElement | null;
+    const media = inner?.firstElementChild as HTMLElement | null;
+    if (!el || !inner) return;
     const mm = gsap.matchMedia();
-    mm.add(motionOK, () => {
+    mm.add(DESKTOP_IMAGE_MOTION, () => {
       if (!motionEnabled()) return;
-      const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 88%", once: true } });
-      tl.from(el, { clipPath: "inset(100% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" });
-      if (media) tl.from(media, { scale: 1.12, duration: 1.8, ease: EASE }, 0);
+      const tl = gsap.timeline({
+        defaults: { duration: 1.3, ease: "power4.inOut" },
+        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        onComplete: () => gsap.set([inner, media].filter(Boolean), { clearProps: "transform" }),
+      });
+      tl.from(inner, { yPercent: 100 }, 0);
+      if (media) tl.from(media, { yPercent: -100 }, 0);
     });
     return () => mm.revert();
   }, []);
   return (
-    <div ref={ref} className={className} style={{ overflow: "hidden", clipPath: "inset(0% 0% 0% 0%)", ...style }} data-motion="image">
-      {children}
+    <div ref={ref} className={className} style={{ overflow: "hidden", ...style }} data-motion="image">
+      <div className="reveal-image__inner">{children}</div>
     </div>
   );
 }
@@ -121,7 +128,7 @@ export function Parallax({ children, speed = 0.12, className, style }: { childre
     const el = ref.current;
     if (!el) return;
     const mm = gsap.matchMedia();
-    mm.add(`${motionOK} and (min-width: 561px)`, () => {
+    mm.add(DESKTOP_IMAGE_MOTION, () => {
       if (!motionEnabled()) return;
       gsap.fromTo(
         el,

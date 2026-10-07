@@ -20,7 +20,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 /* ---------- Reveal masks ---------- */
 .reveal-line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.reveal-line__inner{display:block;will-change:transform}
+.reveal-line__inner{display:block}
+.reveal-image__inner{display:block}
 
 /* ---------- Logo ---------- */
 .logo{display:block;line-height:0;width:var(--logo-width)}
@@ -74,9 +75,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .projects-stack{display:flex;flex-direction:column;gap:56px;padding-bottom:var(--section-padding)}
 .projects-stack__title{font:var(--type-h2)}
 
-/* Scene only with JS motion (html.js-motion, set in <head>); otherwise the plain stack below.
-   Default state before GSAP runs = project 1 shown, others clipped/hidden — no pile-up on slow JS. */
-@media (min-width:901px){
+/* Scene only on desktop with JS motion (html.js-motion, set in <head>); phones, tablets and
+   no-JS get the plain stack below. Default state before GSAP runs = project 1 shown, others
+   moved out of the frame — no pile-up on slow JS. Must match DESKTOP_IMAGE_MOTION. */
+@media (min-width:901px) and (hover:hover) and (pointer:fine){
   html.js-motion .projects-scene{padding:0}
   html.js-motion .projects-stack{display:none}
   html.js-motion .projects-scene__stage{display:block;height:100vh;height:100svh;padding:var(--scene-pad-top) 0 var(--scene-pad-bottom)}
@@ -101,8 +103,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .projects-scene__concept{font:var(--type-body-lg);color:var(--text-body);margin-top:10px;max-width:420px}
   .projects-scene__more{margin-top:24px}
   .projects-scene__frame{position:relative;height:var(--scene-h);aspect-ratio:var(--frame-r);overflow:hidden}
-  .projects-scene__slide{position:absolute;top:0;right:0;height:100%;aspect-ratio:var(--r);overflow:hidden;clip-path:inset(101% 0% 0% 0%)}
-  .projects-scene__slide:first-child{clip-path:inset(0% 0% 0% 0%)}
+  .projects-scene__slide{position:absolute;top:0;right:0;height:100%;aspect-ratio:var(--r);overflow:hidden;transform:translateY(101%)}
+  .projects-scene__slide:first-child{transform:none}
   .projects-scene__slide:hover{opacity:1}
   .projects-scene__slide .photo{will-change:transform}
 }
@@ -115,9 +117,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px var(--grid-gap)}
   .projects-stack__title,.projects-stack>.text-link{grid-column:1/-1}
 }
+/* stack layout on wide screens when the scene isn't used (no motion, or touch screens) */
 @media (min-width:901px){
-  html:not(.js-motion) .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:72px var(--thumb-gap)}
-  html:not(.js-motion) .projects-stack__title,html:not(.js-motion) .projects-stack>.text-link{grid-column:1/-1}
+  .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:72px var(--thumb-gap)}
+  .projects-stack__title,.projects-stack>.text-link{grid-column:1/-1}
 }
 
 /* ---------- Home studio split ---------- */

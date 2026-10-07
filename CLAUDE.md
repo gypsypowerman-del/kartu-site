@@ -19,6 +19,8 @@ Source of truth for design: the approved **KARTÚ Design System** (claude.ai art
   Always honour `prefers-reduced-motion` (everything static).
   **Motion is progressive enhancement** (lesson, 3 Oct 2026): content is visible in the HTML by default; animations only run when `html.js-motion` is set by the inline head script (`src/motion/enabled.ts`), which skips automated browsers (`navigator.webdriver`) so screenshot/review tools and print never capture hidden blocks as empty space. Gate every new animation with `motionEnabled()`. Never use `autoAlpha`/`visibility:hidden` on blocks that contain links (breaks keyboard focus) — animate `opacity`.
   QA with Playwright: add init script `Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false})` to see the motion version.
+  **Image motion is desktop-only** (client request 07/10): blind reveals, parallax, hero drift and the pinned scene run only under `DESKTOP_IMAGE_MOTION` (≥901px + mouse/trackpad). Phones and tablets get static photos; text reveals stay everywhere.
+  **Performance rule** (lesson 07/10): animate only `transform`/`opacity`. No `clip-path` or `scale` animations on photos — they re-raster large images every frame (measured: −90% raster cost after switching reveals to two opposite translateY transforms). Lenis `lerp: 0.15`.
 
 ## Naming (BEM-like, mirrors design sections)
 `section-element--modifier`, e.g. `hero-title`, `hero-sub`, `projects-card--wide`, `studio-founders`.

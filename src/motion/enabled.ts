@@ -17,6 +17,11 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
  *     Skipped for automated browsers, like motion, so tools capture the real page. */
 export const motionBootScript = `(function(){try{var d=document.documentElement,w=navigator.webdriver;if(!w&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){d.classList.add('${MOTION_CLASS}')}var p=location.pathname,b='${base}',home=p===b+'/'||p===b||p===b+'/index.html',seen=false;try{seen=sessionStorage.getItem('${INTRO_KEY}')==='1'}catch(e){}if(home&&!seen&&!w){d.classList.add('${INTRO_CLASS}');document.addEventListener('click',function(e){var t=e.target;if(!window.__kartuIntroReady&&t&&t.closest&&t.closest('.intro__enter')){d.classList.remove('${INTRO_CLASS}');try{sessionStorage.setItem('${INTRO_KEY}','1')}catch(x){}}},true)}else{try{sessionStorage.setItem('${INTRO_KEY}','1')}catch(e){}}}catch(e){}})();`;
 
+/** Scroll-driven image motion (blind reveals, parallax, pinned scene) runs on desktop only:
+ *  wide screen + mouse/trackpad. Phones and tablets get static photos (client request 07/10);
+ *  text reveals stay everywhere. */
+export const DESKTOP_IMAGE_MOTION = "(prefers-reduced-motion: no-preference) and (min-width: 901px) and (hover: hover) and (pointer: fine)";
+
 export function motionEnabled() {
   return typeof document !== "undefined" && document.documentElement.classList.contains(MOTION_CLASS);
 }
