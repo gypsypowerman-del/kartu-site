@@ -1,7 +1,7 @@
 import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
+import { ConversationPrompt, Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { projects } from "@/content/site";
 import { immersive } from "@/content/immersive";
@@ -129,6 +129,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </Wrap>
           </>
         )}
+        <Wrap>
+          <ConversationPrompt text="Imagining something like this for your home?" className="conv-prompt--project" />
+        </Wrap>
         <NextProject slug={next.slug} title={next.title} />
       </main>
       <Footer />

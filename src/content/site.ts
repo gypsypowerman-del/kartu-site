@@ -508,3 +508,34 @@ export const founders: { name: string; bio: string; photo: string | null }[] = [
     photo: null
   }
 ];
+
+// ---------- Proposal "Start a conversation" (07/10) — copy for approval, not final ----------
+export const conversation = {
+  call: {
+    title: "Book an introductory call",
+    meta: "20 minutes · Video call · Free",
+    text: "Twenty minutes online with Anna or Jurgita. Tell us about your home and your plans, and we’ll talk through how we could help.",
+  },
+  message: {
+    title: "Message us",
+    text: "Prefer to write in a messenger? We reply during studio hours.",
+    // TODO: studio's WhatsApp Business number and Telegram handle
+    whatsapp: "https://wa.me/440000000000?text=" + encodeURIComponent("Hello KARTÚ, I’d like to talk about my home."),
+    telegram: "https://t.me/kartu_studio",
+  },
+  write: {
+    title: "Write to us",
+    text: "Send a few lines about your project — or email us directly.",
+  },
+  reply: "We reply to every enquiry within two working days.",
+  steps: [
+    ["Introductory call", "We get to know you, your home and the way you want to live in it."],
+    ["Proposal", "We send a proposal shaped around what your project actually needs."],
+    ["Design", "We begin — together."],
+  ] as [string, string][],
+  questions: [
+    { q: "What’s your project?", a: ["Full renovation", "One or more rooms", "Design concept only", "Not sure yet"] },
+    { q: "Where is the property?", a: ["London", "Elsewhere in the UK", "Abroad"] },
+    { q: "When would you like to start?", a: ["Within 3 months", "3–6 months", "Later", "Just exploring"] },
+  ],
+};

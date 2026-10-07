@@ -163,14 +163,28 @@ export function ServiceRow({ index, title, last }: { index: string; title: strin
   );
 }
 
-export function ContactBand({ title = "Start a conversation.", link = "Get in touch" }: { title?: string; link?: string }) {
+export function ContactBand({ title = "Start a conversation." }: { title?: string }) {
   return (
     <section className="contact-band">
       <Wrap className="contact-band__inner">
         <h2 className="contact-band__title">{title}</h2>
-        <TextLink href="/contact/">{link}</TextLink>
+        {/* proposal 07/10: the call is the first, clearest step; writing stays one click away */}
+        <div className="contact-band__links">
+          <TextLink href="/contact/#book">Book an introductory call</TextLink>
+          <TextLink href="/contact/#write">Write to us</TextLink>
+        </div>
       </Wrap>
     </section>
+  );
+}
+
+/** A quiet, contextual invitation (proposal 07/10): one line + one link, no pop-ups. */
+export function ConversationPrompt({ text, link = "Book an introductory call", className = "" }: { text: string; link?: string; className?: string }) {
+  return (
+    <div className={`conv-prompt ${className}`}>
+      <p className="conv-prompt__text">{text}</p>
+      <TextLink href="/contact/#book">{link}</TextLink>
+    </div>
   );
 }
 

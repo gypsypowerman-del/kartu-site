@@ -1,6 +1,6 @@
 import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
-import { ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Wrap } from "@/components/ui";
+import { ContactBand, ConversationPrompt, Eyebrow, Footer, Grid12, Nav, Photo, Wrap } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { founders } from "@/content/site";
 
@@ -49,6 +49,7 @@ export default function StudioPage() {
 
           <FadeUp className="studio-quote">
             <p>What began as a friendship grew into a creative partnership, bringing these two perspectives together in a shared approach to interiors.</p>
+            <ConversationPrompt text="We’d love to hear about your home." link="Meet us — book an introductory call" className="conv-prompt--studio" />
           </FadeUp>
 
           <Grid12 className="studio-columns">

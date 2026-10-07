@@ -1,6 +1,6 @@
 import { pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
-import { ColourBlock, ContactBand, Eyebrow, Footer, Grid12, Nav, Photo, Stage, Wrap, photoRatio } from "@/components/ui";
+import { ColourBlock, ContactBand, ConversationPrompt, Eyebrow, Footer, Grid12, Nav, Photo, Stage, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import { servicesBorders, servicesIndependent, servicesIntro, stages } from "@/content/site";
 import { pageImages } from "@/content/page-images";
@@ -40,6 +40,7 @@ export default function ServicesPage() {
                   {servicesIndependent.body.map((t) => (
                     <p key={t}>{t}</p>
                   ))}
+                  <ConversationPrompt text="Not sure which stage you need? We’ll help you decide in a short call." className="conv-prompt--inline" />
                 </ColourBlock>
               </FadeUp>
             </div>
