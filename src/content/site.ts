@@ -508,3 +508,37 @@ export const founders: { name: string; bio: string; photo: string | null }[] = [
     photo: null
   }
 ];
+
+// ---------- Contact: three ways to begin (approved by the client 07/10) ----------
+// Fill these when the studio has them; anything empty is simply not shown.
+export const contactChannels: {
+  /** Calendly / Cal.com event link for the 20-minute introductory call, e.g. "https://cal.com/kartu/intro" */
+  booking: string;
+  /** WhatsApp Business number in international format without "+" or spaces, e.g. "447700900123" */
+  whatsapp: string;
+  /** Telegram username without "@", e.g. "kartu_studio" */
+  telegram: string;
+} = { booking: "", whatsapp: "", telegram: "" };
+
+export const conversation = {
+  call: {
+    title: "Book an introductory call",
+    meta: "20 minutes · Video call · Free",
+    text: "Twenty minutes online with Anna or Jurgita. Tell us about your home and your plans, and we’ll talk through how we could help.",
+  },
+  message: {
+    title: "Message us",
+    text: "Prefer to write in a messenger? We reply during studio hours.",
+    first: "Hello KARTÚ, I’d like to talk about my home.",
+  },
+  write: {
+    title: "Write to us",
+    text: "Send a few lines about your project — or email us directly.",
+  },
+  // asked in the booking tool (and in the email fallback) — no budget question
+  questions: [
+    { q: "What’s your project?", a: ["Full renovation", "One or more rooms", "Design concept only", "Not sure yet"] },
+    { q: "Where is the property?", a: ["London", "Elsewhere in the UK", "Abroad"] },
+    { q: "When would you like to start?", a: ["Within 3 months", "3–6 months", "Later", "Just exploring"] },
+  ],
+};

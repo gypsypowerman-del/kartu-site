@@ -63,7 +63,11 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Services: copy per debrief; compact split layout; images services-01/02/03 kept, kitchen detail replaced by 9374 + 9292.
 - Agatho has no Ú glyph — never set "KARTÚ" in Agatho; use Futura PT.
 
+- Contact page = three ways to begin (approved by the client 07/10): book a 20-min introductory call · message (WhatsApp/Telegram) · write (form + email). Channels live in `contactChannels` (site.ts); anything empty is hidden — no booking link → "Request a call" opens a prefilled email with the 3 questions; no messengers → card 02 is hidden. Booking questions (no budget) are configured in Cal.com/Calendly. Never ship a mock calendar or placeholder numbers.
+
 ## Open client decisions (do not resolve silently)
+- Booking link (Cal.com or Calendly), WhatsApp Business number, Telegram handle → `contactChannels`. When booking is connected, add the provider to the Privacy Policy.
+- Not yet approved from the 07/10 proposal (branch `proposal/start-a-conversation`): "What happens next" + reply time, prompts at the end of projects / Services / Studio, two links in the contact band.
 - Instagram handle → `INSTAGRAM_URL` in `src/content/assets.ts` (footer item hidden until set).
 - Founder portraits → `founders[].photo` in site.ts (khaki 3:4 placeholders until supplied).
 - Hero video: spec delivered; set `heroVideo` in `src/content/page-images.ts` when the files arrive.

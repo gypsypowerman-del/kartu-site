@@ -401,3 +401,25 @@ html.has-intro .intro--leaving{opacity:0;pointer-events:none}
   .imm-panel{padding:48px var(--page-gutter)}
   .imm-panel__title{font:var(--type-h1-page)}
 }
+
+/* ---------- Contact: three ways to begin (approved 07/10) ---------- */
+.conv-intro{padding-bottom:72px}
+.conv-ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px var(--grid-gap);padding-bottom:var(--section-padding)}
+.conv-ways--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.conv-way{display:flex;flex-direction:column;align-items:flex-start;gap:14px;border-top:var(--rule-hairline);padding-top:28px}
+.conv-way__index{font:var(--type-label);color:var(--text-muted)}
+.conv-way__title{font:var(--type-h3-stage)}
+.conv-way__meta{font:var(--type-label);color:var(--text-muted);margin-top:-6px}
+.conv-way__text{font:var(--type-body);color:var(--text-body);max-width:380px;margin-bottom:12px}
+.conv-way__links{display:flex;gap:32px}
+.conv-book{display:grid;grid-template-columns:4fr 8fr;gap:var(--grid-gap);padding:var(--section-padding) 0;border-top:var(--rule-hairline)}
+.conv-book__title{font:var(--type-h2);margin-bottom:14px}
+.conv-book__meta{font:var(--type-label);color:var(--text-muted);margin-bottom:20px}
+.conv-book__text{font:var(--type-body-lg);color:var(--text-body);max-width:380px}
+.conv-book__embed{width:100%;min-height:720px;border:1px solid var(--border-list);background:var(--kartu-white)}
+.conv-write{border-top:var(--rule-hairline);padding-top:var(--section-padding)}
+@media (max-width:900px){
+  .conv-ways,.conv-ways--two{grid-template-columns:1fr}
+  .conv-book{grid-template-columns:1fr}
+  .conv-book__embed{min-height:900px}
+}
