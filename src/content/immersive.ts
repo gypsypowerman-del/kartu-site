@@ -2,7 +2,6 @@
 // large-scale imagery, almost no unused space, text integrated between the images.
 // Shepherd's Bush has a hand-tuned sequence; since 07/10 every other project uses the same
 // layout, generated from the client's photo order by buildImmersive() below.
-import { pageImages } from "./page-images";
 import photoMeta from "./photo-meta.json";
 import type { Project } from "./types";
 
@@ -26,7 +25,7 @@ export type ImmersiveRow =
 export const immersive: Record<string, ImmersiveRow[]> = {
   "shepherds-bush": [
     { kind: "intro", image: sb(2) },
-    { kind: "full", image: pageImages["home-hero"] }, // approved crop of 9153 (door jamb removed)
+    { kind: "full", image: sb(1) }, // 9153 shown whole (07/10: project photos are never cropped)
     { kind: "text", image: sb(3), panel: "concept", tone: "black", side: "left" },
     { kind: "row", images: [sb(4), sb(5)] },
     { kind: "row", images: [sb(6), sb(7)] },
@@ -55,10 +54,11 @@ const isLandscape = (src: string) => ratio(src) >= 1.2;
  *  story panel about halfway → rest of the gallery. Nothing is cropped except the hero band. */
 export function buildImmersive(p: Project): ImmersiveRow[] {
   const seq = p.gallery.filter((s) => s !== p.index && s !== p.hero);
-  const rows: ImmersiveRow[] = [
-    { kind: "intro", image: p.index },
-    { kind: "banner", image: p.hero, position: p.heroPosition },
-  ];
+  // the hero is shown whole (07/10): a landscape hero fills the width at its own proportions;
+  // a portrait hero leads the gallery instead of being cut into a wide band
+  const rows: ImmersiveRow[] = [{ kind: "intro", image: p.index }];
+  if (isLandscape(p.hero)) rows.push({ kind: "full", image: p.hero });
+  else seq.unshift(p.hero);
 
   const take = (from: number) => {
     const i = seq.findIndex((s, k) => k >= from && !isLandscape(s));
