@@ -66,6 +66,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Agatho has no Ú glyph — never set "KARTÚ" in Agatho; use Futura PT.
 
 - Contact page = three ways to begin (approved by the client 07/10): book a 20-min introductory call · message (WhatsApp/Telegram) · write (form + email). Channels live in `contactChannels` (site.ts); anything empty is hidden — no booking link → "Request a call" opens a prefilled email with the 3 questions; no messengers → card 02 is hidden. Booking questions (no budget) are configured in Cal.com/Calendly. Never ship a mock calendar or placeholder numbers.
+- Booking embed is **consent-gated** (11/10): `BookingEmbed.tsx` inserts the provider's iframe only after the visitor asks for it — following the "Choose a time" link (hash `#book`) or pressing the button in the placeholder panel. A lazy iframe was not enough: scrolling past the section would have loaded a third party and set its cookies for every visitor, which contradicts the "no cookie banner at launch" decision. Keep this gate on any future third-party embed.
 
 ## Open client decisions (do not resolve silently)
 - Booking link (Cal.com or Calendly), Telegram handle → `contactChannels`. When booking is connected, add the provider to the Privacy Policy. (WhatsApp +44 7768 392053 set 07/10.)

@@ -417,6 +417,8 @@ html.has-intro .intro--leaving{opacity:0;pointer-events:none}
 .conv-book__meta{font:var(--type-label);color:var(--text-muted);margin-bottom:20px}
 .conv-book__text{font:var(--type-body-lg);color:var(--text-body);max-width:380px}
 .conv-book__embed{width:100%;min-height:720px;border:1px solid var(--border-list);background:var(--kartu-white)}
+.conv-book__placeholder{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:30px;min-height:280px;padding:40px;border:1px solid var(--border-list);background:var(--kartu-white)}
+.conv-book__consent{font:var(--type-body);color:var(--text-muted);max-width:420px}
 .conv-write{border-top:var(--rule-hairline);padding-top:var(--section-padding)}
 @media (max-width:900px){
   .conv-ways,.conv-ways--two{grid-template-columns:1fr}

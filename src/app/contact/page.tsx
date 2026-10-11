@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Eyebrow, Footer, Nav, Wrap } from "@/components/ui";
 import { FadeUp, RevealLines } from "@/motion/reveal";
 import ContactForm from "@/sections/contact/ContactForm";
+import BookingEmbed from "@/sections/contact/BookingEmbed";
 import { contactChannels as CH, conversation as C } from "@/content/site";
 
 export const metadata: Metadata = pageMeta({ path: "/contact/", og: "contact", title: "Contact", description: "Start a conversation with KARTÚ — interior design studio based in London, working across the UK and internationally." });
@@ -85,7 +86,7 @@ export default function ContactPage() {
                 <p className="conv-book__meta">{C.call.meta}</p>
                 <p className="conv-book__text">{C.call.text}</p>
               </div>
-              <iframe className="conv-book__embed" src={embed} title="Book an introductory call with KARTÚ" loading="lazy" />
+              <BookingEmbed src={embed} title="Book an introductory call with KARTÚ" />
             </section>
           )}
 
