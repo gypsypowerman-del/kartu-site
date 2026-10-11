@@ -72,61 +72,65 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .hero__video-toggle{position:absolute;right:var(--page-gutter);bottom:32px;z-index:3;background:none;border:0;padding:12px 0;min-height:44px;color:var(--kartu-white);font:var(--type-label);cursor:pointer;opacity:.85}
 @media (max-width:560px){.hero{min-height:560px}.hero__content{padding-bottom:56px}.hero__media img{object-position:62% 60%!important}}
 
-/* ---------- Home projects: pinned scene (desktop) ---------- */
-.projects-scene{padding:var(--section-padding) 0 0}
-.projects-scene__stage{display:none}
-.projects-stack{display:flex;flex-direction:column;gap:56px;padding-bottom:var(--section-padding)}
-.projects-stack__title{font:var(--type-h2)}
+/* ---------- Home projects: horizontal rail ----------
+   Client 11/10: replaced the pinned GSAP scene, which fought the page scroll and so stuttered
+   and swallowed gestures. This is the browser's own horizontal scrolling — snap points do the
+   "one flick = one project" the scene needed a wheel lock for. Same rail at every width. */
+.projects-rail{padding:var(--section-padding) 0}
+.projects-rail__head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  padding-bottom:24px;border-bottom:var(--rule-hairline)}
+.projects-rail__title{font:var(--type-h2)}
+.projects-rail__counter{font:var(--type-label);color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 
-/* Scene only on desktop with JS motion (html.js-motion, set in <head>); phones, tablets and
-   no-JS get the plain stack below. Default state before GSAP runs = project 1 shown, others
-   moved out of the frame — no pile-up on slow JS. Must match DESKTOP_IMAGE_MOTION. */
-@media (min-width:901px) and (hover:hover) and (pointer:fine){
-  html.js-motion .projects-scene{padding:0}
-  html.js-motion .projects-stack{display:none}
-  html.js-motion .projects-scene__stage{display:block;height:100vh;height:100svh;padding:var(--scene-pad-top) 0 var(--scene-pad-bottom)}
-  .projects-scene{--scene-pad-top:min(12vh,110px);--scene-pad-bottom:min(10vh,90px);--scene-h:calc(100svh - var(--scene-pad-top) - var(--scene-pad-bottom))}
-  /* photo column is exactly as wide as the widest photo at full scene height — no cropping */
-  .projects-scene__grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--grid-gap);height:100%}
-  .projects-scene__side{display:flex;flex-direction:column;align-items:flex-start;padding-right:24px}
-  .projects-scene__head{display:flex;align-items:baseline;justify-content:space-between;width:100%;border-bottom:var(--rule-hairline);padding-bottom:24px}
-  .projects-scene__title{font:var(--type-h2)}
-  .projects-scene__counter{font:var(--type-label);color:var(--text-muted);font-variant-numeric:tabular-nums}
-  /* captions stack in one grid cell: the block is as tall as the longest caption,
-     so "View all projects" sits right under the text (same gap as the Studio section) */
-  .projects-scene__captions{display:grid;width:calc(100% + 12px);margin:28px -6px 0;padding:6px;overflow:clip}
-  .projects-scene__caption{grid-area:1/1;display:flex;flex-direction:column;justify-content:flex-start;gap:8px;
-    opacity:0;pointer-events:none;transform:translateY(16px);
-    transition:opacity var(--duration-base) var(--ease-out),transform var(--duration-base) var(--ease-out)}
-  /* still focusable when hidden (opacity, not visibility) — focus scrolls the scene to it */
-  .projects-scene__caption.is-active,.projects-scene__caption:focus-visible,
-  .projects-scene__captions:not(:has(.is-active)) .projects-scene__caption:first-child{opacity:1;pointer-events:auto;transform:none}
-  .projects-scene__caption.is-active{transition-delay:200ms}
-  .projects-scene__name{font:var(--type-h3)}
-  .projects-scene__concept{font:var(--type-body-lg);color:var(--text-body);margin-top:10px;max-width:420px}
-  .projects-scene__more{margin-top:24px}
-  .projects-scene__frame{position:relative;height:var(--scene-h);aspect-ratio:var(--frame-r);overflow:hidden}
-  .projects-scene__slide{position:absolute;top:0;right:0;height:100%;aspect-ratio:var(--r);overflow:hidden;transform:translateY(101%)}
-  .projects-scene__slide:first-child{transform:none}
-  .projects-scene__slide:hover{opacity:1}
-  .projects-scene__slide .photo{will-change:transform}
+/* the track bleeds into the right gutter, so the next card is always visibly cut off —
+   that cut, more than the arrows, is what tells a visitor there is more to the side */
+.projects-rail__track{display:flex;gap:var(--grid-gap);margin-top:40px;
+  margin-right:calc(-1 * var(--page-gutter));padding-right:var(--page-gutter);
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.projects-rail__track::-webkit-scrollbar{display:none}
+.projects-rail__track.is-dragging{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
+.projects-rail__track:focus-visible{outline:2px solid var(--focus-ring);outline-offset:6px}
+
+.projects-rail__card{flex:0 0 clamp(260px,32vw,440px);min-width:0;display:flex;flex-direction:column;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.projects-rail__card .photo img{transition:opacity var(--duration-hover) var(--ease-out)}
+.projects-rail__card:hover .photo img{opacity:var(--hover-opacity-image)}
+.projects-rail__card:focus-visible{outline:2px solid var(--focus-ring);outline-offset:6px}
+.projects-rail__name{font:var(--type-h3-stage);margin-top:22px}
+.projects-rail__concept{font:var(--type-body);color:var(--text-body);margin-top:10px}
+
+/* controls: a pair of arrows (two elements in dialogue) and one segmented rule */
+.projects-rail__controls{display:flex;align-items:center;gap:32px;margin-top:44px;flex-wrap:wrap}
+.projects-rail__arrows{display:flex;align-items:center}
+.projects-rail__arrow{width:62px;height:48px;display:grid;place-items:center;padding:0;border:0;
+  background:none;color:var(--text-heading);cursor:pointer}
+.projects-rail__arrow svg{width:40px;height:12px;display:block;
+  transition:transform var(--duration-hover) var(--ease-out)}
+.projects-rail__arrow:hover:not(:disabled):first-child svg{transform:translateX(-5px)}
+.projects-rail__arrow:hover:not(:disabled):last-child svg{transform:translateX(5px)}
+.projects-rail__arrow:disabled{color:var(--border-input);cursor:default}
+.projects-rail__arrow:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+.projects-rail__divider{width:1px;height:20px;background:var(--border-list)}
+
+.projects-rail__progress{display:flex;gap:6px;flex:1 1 160px;min-width:96px;max-width:320px}
+.projects-rail__progress span{flex:1;height:1px;background:var(--border-list);
+  transition:background var(--duration-hover) var(--ease-out)}
+.projects-rail__progress span.is-on{background:var(--kartu-black)}
+.projects-rail__more{margin-left:auto}
+
+@media (max-width:560px){
+  .projects-rail__card{flex-basis:min(78vw,320px)}
+  .projects-rail__controls{gap:20px;margin-top:32px}
+  .projects-rail__more{margin-left:0;flex:1 0 100%}
 }
+@media (prefers-reduced-motion:reduce){.projects-rail__track{scroll-behavior:auto}}
 
-/* Project card (stack + reused on Projects page) */
+/* Project card (Projects index) */
 .project-card{display:flex;flex-direction:column}
 .project-card:hover{opacity:var(--hover-opacity-image)}
 .project-card__title{font:var(--weight-book) 19px/1.6 var(--font-sans);margin-top:22px}
-@media (min-width:561px) and (max-width:900px){
-  .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px var(--grid-gap)}
-  .projects-stack__title,.projects-stack>.text-link{grid-column:1/-1}
-}
-/* side by side, the three cards share the scene's 2:3 frame so their titles sit on one line (07/10) */
-@media (min-width:561px){.projects-stack .photo{aspect-ratio:2/3!important}}
-/* stack layout on wide screens when the scene isn't used (no motion, or touch screens) */
-@media (min-width:901px){
-  .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:72px var(--thumb-gap)}
-  .projects-stack__title,.projects-stack>.text-link{grid-column:1/-1}
-}
 
 /* ---------- Home studio split ---------- */
 /* photo shown whole at its own proportions (9385.jpg, 3:4); the khaki text panel takes the rest */
@@ -348,20 +352,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .not-found__title{font:var(--type-h1)}
 
 /* ---------- QA fixes ---------- */
-.projects-stack>.text-link{align-self:flex-start;justify-self:start}
 /* ≥44px tap targets without changing the visual rhythm */
 .nav__link,.footer__contact a,.footer__bottom a,.text-link,.contact__email,.contact-form__legal a{position:relative}
 .nav__link::after,.footer__contact a::after,.footer__bottom a::after,.text-link::after,.contact__email::after,.contact-form__legal a::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:44px;transform:translateY(-50%)}
 .contact-form__done-title:focus{outline:none}
 .logo{position:relative}.logo::after{content:"";position:absolute;inset:-8px -6px;min-height:44px}
-.projects-scene__caption:focus-visible{outline-offset:4px}
 
-/* ---------- Print / save as PDF: everything visible, no pinned scene ---------- */
+/* ---------- Print / save as PDF: everything visible, the rail laid out as a grid ---------- */
 @media print{
   [data-motion],[data-motion] *,.reveal-line__inner,.hero__media,.hero__content{opacity:1!important;visibility:visible!important;transform:none!important;clip-path:none!important}
-  html.js-motion .projects-scene__stage{display:none!important}
-  html.js-motion .projects-stack{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
-  html.js-motion .projects-stack__title,html.js-motion .projects-stack>.text-link{grid-column:1/-1}
+  .projects-rail__track{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;overflow:visible!important;margin-right:0!important;padding-right:0!important}
+  .projects-rail__controls{display:none!important}
 }
 
 /* ---------- Intro / landing screen (debrief 06/10) ---------- */

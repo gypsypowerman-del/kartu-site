@@ -19,8 +19,8 @@ export default function HomePage() {
 
       <main id="main">
         <HomeHero />
-        {/* Approved build shows the first three projects */}
-        <HomeProjects projects={projects.slice(0, 3).map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
+        {/* Client 11/10: the rail carries every project, not a selection of three */}
+        <HomeProjects projects={projects.map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
 
         <section className="home-studio" aria-labelledby="home-studio-title">
           <div className="home-studio__text">
