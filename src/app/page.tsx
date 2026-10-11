@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/content/seo";
-import { ContactBand, Eyebrow, Footer, Nav, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
+import { ContactBand, Footer, Nav, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
 import IntroScreen from "@/sections/home/IntroScreen";
 import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
@@ -23,10 +23,14 @@ export default function HomePage() {
         <HomeProjects projects={projects.map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
 
         <section className="home-studio" aria-labelledby="home-studio-title">
+          {/* Client 11/10: the section is titled by its own name, like Projects and Services.
+              "Creating together." moves to the subtitle step (Futura, per the brand type ladder) —
+              it used to be the big line with "Studio" as a small label above it, which made the
+              three Home sections read inconsistently. */}
           <div className="home-studio__text">
-            <Eyebrow>Studio</Eyebrow>
-            <RevealLines as="h2" lines={["Creating together."]} className="home-studio__title" />
+            <RevealLines as="h2" lines={["Studio"]} className="home-studio__title" />
             <FadeUp>
+              <p className="home-studio__lead">Creating together.</p>
               <p className="home-studio__body">
                 KARTÚ means “together” in Lithuanian — a name that reflects how we work. We create together as a studio, and together with our clients, shaping each project through
                 collaboration and shared ideas.

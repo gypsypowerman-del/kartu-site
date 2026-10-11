@@ -138,6 +138,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 /* same type token as the Projects and Services headings (--type-h2), so all three Home
    section titles share one size and one responsive scale (client 11/10: they looked different) */
 .home-studio__title{font:var(--type-h2);margin:0 0 26px;max-width:420px}
+.home-studio__lead{font:var(--type-subtitle);color:var(--text-heading);max-width:440px;margin:0 0 20px}
 .home-studio__body{font:var(--type-body);color:var(--text-body);max-width:440px;margin-bottom:30px}
 .home-studio__media{align-self:start}
 @media (max-width:900px){
