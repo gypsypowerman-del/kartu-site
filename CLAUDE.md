@@ -83,7 +83,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).
 - Hero image crop and scrim strength on Home.
 - Font web licence + WOFF2 sign-off.
-- Sea-side Residence high-res photography (current set is low-res). 11/10: Jurgita's WeTransfer (7.56 MB zip — probably not originals) expired before download; ask for full-size JPEGs via Google Drive shared with alexey.prychev@gmail.com.
+- Sea-side Residence: 11/10 four photos replaced by the client's better files (folder 1.jpg→01, 4.jpg→04, 1.jpg dining→06, 5.jpg→07; same 2048px max but far less compression). 02, 03, 05 still the low-res originals; 3.jpg (wide living room) unused — 05 is a portrait crop of that scene. Full-size originals (>3000px) still welcome.
 - Place names inside client concept/story copy (Beregovoy: Italy/France/Moscow; Shepherd's Bush: "London exterior") vs the "no city/country" rule — confirm with the client; don't edit silently.
 - Privacy Policy (client copy): published address in Offord D’Arcy (Cambridgeshire) and "… MacNaughton is the data controller" (are?) — confirm. The Messaging/Booking section is generated from `contactChannels` (added 11/10 with the project lead's OK).
 - Gallery alt texts are generic ("<Project> — view N"); short descriptions per photo would help accessibility/SEO (content task).
