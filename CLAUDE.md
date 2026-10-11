@@ -65,7 +65,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Home projects scene: one shared 2:3 frame for all slides (07/10) — differing photo widths made the wipe look ragged.
 - Project photos are never cropped (client 07/10): the hero is shown whole — a landscape hero fills the width at its own proportions, a portrait hero joins the gallery. `heroPosition` is no longer used on project pages.
 - Project descriptions never mention remote work (client 07/10): "Remote" removed from scopes and stories. The Services "Designing across borders" copy is separate and unchanged.
-- Studio: no interior photography; two 3:4 founder portrait placeholders (`founders` in site.ts — set `photo` when supplied).
+- Studio: no interior photography; two founder portraits in 3:4 frames (`founders[].photo` in site.ts; supplied 11/10 — Anna 3:4, Jurgita 2:3 shown centred in the 3:4 frame).
 - Services: copy per debrief; compact split layout; images services-01/02/03 kept, kitchen detail replaced by 9374 + 9292.
 - Agatho has no Ú glyph — never set "KARTÚ" in Agatho; use Futura PT.
 
@@ -76,7 +76,6 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Booking link (Cal.com or Calendly), Telegram handle → `contactChannels`. When booking is connected, add the provider to the Privacy Policy. (WhatsApp +44 7768 392053 set 07/10.)
 - Not yet approved from the 07/10 proposal (branch `proposal/start-a-conversation`): "What happens next" + reply time, prompts at the end of projects / Services / Studio, two links in the contact band.
 - Instagram handle → `INSTAGRAM_URL` in `src/content/assets.ts` (footer item hidden until set).
-- Founder portraits → `founders[].photo` in site.ts (khaki 3:4 placeholders until supplied).
 - Hero video: spec delivered; set `heroVideo` in `src/content/page-images.ts` when the files arrive.
 - Form provider + reply-time line on Contact (new copy, needs approval).
 - Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).

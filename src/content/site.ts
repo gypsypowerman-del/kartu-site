@@ -500,12 +500,12 @@ export const founders: { name: string; bio: string; photo: string | null }[] = [
   {
     name: "Anna Prycheva",
     bio: "Anna came from events and creative production, bringing experience in developing ideas and turning them into carefully orchestrated experiences.",
-    photo: null
+    photo: "/images/photos/founder-anna.jpg" // supplied 11/10 (3:4)
   },
   {
     name: "Jurgita MacNaughton",
     bio: "Jurgita came from finance, with a strong background in planning, structure, and commercial thinking.",
-    photo: null
+    photo: "/images/photos/founder-jurgita.jpg" // supplied 11/10 (2:3, shown in the 3:4 frame)
   }
 ];
 
