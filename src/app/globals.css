@@ -6,6 +6,8 @@ html.lenis,html.lenis body{height:auto}
 body{margin:0;background:var(--surface-page);color:var(--text-heading);font:var(--type-body)}
 h1,h2,h3,h4{margin:0;color:var(--text-heading);font-weight:var(--weight-light);line-height:var(--leading-display);font-family:var(--font-display)}
 p{margin:0}
+/* no single word left alone on the last line of a heading or paragraph (where supported) */
+h1,h2,h3,h4,p,dd{text-wrap:pretty}
 a{color:inherit;text-decoration:none;transition:opacity var(--duration-hover) var(--ease-default)}
 a:hover{opacity:var(--hover-opacity)}
 img{display:block;max-width:100%}
@@ -41,7 +43,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .photo__label{position:absolute;left:14px;bottom:12px;font:var(--type-label);color:var(--text-muted);letter-spacing:.04em}
 
 /* ---------- Nav ---------- */
-.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:34px var(--page-gutter);border-bottom:1px solid var(--border-nav);position:relative;z-index:10;color:var(--kartu-black)}
+/* the header and hero copy line up with the page grid (.wrap) at every width; the rule and photo stay full-bleed */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:34px var(--page-gutter);padding-inline:max(var(--page-gutter),calc((100% - var(--page-max)) / 2 + var(--page-gutter)));border-bottom:1px solid var(--border-nav);position:relative;z-index:10;color:var(--kartu-black)}
 .nav--overlay{position:absolute;top:0;left:0;right:0;border-bottom:0;color:var(--kartu-white)}
 .nav__menu{display:flex;gap:40px;font:var(--type-nav)}
 .nav__link[aria-current="page"]{border-bottom:1px solid currentColor;padding-bottom:3px}
@@ -61,7 +64,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .hero{position:relative;height:100vh;height:100svh;min-height:680px;overflow:hidden;background:var(--kartu-black)}
 .hero__media{position:absolute;inset:-6% 0 0 0;will-change:transform}
 .hero__scrim{position:absolute;inset:0;background:var(--hero-scrim);pointer-events:none}
-.hero__content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--page-gutter) 92px;color:var(--kartu-white);max-width:820px}
+.hero__content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--page-gutter) 92px;padding-left:max(var(--page-gutter),calc((100% - var(--page-max)) / 2 + var(--page-gutter)));color:var(--kartu-white);max-width:calc(max(0px,(100% - var(--page-max)) / 2) + 820px)}
 .hero-title{font:var(--type-hero);color:inherit;margin:0 0 22px}
 .hero-sub{font:var(--weight-light) 18px/var(--leading-body) var(--font-sans);max-width:600px;margin:0 0 32px;opacity:.95}
 @media (max-width:560px){.hero-sub br{display:none}}
@@ -117,6 +120,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px var(--grid-gap)}
   .projects-stack__title,.projects-stack>.text-link{grid-column:1/-1}
 }
+/* side by side, the three cards share the scene's 2:3 frame so their titles sit on one line (07/10) */
+@media (min-width:561px){.projects-stack .photo{aspect-ratio:2/3!important}}
 /* stack layout on wide screens when the scene isn't used (no motion, or touch screens) */
 @media (min-width:901px){
   .projects-stack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:72px var(--thumb-gap)}
@@ -334,6 +339,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .legal__section{margin-top:40px}
 .legal__section h2{font:var(--weight-light) 26px/var(--leading-display) var(--font-display);margin:0 0 14px}
 .legal__section p{font:var(--type-body);color:var(--text-body);margin-bottom:14px}
+.legal__section a{border-bottom:1px solid currentColor}
 
 /* ---------- 404 ---------- */
 .not-found{padding:120px var(--page-gutter) var(--section-padding);display:flex;flex-direction:column;gap:32px;align-items:flex-start}
@@ -402,24 +408,31 @@ html.has-intro .intro--leaving{opacity:0;pointer-events:none}
   .imm-panel__title{font:var(--type-h1-page)}
 }
 
-/* ---------- Contact: three ways to begin (approved 07/10) ---------- */
+/* ---------- Contact: three ways to begin (approved 07/10; two rows 08/10) ---------- */
 .conv-intro{padding-bottom:72px}
-.conv-ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px var(--grid-gap);padding-bottom:var(--section-padding)}
-.conv-ways--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+/* one two-column grid: 01 + 02 on top; "Write to us" below with its text under 01 and the form under 02 */
+.conv-ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--grid-gap);padding-bottom:var(--section-padding)}
+.conv-ways__write{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--grid-gap);margin-top:var(--space-11)}
 .conv-way{display:flex;flex-direction:column;align-items:flex-start;gap:14px;border-top:var(--rule-hairline);padding-top:28px}
 .conv-way__index{font:var(--type-label);color:var(--text-muted)}
 .conv-way__title{font:var(--type-h3-stage)}
 .conv-way__meta{font:var(--type-label);color:var(--text-muted);margin-top:-6px}
-.conv-way__text{font:var(--type-body);color:var(--text-body);max-width:380px;margin-bottom:12px}
+.conv-way__text{font:var(--type-body);color:var(--text-body);max-width:440px;margin-bottom:12px}
+/* the links of 01 and 02 sit on one line however long each card's text runs */
+.conv-way__action{margin-top:auto}
 .conv-way__links{display:flex;gap:32px}
+.conv-way .contact__email{margin:0 0 14px}
+.conv-way--form{display:block}
+.conv-way--form .contact-form{padding-top:2px}
 .conv-book{display:grid;grid-template-columns:4fr 8fr;gap:var(--grid-gap);padding:var(--section-padding) 0;border-top:var(--rule-hairline)}
 .conv-book__title{font:var(--type-h2);margin-bottom:14px}
 .conv-book__meta{font:var(--type-label);color:var(--text-muted);margin-bottom:20px}
 .conv-book__text{font:var(--type-body-lg);color:var(--text-body);max-width:380px}
 .conv-book__embed{width:100%;min-height:720px;border:1px solid var(--border-list);background:var(--kartu-white)}
-.conv-write{border-top:var(--rule-hairline);padding-top:var(--section-padding)}
 @media (max-width:900px){
-  .conv-ways,.conv-ways--two{grid-template-columns:1fr}
+  .conv-ways,.conv-ways__write{grid-template-columns:1fr;row-gap:var(--space-10)}
+  .conv-ways__write{margin-top:0;row-gap:var(--space-7)}
+  .conv-way--form{border-top:0;padding-top:0}
   .conv-book{grid-template-columns:1fr}
   .conv-book__embed{min-height:900px}
 }

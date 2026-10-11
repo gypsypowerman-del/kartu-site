@@ -14,7 +14,8 @@ gsap.registerPlugin(ScrollTrigger);
 const SCENE_RATIO = 2 / 3;
 
 /** Desktop: a pinned scene — each project's photo opens over the previous one
- *  and the caption switches cleanly to the project in view (no scroll snapping).
+ *  and the caption switches cleanly to the project in view. Every change plays to the end
+ *  on its own (one flick = one project), so two photos never rest half over each other.
  *  Photos keep their own proportions (client: "don't make the squares format").
  *  Phone / reduced motion / no JS / automated browsers: a plain stack of cards. */
 export default function HomeProjects({ projects }: { projects: Pick<Project, "slug" | "title" | "concept" | "thumb">[] }) {
@@ -48,6 +49,55 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
       };
       setActive(0);
 
+      // ---- Auto-complete (client 11/10): a photo never stops half-way. One flick of the wheel or
+      // trackpad in either direction plays the whole change to the next / previous project; input is
+      // held while it plays and until the gesture (incl. trackpad inertia) has died down, so one
+      // flick = one project. Arriving from above/below, the scene first settles on the first/last one.
+      const THRESHOLD = 0.04; // share of one change that counts as intent (≈30px)
+      const QUIET_MS = 160; // wheel silence that ends a gesture
+      const HOLD_MAX_MS = 1400; // never hold input longer than this after a change
+      const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+      type LenisLike = { scrollTo: (y: number, o: Record<string, unknown>) => void; isLocked: boolean };
+      const getLenis = () => (window as unknown as { __lenis?: LenisLike }).__lenis;
+      let settled = 0; // project currently at rest
+      let busy = false;
+      let arriving = false;
+      let lastWheel = 0;
+      let holdTimer = 0;
+      const onWheel = () => (lastWheel = performance.now());
+      window.addEventListener("wheel", onWheel, { passive: true });
+
+      const release = (lenis: LenisLike, since: number) => {
+        const quiet = performance.now() - lastWheel >= QUIET_MS;
+        if (quiet || performance.now() - since > HOLD_MAX_MS) {
+          lenis.isLocked = false;
+          busy = false;
+          return;
+        }
+        holdTimer = window.setTimeout(() => release(lenis, since), 50);
+      };
+
+      const settle = (self: ScrollTrigger, target: number, from: number) => {
+        const lenis = getLenis();
+        if (!lenis) return;
+        busy = true;
+        arriving = false;
+        // rest 1px inside the pinned range, so the first/last project still counts as "in the scene"
+        // (at exactly start/end ScrollTrigger reports leave/enter and a step would read as an arrival)
+        const y = Math.min(self.end - 1, Math.max(self.start + 1, self.start + ((self.end - self.start) * target) / (n - 1)));
+        lenis.scrollTo(y, {
+          duration: 0.35 + 0.6 * Math.min(1, Math.abs(target - from)),
+          easing: easeOut,
+          lock: true,
+          force: true,
+          onComplete: () => {
+            settled = target;
+            lenis.isLocked = true; // keep swallowing the tail of the gesture
+            release(lenis, performance.now());
+          },
+        });
+      };
+
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut", duration: 1 },
         scrollTrigger: {
@@ -55,9 +105,22 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
           start: "top top",
           end: () => `+=${window.innerHeight * (n - 1) * 0.9}`,
           pin: true,
-          scrub: 0.6,
-          // caption follows the photo that is more than half open
-          onUpdate: (self) => setActive(Math.min(n - 1, Math.round(self.progress * (n - 1)))),
+          scrub: 0.3,
+          onEnter: () => ((settled = 0), (arriving = true)),
+          onEnterBack: () => ((settled = n - 1), (arriving = true)),
+          onUpdate: (self) => {
+            const pos = self.progress * (n - 1);
+            // caption follows the photo that is more than half open
+            setActive(Math.min(n - 1, Math.round(pos)));
+            if (busy || Math.abs(pos - settled) < THRESHOLD) return;
+            const dir = Math.sign(pos - settled);
+            const target = arriving
+              ? Math.round(pos) // catch the visitor on the project they scrolled into
+              : Math.abs(pos - settled) <= 1
+                ? settled + dir // the next project in the direction of the flick
+                : Math.round(pos); // a jump (scrollbar, keyboard End…) → nearest project
+            settle(self, Math.max(0, Math.min(n - 1, target)), pos);
+          },
         },
       });
 
@@ -65,8 +128,10 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
       const st = tl.scrollTrigger!;
       const onFocus = (idx: number) => () => {
         const y = st.start + ((st.end - st.start) * idx) / (n - 1);
-        const lenis = (window as unknown as { __lenis?: { scrollTo: (y: number, o: { immediate: boolean }) => void } }).__lenis;
-        if (lenis) lenis.scrollTo(y, { immediate: true });
+        settled = idx;
+        arriving = false;
+        const lenis = getLenis();
+        if (lenis) lenis.scrollTo(y, { immediate: true, force: true });
         else window.scrollTo({ top: y, behavior: "auto" });
         ScrollTrigger.update();
         const box = el.querySelector<HTMLElement>(".projects-scene__captions");
@@ -85,6 +150,10 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
         tl.to(slides[i], { yPercent: 0 }, at).to(photos[i], { yPercent: 0 }, at);
       }
       return () => {
+        window.removeEventListener("wheel", onWheel);
+        window.clearTimeout(holdTimer);
+        const lenis = getLenis();
+        if (lenis && busy) lenis.isLocked = false;
         handlers.forEach((off) => off());
         titles.forEach((t) => t.classList.remove("is-active"));
       };
@@ -146,7 +215,7 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
         {projects.map((p) => (
           <Link key={p.slug} href={`/projects/${p.slug}/`} className="project-card">
             <RevealImage>
-              <Photo src={p.thumb} alt={p.title} sizes="(min-width: 901px) 28vw, (min-width: 561px) 50vw, 100vw" />
+              <Photo src={p.thumb} alt="" sizes="(min-width: 561px) 30vw, 100vw" />
             </RevealImage>
             <span className="project-card__title">{p.title}</span>
           </Link>

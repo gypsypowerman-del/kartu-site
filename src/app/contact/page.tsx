@@ -3,11 +3,9 @@ import type { Metadata } from "next";
 import { Eyebrow, Footer, Nav, Wrap } from "@/components/ui";
 import { FadeUp, RevealLines } from "@/motion/reveal";
 import ContactForm from "@/sections/contact/ContactForm";
-import { contactChannels as CH, conversation as C } from "@/content/site";
+import { contactChannels as CH, conversation as C, studioEmail as EMAIL } from "@/content/site";
 
 export const metadata: Metadata = pageMeta({ path: "/contact/", og: "contact", title: "Contact", description: "Start a conversation with KARTÚ — interior design studio based in London, working across the UK and internationally." });
-
-const EMAIL = "hello@kartuinteriors.com";
 
 // Until the booking tool is connected, "Book an introductory call" opens an email with the same three questions.
 const callRequest =
@@ -39,13 +37,15 @@ export default function ContactPage() {
             </FadeUp>
           </header>
 
-          <div className={`conv-ways ${hasMessengers ? "" : "conv-ways--two"}`}>
+          {/* Two rows on one two-column grid (client 08/10): call + message on top,
+              "Write to us" below — its text under 01, the form under 02 — so 01·02·03 align. */}
+          <div className="conv-ways">
             <FadeUp className="conv-way">
               <span className="conv-way__index">01</span>
               <h2 className="conv-way__title">{C.call.title}</h2>
               <p className="conv-way__meta">{C.call.meta}</p>
               <p className="conv-way__text">{C.call.text}</p>
-              <a className="text-link" href={embed ? "#book" : callRequest}>
+              <a className="text-link conv-way__action" href={embed ? "#book" : callRequest}>
                 {embed ? "Choose a time" : "Request a call"}
               </a>
             </FadeUp>
@@ -54,7 +54,7 @@ export default function ContactPage() {
                 <span className="conv-way__index">02</span>
                 <h2 className="conv-way__title">{C.message.title}</h2>
                 <p className="conv-way__text">{C.message.text}</p>
-                <span className="conv-way__links">
+                <span className="conv-way__links conv-way__action">
                   {whatsapp && (
                     <a className="text-link" href={whatsapp} target="_blank" rel="noopener noreferrer">
                       WhatsApp
@@ -68,14 +68,23 @@ export default function ContactPage() {
                 </span>
               </FadeUp>
             )}
-            <FadeUp className="conv-way">
-              <span className="conv-way__index">{hasMessengers ? "03" : "02"}</span>
-              <h2 className="conv-way__title">{C.write.title}</h2>
-              <p className="conv-way__text">{C.write.text}</p>
-              <a className="text-link" href="#write">
-                Send an enquiry
-              </a>
-            </FadeUp>
+
+            <section id="write" className="conv-ways__write" aria-labelledby="write-title">
+              <FadeUp className="conv-way">
+                <span className="conv-way__index">{hasMessengers ? "03" : "02"}</span>
+                <h2 id="write-title" className="conv-way__title">
+                  {C.write.title}
+                </h2>
+                <p className="conv-way__text">{C.write.text}</p>
+                <a className="contact__email" href={`mailto:${EMAIL}`}>
+                  {EMAIL}
+                </a>
+                <p className="contact__note">Based in London, working across the UK and internationally.</p>
+              </FadeUp>
+              <div className="conv-way conv-way--form">
+                <ContactForm />
+              </div>
+            </section>
           </div>
 
           {embed && (
@@ -88,18 +97,6 @@ export default function ContactPage() {
               <iframe className="conv-book__embed" src={embed} title="Book an introductory call with KARTÚ" loading="lazy" />
             </section>
           )}
-
-          <section id="write" className="contact conv-write" aria-labelledby="write-title">
-            <div className="contact__intro">
-              <h2 id="write-title" className="conv-book__title">{C.write.title}</h2>
-              <p className="contact__body">{C.write.text}</p>
-              <a className="contact__email" href={`mailto:${EMAIL}`}>
-                {EMAIL}
-              </a>
-              <p className="contact__note">Based in London, working across the UK and internationally.</p>
-            </div>
-            <ContactForm />
-          </section>
         </Wrap>
       </main>
       <Footer />

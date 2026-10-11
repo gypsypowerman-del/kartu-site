@@ -509,6 +509,9 @@ export const founders: { name: string; bio: string; photo: string | null }[] = [
   }
 ];
 
+/** The studio's public email — used by the footer, Contact and the form fallback. */
+export const studioEmail = "hello@kartuinteriors.com";
+
 // ---------- Contact: three ways to begin (approved by the client 07/10) ----------
 // Fill these when the studio has them; anything empty is simply not shown.
 export const contactChannels: {

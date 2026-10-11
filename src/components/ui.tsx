@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { asset, INSTAGRAM_URL, LOGO_READY, PHOTOS_READY } from "@/content/assets";
 import photoMeta from "@/content/photo-meta.json";
+import { studioEmail } from "@/content/site";
 
 const META = photoMeta as Record<string, { w: number; h: number }>;
 
@@ -37,8 +38,9 @@ export function Logo({ variant = "black", kind = "wordmark", className = "" }: {
   return (
     <Link href="/" aria-label="KARTÚ — home" className={`logo logo--${kind} ${className}`}>
       {LOGO_READY ? (
+        // the footer symbol is below the fold: lazy, so it never competes with the first photo
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={asset(src)} alt="KARTÚ" />
+        <img src={asset(src)} alt="KARTÚ" {...(kind === "symbol" ? { loading: "lazy" as const, decoding: "async" as const, width: 336, height: 403 } : {})} />
       ) : (
         <span className={`logo__placeholder logo__placeholder--${variant}`} aria-hidden="true">
           {kind === "symbol" ? "K" : "logo svg"}
@@ -123,7 +125,7 @@ export function Footer() {
         <div className="footer__top">
           <div className="footer__contact">
             <span>London, UK</span>
-            <a href="mailto:hello@kartuinteriors.com">hello@kartuinteriors.com</a>
+            <a href={`mailto:${studioEmail}`}>{studioEmail}</a>
             {INSTAGRAM_URL && (
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
                 Instagram
@@ -193,7 +195,7 @@ export function Stage({ index, title, body, className = "" }: { index: string; t
     <div className={`stage ${className}`}>
       <div className="stage__index">{index}</div>
       <div>
-        <h3 className="stage__title">{title}</h3>
+        <h2 className="stage__title">{title}</h2>
         <div className="stage__body">
           {body.map((t) => (
             <p key={t}>{t}</p>

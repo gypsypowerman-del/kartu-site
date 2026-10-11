@@ -3,7 +3,12 @@ import type { Metadata } from "next";
 import { Footer, Nav, Wrap } from "@/components/ui";
 import { privacyIntro, privacySections, privacyUpdated } from "@/content/privacy";
 
-export const metadata: Metadata = pageMeta({ path: "/privacy/", og: "home", title: "Privacy Policy" });
+export const metadata: Metadata = pageMeta({ path: "/privacy/", og: "home", title: "Privacy Policy", description: "How KARTÚ collects, uses and protects your personal information, and your rights under UK data protection law." });
+
+/** Email addresses in the policy text become mailto links. */
+function withLinks(text: string) {
+  return text.split(/([\w.+-]+@[\w-]+(?:\.[\w-]+)+)/).map((part, i) => (i % 2 ? <a key={i} href={`mailto:${part}`}>{part}</a> : part));
+}
 
 export default function PrivacyPage() {
   return (
@@ -22,7 +27,7 @@ export default function PrivacyPage() {
                   <p key={i}>
                     {para.split("\n").map((line, j, arr) => (
                       <span key={j}>
-                        {line}
+                        {withLinks(line)}
                         {j < arr.length - 1 && <br />}
                       </span>
                     ))}

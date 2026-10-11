@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/content/seo";
-import { ContactBand, Eyebrow, Footer, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
+import { ContactBand, Eyebrow, Footer, Nav, Photo, ServiceRow, TextLink, Wrap } from "@/components/ui";
 import IntroScreen from "@/sections/home/IntroScreen";
 import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
@@ -14,9 +14,11 @@ export default function HomePage() {
   return (
     <>
       <IntroScreen />
-      <HomeHero />
+      {/* overlay nav is positioned over the hero; kept outside <main> so the hero (and its h1) is main content */}
+      <Nav overlay />
 
       <main id="main">
+        <HomeHero />
         {/* Approved build shows the first three projects */}
         <HomeProjects projects={projects.slice(0, 3).map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
 

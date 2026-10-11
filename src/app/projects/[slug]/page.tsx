@@ -16,7 +16,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
-  return p ? pageMeta({ path: `/projects/${p.slug}/`, og: p.slug, title: p.title, description: `${p.conceptName} — ${p.concept}` }) : {};
+  // no project location in the description (client rule); the studio itself is London-based
+  return p
+    ? pageMeta({
+        path: `/projects/${p.slug}/`,
+        og: p.slug,
+        title: p.title,
+        description: `${p.title} by KARTÚ — “${p.conceptName}”. ${p.concept} ${p.scope.split(" — ")[0]}, from concept to implementation.`,
+      })
+    : {};
 }
 
 const placeClass = (c: Placement) => `place--${c}`;

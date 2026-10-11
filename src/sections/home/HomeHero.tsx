@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Nav, Photo, TextLink } from "@/components/ui";
+import { Photo, TextLink } from "@/components/ui";
 import { heroVideo, pageImages } from "@/content/page-images";
 import { asset } from "@/content/assets";
 import { DESKTOP_IMAGE_MOTION, ENTER_EVENT, introActive, motionEnabled } from "@/motion/enabled";
@@ -31,12 +31,15 @@ export default function HomeHero() {
       intro
         .from(".hero__media", { scale: 1.08, duration: 2.2, ease: "power2.out" }, 0)
         .from(".hero-title .reveal-line__inner", { yPercent: 105, duration: 1.2, stagger: 0.1 }, 0.25)
-        .from(".hero-sub, .hero__cta", { y: 24, autoAlpha: 0, duration: 1, stagger: 0.1 }, 0.75)
-        .from(".nav--overlay", { autoAlpha: 0, duration: 1 }, 0.4);
+        // opacity, not autoAlpha: visibility:hidden would take the links out of the tab order
+        .from(".hero-sub, .hero__cta", { y: 24, opacity: 0, duration: 1, stagger: 0.1 }, 0.75);
+      // the overlay nav sits outside the hero (before <main>), so it is passed as an element
+      const nav = document.querySelector(".nav--overlay");
+      if (nav) intro.from(nav, { opacity: 0, duration: 1 }, 0.4);
 
       gsap.to(".hero__content", {
         y: -60,
-        autoAlpha: 0,
+        opacity: 0,
         ease: "none",
         scrollTrigger: { trigger: el, start: "35% top", end: "85% top", scrub: true },
       });
@@ -64,7 +67,6 @@ export default function HomeHero() {
         )}
       </div>
       <div className="hero__scrim" />
-      <Nav overlay />
       <div className="hero__content">
         <h1 className="hero-title">
           <span className="reveal-line">

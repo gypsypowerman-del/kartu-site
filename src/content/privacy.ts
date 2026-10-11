@@ -1,5 +1,9 @@
 // Privacy Policy — text as supplied by the client (approved prototype, Sept 2026).
-export const privacyUpdated = "September 2026";
+// The "Messaging and Booking Services" section is generated from contactChannels, so it only
+// lists the channels that are actually live on the Contact page (added 11/10, approved by the project lead).
+import { contactChannels } from "./site";
+
+export const privacyUpdated = "October 2026";
 
 export const privacyIntro =
   "KARTÚ respects your privacy and is committed to protecting your personal information. This Privacy Policy explains what personal information we collect, how and why we use it, how we protect it, and your rights in relation to your personal data.";
@@ -37,6 +41,7 @@ export const privacySections: { title: string; body: string[] }[] = [
       "We do not sell or rent your personal information. We may share it with trusted third parties reasonably necessary to operate our business or provide our services, including hosting and IT providers, suppliers and contractors, architects and other professionals involved in a project, delivery providers, and professional advisers where required.",
     ],
   },
+  ...messagingSection(),
   {
     title: "International Transfers",
     body: [
@@ -80,3 +85,32 @@ export const privacySections: { title: string; body: string[] }[] = [
     body: ["KARTÚ — Anna Prycheva & Jurgita MacNaughton\n2 Cawcutts Close, Offord D’Arcy, PE19 5WP, United Kingdom\nEmail: hello@kartuinteriors.com"],
   },
 ];
+
+function messagingSection(): { title: string; body: string[] }[] {
+  const messengers = [contactChannels.whatsapp && "WhatsApp", contactChannels.telegram && "Telegram"].filter(Boolean) as string[];
+  const booking = contactChannels.booking ? bookingProvider(contactChannels.booking) : "";
+  const body: string[] = [];
+  if (messengers.length) {
+    const names = messengers.join(" or ");
+    body.push(
+      `If you contact us through ${names}, your messages and the contact details shown in that service (such as your name and phone number or username) are shared with us there. ${
+        messengers.length > 1
+          ? `${messengers.join(" and ")} are operated by third parties that process this information under their own privacy policies.`
+          : `${names} is operated by a third party that processes this information under its own privacy policy.`
+      } We use what you send only to reply to you and to discuss your project.`,
+    );
+  }
+  if (booking) {
+    body.push(
+      `If you book an introductory call online, the booking is made through ${booking}, which collects the details you enter (such as your name, email address and answers to our booking questions) on our behalf and under its own privacy policy.`,
+    );
+  }
+  return body.length ? [{ title: booking && messengers.length ? "Messaging and Booking Services" : booking ? "Booking Services" : "Messaging Services", body }] : [];
+}
+
+function bookingProvider(url: string) {
+  const host = new URL(url).hostname;
+  if (host.includes("calendly")) return "Calendly";
+  if (host.includes("cal.com")) return "Cal.com";
+  return host.replace(/^www\./, "");
+}

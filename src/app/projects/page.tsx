@@ -40,6 +40,8 @@ export default function ProjectsPage() {
                 <div key={start} className="projects-grid__row" style={{ ["--pair-r" as string]: row.reduce((a, p, j) => a + photoRatio(p.index) * w[j], 0) / Math.max(...w) }}>
                   {row.map((p, j) => {
                     const i = start + j;
+                    const sum = row.reduce((a, q, k) => a + photoRatio(q.index) * w[k], 0);
+                    const share = Math.round(((photoRatio(p.index) * w[j]) / sum) * 100);
                     return (
                       <Link
                         key={p.slug}
@@ -48,7 +50,8 @@ export default function ProjectsPage() {
                         style={{ flex: `${photoRatio(p.index) * w[j]} 1 0` }}
                       >
                         <RevealImage>
-                          <Photo src={p.index} alt={p.title} sizes="(min-width: 561px) 50vw, 100vw" priority={i < 2} />
+                          {/* alt="" — the title next to the photo already names the link */}
+                          <Photo src={p.index} alt="" sizes={`(min-width: 561px) ${share}vw, 100vw`} priority={i < 2} />
                         </RevealImage>
                         <span className="project-card__title project-card__title--index">{p.title}</span>
                       </Link>

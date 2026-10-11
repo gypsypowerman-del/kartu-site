@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 
+/** Preview builds (GitHub Pages review link) are noindex and may fall back to the preview host. */
+export const IS_PREVIEW = process.env.NEXT_PUBLIC_PREVIEW === "1";
+
+/** The real domain is required for a production build: canonical, og:url, og:image, robots.txt
+ *  and sitemap.xml are all built from it. Set SITE_URL (e.g. https://kartuinteriors.com) in the
+ *  hosting provider; preview builds set NEXT_PUBLIC_PREVIEW=1. */
+const rawOrigin = process.env.SITE_URL || (IS_PREVIEW || process.env.NODE_ENV !== "production" ? "https://gypsypowerman-del.github.io" : "");
+if (!rawOrigin) {
+  throw new Error("SITE_URL is not set. Production builds need the real domain, e.g. SITE_URL=https://kartuinteriors.com (or NEXT_PUBLIC_PREVIEW=1 for a preview build).");
+}
+const origin = rawOrigin.replace(/\/+$/, "");
+const base = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/+$/, "");
 /** Absolute site root incl. GitHub Pages base path, e.g. https://user.github.io/kartu-site/ */
-const origin = process.env.SITE_URL || "https://gypsypowerman-del.github.io";
-const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const metadataBase = new URL(`${origin}${base}/`);
+/** Absolute URL for a site path, e.g. abs("/contact/") */
+export const abs = (path: string) => new URL(path.replace(/^\//, ""), metadataBase).toString();
 
 export const SITE_NAME = "KARTÚ";
 export const SITE_DESCRIPTION = "A London-based interior design studio creating distinctive, thoughtful spaces for contemporary living.";

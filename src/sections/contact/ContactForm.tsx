@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-
-const EMAIL = "hello@kartuinteriors.com";
+import { studioEmail as EMAIL } from "@/content/site";
 /** Form service URL (e.g. Formspree/Basin), set at build time. Until it is set,
  *  the form hands the message to the visitor's email app — it never fakes a "sent". */
 const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";

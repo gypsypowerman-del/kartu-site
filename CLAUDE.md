@@ -20,6 +20,7 @@ Source of truth for design: the approved **KARTÚ Design System** (claude.ai art
   **Motion is progressive enhancement** (lesson, 3 Oct 2026): content is visible in the HTML by default; animations only run when `html.js-motion` is set by the inline head script (`src/motion/enabled.ts`), which skips automated browsers (`navigator.webdriver`) so screenshot/review tools and print never capture hidden blocks as empty space. Gate every new animation with `motionEnabled()`. Never use `autoAlpha`/`visibility:hidden` on blocks that contain links (breaks keyboard focus) — animate `opacity`.
   QA with Playwright: add init script `Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false})` to see the motion version.
   **Image motion is desktop-only** (client request 07/10): blind reveals, parallax, hero drift and the pinned scene run only under `DESKTOP_IMAGE_MOTION` (≥901px + mouse/trackpad). Phones and tablets get static photos; text reveals stay everywhere.
+  **Home projects scene auto-completes** (client 11/10): one wheel/trackpad flick plays the whole change to the next/previous project (Lenis `scrollTo` with `lock`, then input is held until the gesture's inertia dies down — max 1.4s); arriving from above/below it first settles on the first/last project; rest points sit 1px inside the pin range. Never let two photos rest half over each other.
   **Performance rule** (lesson 07/10): animate only `transform`/`opacity`. No `clip-path` or `scale` animations on photos — they re-raster large images every frame (measured: −90% raster cost after switching reveals to two opposite translateY transforms). Lenis `lerp: 0.15`.
 
 ## Naming (BEM-like, mirrors design sections)
@@ -46,6 +47,9 @@ Use the same names in components, CSS classes and when discussing fixes.
 ## Workflow
 - Build one section at a time; check at 1440px and 390px (Playwright screenshots) before moving on.
 - Never commit secrets. Contact form posts to `NEXT_PUBLIC_FORM_ENDPOINT` (GitHub Actions variable `FORM_ENDPOINT`, e.g. Formspree). Without it the form opens a prefilled mailto. **Never show a success state without a real 2xx response.**
+- **Production build needs `SITE_URL`** (the real domain): canonical, og:url/og:image, robots.txt and sitemap.xml are built from it, and the build fails without it. Preview builds set `NEXT_PUBLIC_PREVIEW=1` (noindex + robots disallow). On Vercel set `SITE_URL` and `NEXT_PUBLIC_FORM_ENDPOINT`; never `BASE_PATH`/`NEXT_PUBLIC_PREVIEW`. Local QA: `NEXT_PUBLIC_PREVIEW=1 npm run build`.
+- Fonts: Latin subsets in `public/fonts/` (`npm run fonts`, originals in `fonts-src/`), declared in `layout.tsx` with the base path; Futura PT 300 + Agatho are preloaded. Studio email lives in `studioEmail` (site.ts).
+- Header and hero copy align with the page grid (`.wrap`) at every width; rules and photos stay full-bleed.
 - Share previews: `node scripts/og.mjs` regenerates `public/og/*.jpg` (1200×630) and the favicon. Set `SITE_URL` to the real domain at launch (canonical/og:url).
 - When a correction is given, add the lesson to this file so it isn't repeated.
 
@@ -65,6 +69,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Services: copy per debrief; compact split layout; images services-01/02/03 kept, kitchen detail replaced by 9374 + 9292.
 - Agatho has no Ú glyph — never set "KARTÚ" in Agatho; use Futura PT.
 
+- Contact layout (client 11/10): two rows on one two-column grid — 01 Call + 02 Message on top; 03 "Write to us" below with its text under 01 and the form under 02 (no separate "Write to us" card). Card links align on one line.
 - Contact page = three ways to begin (approved by the client 07/10): book a 20-min introductory call · message (WhatsApp/Telegram) · write (form + email). Channels live in `contactChannels` (site.ts); anything empty is hidden — no booking link → "Request a call" opens a prefilled email with the 3 questions; no messengers → card 02 is hidden. Booking questions (no budget) are configured in Cal.com/Calendly. Never ship a mock calendar or placeholder numbers.
 
 ## Open client decisions (do not resolve silently)
@@ -77,6 +82,9 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).
 - Hero image crop and scrim strength on Home.
 - Font web licence + WOFF2 sign-off.
-- Sea-side Residence high-res photography (current set is low-res).
+- Sea-side Residence high-res photography (current set is low-res). 11/10: Jurgita's WeTransfer (7.56 MB zip — probably not originals) expired before download; ask for full-size JPEGs via Google Drive shared with alexey.prychev@gmail.com.
+- Place names inside client concept/story copy (Beregovoy: Italy/France/Moscow; Shepherd's Bush: "London exterior") vs the "no city/country" rule — confirm with the client; don't edit silently.
+- Privacy Policy (client copy): published address in Offord D’Arcy (Cambridgeshire) and "… MacNaughton is the data controller" (are?) — confirm. The Messaging/Booking section is generated from `contactChannels` (added 11/10 with the project lead's OK).
+- Gallery alt texts are generic ("<Project> — view N"); short descriptions per photo would help accessibility/SEO (content task).
 - Motion layer vs client brief §8.3 (see Motion above).
 - Home hero: approved crop of 9153 (door jamb removed); hero video deferred, markup should stay video-ready.

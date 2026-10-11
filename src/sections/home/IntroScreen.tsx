@@ -31,10 +31,13 @@ export default function IntroScreen() {
     } catch {}
     window.dispatchEvent(new Event(ENTER_EVENT));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // keyboard visitors continue from the top of the page (skip link), not from the hidden button
+    const byKeyboard = btn.current?.matches(":focus-visible") ?? false;
     window.setTimeout(() => {
       document.documentElement.classList.remove(INTRO_CLASS);
       Array.from(document.body.children).forEach((el) => ((el as HTMLElement).inert = false));
       window.scrollTo(0, 0);
+      if (byKeyboard) document.querySelector<HTMLElement>(".skip-link")?.focus({ preventScroll: true });
     }, reduce ? 0 : FADE_MS);
   }
 

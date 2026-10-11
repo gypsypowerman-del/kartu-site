@@ -45,7 +45,7 @@ for (const [key, stem] of Object.entries(pages)) {
 // Favicon: the K symbol on white
 for (const [file, size] of [["src/app/icon.png", 512], ["src/app/apple-icon.png", 180]]) {
   const pad = Math.round(size * 0.18);
-  const mark = await sharp("public/images/logo/Symbol_black.png").trim().resize(size - 2 * pad, size - 2 * pad, { fit: "contain", background: { r: 255, g: 255, b: 255, alpha: 0 } }).toBuffer();
+  const mark = await sharp("scripts/brand/Symbol_black.png") /* full-res source; the site uses a 336px copy */.trim().resize(size - 2 * pad, size - 2 * pad, { fit: "contain", background: { r: 255, g: 255, b: 255, alpha: 0 } }).toBuffer();
   await sharp({ create: { width: size, height: size, channels: 4, background: "#ffffff" } }).composite([{ input: mark, gravity: "center" }]).png().toFile(file);
   console.log("icon", file);
 }

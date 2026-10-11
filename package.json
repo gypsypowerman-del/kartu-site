@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "npx serve out",
     "images": "node scripts/images.mjs",
-    "lint": "next lint"
+    "lint": "next lint",
+    "fonts": "sh scripts/fonts.sh"
   },
   "dependencies": {
     "gsap": "^3.15.0",
