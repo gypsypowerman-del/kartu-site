@@ -273,7 +273,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .studio-duo{gap:56px var(--grid-gap);align-items:start}
 .studio-duo__item{margin:0}
 .studio-duo__item--a{grid-column:1/span 5}
-.studio-duo__item--b{grid-column:8/span 5;margin-top:calc(var(--grid-drop) * 2)}
+/* both portraits start on one line (client 11/10). They used to be staggered by two drops;
+   with equal 3/4 frames the offset read as a misalignment rather than as rhythm. */
+.studio-duo__item--b{grid-column:8/span 5}
 .studio-duo__placeholder{aspect-ratio:3/4;background:var(--surface-block)}
 .studio-duo__caption{display:flex;flex-direction:column;gap:8px;margin-top:22px;max-width:420px}
 .studio-duo__name{font:var(--type-card-title);color:var(--text-heading)}
@@ -292,7 +294,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 }
 @media (min-width:561px) and (max-width:900px){
   .studio-duo>.studio-duo__item{grid-column:span 3!important}
-  .studio-duo__item--b{margin-top:var(--grid-drop)!important}
 }
 
 /* ---------- Services ---------- */

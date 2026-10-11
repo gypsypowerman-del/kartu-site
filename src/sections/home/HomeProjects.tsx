@@ -15,7 +15,10 @@ import type { Project } from "@/content/types";
  *  Same markup at every width — the phone gets the same rail, where swiping is the native gesture. */
 export default function HomeProjects({ projects }: { projects: Pick<Project, "slug" | "title" | "concept" | "thumb">[] }) {
   const rail = useRef<HTMLDivElement>(null);
-  const [current, setCurrent] = useState(0);
+  /** the span of projects actually on screen — not a single "current" slide: two or three
+   *  cards are visible at once, and at the end of the track the last card can never reach the
+   *  snap position, so scrollLeft / cardWidth would stop counting before the last project. */
+  const [span, setSpan] = useState<[number, number]>([0, 0]);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const n = projects.length;
@@ -31,10 +34,26 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
   const sync = useCallback(() => {
     const el = rail.current;
     if (!el) return;
-    const s = step() || 1;
-    setCurrent(Math.max(0, Math.min(n - 1, Math.round(el.scrollLeft / s))));
-    setAtStart(el.scrollLeft <= 1);
-    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 1);
+    const left = el.scrollLeft;
+    const right = left + el.clientWidth;
+    let first = -1;
+    let last = 0;
+    Array.from(el.children).forEach((node, i) => {
+      const c = node as HTMLElement;
+      // a card counts as on screen once more than half of it is inside the track
+      const shown = Math.min(c.offsetLeft + c.offsetWidth, right) - Math.max(c.offsetLeft, left);
+      if (shown > c.offsetWidth * 0.5) {
+        if (first < 0) first = i;
+        last = i;
+      }
+    });
+    if (first < 0) {
+      first = Math.max(0, Math.min(n - 1, Math.round(left / (step() || 1))));
+      last = first;
+    }
+    setSpan([first, last]);
+    setAtStart(left <= 1);
+    setAtEnd(left >= el.scrollWidth - el.clientWidth - 1);
   }, [n, step]);
 
   const go = useCallback(
@@ -135,7 +154,8 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
         <div className="projects-rail__head">
           <RevealLines as="h2" lines={["Projects"]} className="projects-rail__title" />
           <span className="projects-rail__counter" aria-hidden="true">
-            {String(current + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+            {String(span[0] + 1).padStart(2, "0")}
+            {span[1] > span[0] ? `–${String(span[1] + 1).padStart(2, "0")}` : ""} / {String(n).padStart(2, "0")}
           </span>
         </div>
 
@@ -171,7 +191,7 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
 
           <div className="projects-rail__progress" aria-hidden="true">
             {projects.map((p, i) => (
-              <span key={p.slug} className={i === current ? "is-on" : undefined} />
+              <span key={p.slug} className={i >= span[0] && i <= span[1] ? "is-on" : undefined} />
             ))}
           </div>
 
