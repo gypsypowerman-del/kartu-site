@@ -77,10 +77,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
    and swallowed gestures. This is the browser's own horizontal scrolling — snap points do the
    "one flick = one project" the scene needed a wheel lock for. Same rail at every width. */
 .projects-rail{padding:var(--section-padding) 0}
-.projects-rail__head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
-  padding-bottom:24px;border-bottom:var(--rule-hairline)}
+.projects-rail__head{padding-bottom:24px;border-bottom:var(--rule-hairline)}
 .projects-rail__title{font:var(--type-h2)}
-.projects-rail__counter{font:var(--type-label);color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* the track bleeds into the right gutter, so the next card is always visibly cut off —
    that cut, more than the arrows, is what tells a visitor there is more to the side */
@@ -114,10 +112,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .projects-rail__arrow:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 .projects-rail__divider{width:1px;height:20px;background:var(--border-list)}
 
-.projects-rail__progress{display:flex;gap:6px;flex:1 1 160px;min-width:96px;max-width:320px}
-.projects-rail__progress span{flex:1;height:1px;background:var(--border-list);
-  transition:background var(--duration-hover) var(--ease-out)}
-.projects-rail__progress span.is-on{background:var(--kartu-black)}
+/* position, not a count: the thumb is as wide a share of the track as is on screen */
+.projects-rail__bar{position:relative;height:1px;background:var(--border-list);
+  flex:1 1 160px;min-width:96px;max-width:320px}
+.projects-rail__bar span{position:absolute;top:0;height:1px;background:var(--kartu-black);
+  transition:left var(--duration-hover) var(--ease-out),width var(--duration-hover) var(--ease-out)}
 .projects-rail__more{margin-left:auto}
 
 @media (max-width:560px){
