@@ -421,7 +421,7 @@ export const projects: Project[] = [
     "year": "2024",
     "size": "60 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
-    "thumb": "/images/photos/sea-side-01.jpg",
+    "thumb": "/images/photos/sea-side-09.jpg", // "Warm Rustic Green Kitchen Interior" — client 10/11, Home only
     "index": "/images/photos/sea-side-02.jpg",
     "indexImages": [
       "/images/photos/sea-side-08.jpg",
