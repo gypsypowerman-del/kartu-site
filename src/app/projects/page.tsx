@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactBand, Eyebrow, Footer, Nav, Photo, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
-import { projects } from "@/content/site";
+import { indexOrder, projects } from "@/content/site";
 
 const INTRO = "Explore our residential and commercial interior projects.";
 
@@ -15,8 +15,8 @@ const isLandscape = (src: string) => photoRatio(src) >= 1.2;
  *  Each project is one horizontal composition: two photographs of the same interior (one landscape,
  *  one portrait — or three portraits where there is no landscape), then the title and "View project"
  *  on the right. Rows alternate landscape→portrait and portrait→landscape. Photos are never cropped:
- *  every frame keeps its own proportions and the row's widths are shared out by aspect ratio, with the
- *  portrait set slightly taller than its partner so each row has a lead image (`--pi-scale`). */
+ *  every frame keeps its own proportions and the row's widths are shared out by aspect ratio, so all the
+ *  photographs of a project stand at exactly the same height (client 10/11, second round). */
 export default function ProjectsPage() {
   return (
     <>
@@ -32,26 +32,24 @@ export default function ProjectsPage() {
           </header>
 
           <div className="pi">
-            {projects.map((p, i) => {
+            {indexOrder.map((slug) => projects.find((q) => q.slug === slug)!).map((p, i) => {
               const flip = i % 2 === 1;
               const land = p.indexImages.filter(isLandscape);
               const port = p.indexImages.filter((s) => !isLandscape(s));
               const images = land.length ? (flip ? [...port, ...land] : [...land, ...port]) : port;
-              // the landscape sits a step smaller than the portrait (never cropped, just scaled)
-              const scale = (src: string) => (land.length && isLandscape(src) ? 0.8 : 1);
-              const total = images.reduce((a, s) => a + photoRatio(s) * scale(s), 0);
+              const total = images.reduce((a, s) => a + photoRatio(s), 0);
               const href = `/projects/${p.slug}/`;
               return (
                 <article key={p.slug} className={`pi-row ${flip ? "pi-row--flip" : ""}`} aria-labelledby={`pi-${p.slug}`}>
                   {/* the photographs repeat the title link for the pointer only; keyboard and screen readers use the title */}
                   <Link href={href} className="pi-row__images" tabIndex={-1} aria-hidden="true">
                     {images.map((src, k) => {
-                      const share = Math.round(((photoRatio(src) * scale(src)) / total) * 72);
+                      const share = Math.round((photoRatio(src) / total) * 72);
                       return (
                         <div
                           key={src}
-                          className={`pi-row__photo ${scale(src) < 1 ? "pi-row__photo--minor" : ""}`}
-                          style={{ flex: `${photoRatio(src) * scale(src)} 1 0` }}
+                          className="pi-row__photo"
+                          style={{ flex: `${photoRatio(src)} 1 0` }}
                         >
                           <RevealImage>
                             <Photo src={src} alt="" sizes={`(min-width: 901px) ${share}vw, 92vw`} priority={i === 0 && k < 2} />

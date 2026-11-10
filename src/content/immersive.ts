@@ -6,6 +6,7 @@ import photoMeta from "./photo-meta.json";
 import type { Project } from "./types";
 
 const sb = (n: number) => `/images/photos/shepherds-bush-${String(n).padStart(2, "0")}.jpg`;
+const bg = (n: number) => `/images/photos/beregovoy-${String(n).padStart(2, "0")}.jpg`;
 const ss = (n: number) => `/images/photos/sea-side-${String(n).padStart(2, "0")}.jpg`;
 
 export type PanelKind = "intro" | "concept" | "story";
@@ -39,19 +40,36 @@ export const immersive: Record<string, ImmersiveRow[]> = {
     { kind: "row", images: [sb(20), sb(21)] },
     { kind: "row", images: [sb(22), sb(23), sb(24)] },
   ],
-  // client 10/11 — her sequence, by original file name:
-  // 558397436…_n beside the project intro → landscape 3.jpg → sofa portrait beside Concept → landscape 2.jpg →
-  // (the two photos she didn't place) → Project Story unchanged → landscape at the end.
-  // Her list asked for "landscape 2" twice (steps 4 and 6); the only landscape left is 1.jpg (dining/kitchen),
-  // so it closes the page — confirm with the client.
+  // Sea-side, client 10/11 (second round) — by original file name:
+  // 558397436…_n beside the intro · 3.jpg · Concept + sofa portrait (framed 3:4) · 1.jpg · Project Story as before ·
+  // row 4.jpg / 5.jpg / "Warm Rustic Green Kitchen Interior" · 2.jpg last. 558931645…_n (03) removed.
+  // NB 5.jpg IS the Project Story photo (07), so her row shows it a second time — flagged to the client.
   "sea-side": [
     { kind: "intro", image: ss(2) }, // 558397436…_n
     { kind: "full", image: ss(8) }, // 3.jpg
     { kind: "text", image: ss(5), panel: "concept", tone: "black", side: "left" }, // sofa portrait
+    { kind: "full", image: ss(6) }, // 1.jpg
+    { kind: "text", image: ss(7), panel: "story", tone: "sky", side: "right" }, // 5.jpg, unchanged
+    { kind: "row", images: [ss(4), ss(7), ss(9)] }, // 4.jpg, 5.jpg, kitchen render
     { kind: "full", image: ss(1) }, // 2.jpg
-    { kind: "row", images: [ss(4), ss(3)] }, // 559380628…_n, 558931645…_n — not in her list, kept
-    { kind: "text", image: ss(7), panel: "story", tone: "sky", side: "right" }, // as before
-    { kind: "full", image: ss(6) }, // 1.jpg (see note above)
+  ],
+  // Riverside, client 10/11 (second round). Folder names are now English: Гостевая = living,
+  // Спальня = Spalna, Гардеробная = garderob, Мастер СУ = Master / Master bath, Гостевая ванная = guest bathroom,
+  // Коридор = hall. Гостевая 20000 / 40000 arrived by email → beregovoy-21 / -22.
+  // NB her list puts Гостевая 20000 both beside the intro and in the guest-room row — flagged to the client.
+  // waiting for Гостевая 20000 / 40000 (beregovoy-21 / -22) — rename the key to "riverside-apartment" to switch it on
+  "riverside-apartment-pending": [
+    { kind: "intro", image: bg(21) }, // Гостевая 20000
+    { kind: "text", image: bg(3), panel: "concept", tone: "black", side: "left" }, // unchanged
+    { kind: "row", images: [bg(2), bg(1)] }, // unchanged
+    { kind: "row", images: [bg(6), bg(4), bg(5)] }, // unchanged
+    { kind: "row", images: [bg(19), bg(20), bg(7)] }, // Спальня 20000, Спальня 50000, Гардеробная мастер 30000
+    { kind: "row", images: [bg(17), bg(18)] }, // Мастер СУ 10000, Мастер СУ 30000
+    { kind: "text", image: bg(8), panel: "story", tone: "sky", side: "right" }, // Project Story, unchanged (Гостевая 10000)
+    { kind: "row", images: [bg(21), bg(22), bg(9)] }, // Гостевая 20000, 40000, 50000
+    { kind: "row", images: [bg(10), bg(11)] }, // Гостевая ванная 10000, 40000
+    { kind: "row", images: [bg(15), bg(16)] }, // Коридор 30000, 50000
+    { kind: "row", images: [bg(12), bg(13)] }, // final row, unchanged. Коридор 10000 (14) removed.
   ],
 };
 

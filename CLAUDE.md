@@ -92,6 +92,13 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Riverside: Гостевая 10000 sits beside Project Story via `storyImage` (buildImmersive removes it from the gallery so it appears once); the previous story photo (18) stays in the gallery.
 - Sea-side: hand-tuned sequence in immersive.ts per the client's list. Her list said "landscape 2" twice (steps 4 and 6); 1.jpg, the only landscape left, closes the page — **confirm**. 559380628… and 558931645… weren't in her list and sit as a pair before the story.
 
+## Client revisions 10/11 — second round (PDF "KARTÚ Interiors")
+- Projects page: all photos in a row at **equal height** (the 0.8 landscape scale is gone); order `indexOrder` in site.ts: SB, Jewellery, City Bay, Family House, Riverside, Sea-side (Home keeps `homeOrder`).
+- Photos beside Concept / Story panels are framed at least 3:4 (`PANEL_PHOTO_MIN` in ImmersiveProject) — a 1:2 portrait read as a sliver next to the panel. Wider photos keep their proportions. This is the one exception to "never cropped", asked for by the client.
+- Sea-side sequence: intro 02 · 08 (3.jpg) · Concept + 05 · 06 (1.jpg) · Story + 07 · row 04/07/09 · 01 (2.jpg); 03 removed. Her row "4, 5, kitchen" repeats 5.jpg = the Story photo — flagged.
+- Riverside sequence is written in immersive.ts as `riverside-apartment-pending` until Гостевая 20000 / 40000 (emailed) are added as beregovoy-21 / -22; then rename the key. Her list puts Гостевая 20000 both by the intro and in the guest row — flagged. Коридор 10000 (hall 10000 = 14) removed.
+- Riverside folder names (English now): Спальня = Spalna, Гардеробная мастер = garderob, Мастер СУ 10000 = Master 10000 (17), Мастер СУ 30000 = Master bath 30000 (18), Гостевая ванная = guest bathroom (10000 → 10, 40000 → 11), Коридор = hall (10000 → 14, 30000 → 15, 50000 → 16).
+
 ## Open client decisions (do not resolve silently)
 - Booking: Microsoft Bookings since 10/11 (`contactChannels.booking`) — opens in a new tab, no iframe, so no third-party cookies on our pages; the Privacy Policy names it automatically. (WhatsApp +44 7768 392053 set 07/10; Telegram @annaprycheva set 11/10 — it renders in card 02 "Message us" beside WhatsApp, and the Privacy Policy messengers line picks it up automatically.)
 - Not yet approved from the 07/10 proposal (branch `proposal/start-a-conversation`): "What happens next" + reply time, prompts at the end of projects / Services / Studio, two links in the contact band.

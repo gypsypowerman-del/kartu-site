@@ -463,7 +463,10 @@ export const projects: Project[] = [
   }
 ];
 
-/** Order of the projects on Home (client, 10/11). The Projects page and "Next project" keep the order of `projects`. */
+/** Order on the Projects page (client 10/11, second round). */
+export const indexOrder = ["shepherds-bush", "jewellery-studio", "city-bay", "family-house", "riverside-apartment", "sea-side"];
+
+/** Order of the projects on Home (client, 10/11). "Next project" keeps the order of `projects`. */
 export const homeOrder = ["shepherds-bush", "jewellery-studio", "city-bay", "riverside-apartment", "family-house", "sea-side"];
 
 export const services = [

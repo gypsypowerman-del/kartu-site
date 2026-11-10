@@ -6,6 +6,10 @@ import type { Project } from "@/content/types";
 // A text panel takes the space of a square image, so a portrait + panel row
 // lands at roughly one screen high on desktop.
 const PANEL_RATIO = 1;
+// Photos beside a Concept / Story panel are never narrower than 3:4 (client 10/11, Sea-side):
+// a very tall portrait otherwise shrinks to a sliver next to the panel. Narrower photos are
+// framed at 3:4 (centred); wider ones keep their own proportions.
+const PANEL_PHOTO_MIN = 3 / 4;
 
 function Panel({ p, kind, tone, h1 }: { p: Project; kind: PanelKind; tone: PanelTone; h1?: boolean }) {
   return (
@@ -53,11 +57,12 @@ function Panel({ p, kind, tone, h1 }: { p: Project; kind: PanelKind; tone: Panel
   );
 }
 
-function Img({ src, alt, share, priority }: { src: string; alt: string; share: number; priority?: boolean }) {
+function Img({ src, alt, share, priority, minRatio }: { src: string; alt: string; share: number; priority?: boolean; minRatio?: number }) {
+  const framed = minRatio && photoRatio(src) < minRatio ? minRatio : undefined;
   return (
-    <figure className="imm-figure" style={{ flex: `${photoRatio(src)} 1 0` }}>
+    <figure className="imm-figure" style={{ flex: `${framed ?? photoRatio(src)} 1 0` }}>
       <RevealImage>
-        <Photo src={src} alt={alt} priority={priority} sizes={`(min-width: 761px) ${Math.max(25, Math.round(share * 100))}vw, 100vw`} />
+        <Photo src={src} alt={alt} priority={priority} ratio={framed ? String(framed) : undefined} sizes={`(min-width: 761px) ${Math.max(25, Math.round(share * 100))}vw, 100vw`} />
       </RevealImage>
     </figure>
   );
@@ -94,8 +99,10 @@ export default function ImmersiveProject({ p, rows }: { p: Project; rows: Immers
             </div>
           );
         }
-        const share = photoRatio(row.image) / (photoRatio(row.image) + PANEL_RATIO);
-        const image = <Img src={row.image} alt={alt()} share={share} priority={row.kind === "intro"} />;
+        const minRatio = row.kind === "text" ? PANEL_PHOTO_MIN : undefined;
+        const r = Math.max(photoRatio(row.image), minRatio ?? 0);
+        const share = r / (r + PANEL_RATIO);
+        const image = <Img src={row.image} alt={alt()} share={share} priority={row.kind === "intro"} minRatio={minRatio} />;
         const panel =
           row.kind === "intro" ? <Panel p={p} kind="intro" tone="khaki" h1 /> : <Panel p={p} kind={row.panel} tone={row.tone} />;
         const textFirst = row.kind === "text" && row.side === "left";
