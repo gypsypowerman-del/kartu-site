@@ -110,6 +110,7 @@ function messagingSection(): { title: string; body: string[] }[] {
 
 function bookingProvider(url: string) {
   const host = new URL(url).hostname;
+  if (host.includes("bookings.cloud.microsoft") || host.includes("outlook.office")) return "Microsoft Bookings";
   if (host.includes("calendly")) return "Calendly";
   if (host.includes("cal.com")) return "Cal.com";
   return host.replace(/^www\./, "");

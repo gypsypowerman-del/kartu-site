@@ -3,7 +3,7 @@
 export const PHOTOS_READY = true;
 export const LOGO_READY = true;
 // Open client items — flip / fill when supplied.
-export const INSTAGRAM_URL = ""; // e.g. "https://www.instagram.com/<handle>/"
+export const INSTAGRAM_URL = "https://www.instagram.com/kartuinteriors/"; // client, 10/11 (tracking parameters removed)
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const asset = (p: string) => base + p;

@@ -12,7 +12,10 @@ export type Project = {
   size: string;
   scope: string;
   thumb: string;   // Home card, 3/4
-  index: string;   // Projects index card, 4/3
+  index: string;   // project page intro image (client's main image)
+  /** Projects page (client 10/11): one landscape + one portrait (or three portraits) from the project.
+   *  Listed in any order — the page arranges them landscape→portrait / portrait→landscape, alternating per row. */
+  indexImages: string[];
   hero: string;
   /** CSS object-position for the hero crop (measured from the client's mock-ups) */
   heroPosition?: string;

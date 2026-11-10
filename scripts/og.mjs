@@ -15,7 +15,7 @@ const pages = {
   services: "services-01",
   contact: "services-03",
   "shepherds-bush": "shepherds-bush-02", // 9173 копия — the client's main image for this project
-  beregovoy: "beregovoy-19",
+  "riverside-apartment": "beregovoy-19",
   "jewellery-studio": "jewellery-studio-01",
   "city-bay": "city-bay-13",
   "family-house": "family-house-13",

@@ -11,6 +11,10 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/shepherds-bush-09.jpg",
     "index": "/images/photos/shepherds-bush-02.jpg",
+    "indexImages": [
+      "/images/photos/shepherds-bush-01.jpg",
+      "/images/photos/shepherds-bush-09.jpg"
+    ],
     "hero": "/images/photos/shepherds-bush-01.jpg",
     "conceptName": "Home of Hidden Charms",
     "concept": "A home full of discovery.",
@@ -97,14 +101,19 @@ export const projects: Project[] = [
     ]
   },
   {
-    "slug": "beregovoy",
-    "title": "Beregovoy Residential Complex",
+    "slug": "riverside-apartment",
+    "title": "Riverside Apartment",
     "location": "Moscow, Russia",
     "year": "2026",
     "size": "83 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/beregovoy-16.jpg",
     "index": "/images/photos/beregovoy-09.jpg",
+    "indexImages": [
+      "/images/photos/beregovoy-02.jpg",
+      "/images/photos/beregovoy-08.jpg",
+      "/images/photos/beregovoy-16.jpg"
+    ],
     "hero": "/images/photos/beregovoy-03.jpg",
     "conceptName": "The Eye Has to Travel",
     "concept": "A canvas for the eye to explore.",
@@ -185,6 +194,10 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/jewellery-studio-04.jpg",
     "index": "/images/photos/jewellery-studio-09.jpg",
+    "indexImages": [
+      "/images/photos/jewellery-studio-01.jpg",
+      "/images/photos/jewellery-studio-04.jpg"
+    ],
     "hero": "/images/photos/jewellery-studio-01.jpg",
     "conceptName": "Delicate Beauty",
     "concept": "Raw materials, quietly elegant.",
@@ -243,6 +256,10 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/city-bay-13.jpg",
     "index": "/images/photos/city-bay-14.jpg",
+    "indexImages": [
+      "/images/photos/city-bay-13.jpg",
+      "/images/photos/city-bay-14.jpg"
+    ],
     "hero": "/images/photos/city-bay-13.jpg",
     "conceptName": "Scandi Moonlight",
     "concept": "Character within calm.",
@@ -320,6 +337,10 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/family-house-14.jpg",
     "index": "/images/photos/family-house-12.jpg",
+    "indexImages": [
+      "/images/photos/family-house-13.jpg",
+      "/images/photos/family-house-12.jpg"
+    ],
     "hero": "/images/photos/family-house-13.jpg",
     "conceptName": "Elegant Sanctuary",
     "concept": "Warm, inviting, effortlessly refined.",
@@ -341,9 +362,7 @@ export const projects: Project[] = [
       "/images/photos/family-house-05.jpg",
       "/images/photos/family-house-07.jpg",
       "/images/photos/family-house-08.jpg",
-      "/images/photos/family-house-09.jpg",
-      "/images/photos/family-house-10.jpg",
-      "/images/photos/family-house-11.jpg"
+      "/images/photos/family-house-09.jpg"
     ],
     "layout": [
       [
@@ -403,6 +422,10 @@ export const projects: Project[] = [
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/sea-side-01.jpg",
     "index": "/images/photos/sea-side-04.jpg",
+    "indexImages": [
+      "/images/photos/sea-side-06.jpg",
+      "/images/photos/sea-side-05.jpg"
+    ],
     "hero": "/images/photos/sea-side-01.jpg",
     "conceptName": "Designed by Nature",
     "concept": "Nature woven into every layer.",
@@ -437,6 +460,9 @@ export const projects: Project[] = [
     ]
   }
 ];
+
+/** Order of the projects on Home (client, 10/11). The Projects page and "Next project" keep the order of `projects`. */
+export const homeOrder = ["shepherds-bush", "jewellery-studio", "city-bay", "riverside-apartment", "family-house", "sea-side"];
 
 export const services = [
   "Full-Service Interior Design",
@@ -516,13 +542,13 @@ export const studioEmail = "hello@kartuinteriors.com";
 // ---------- Contact: three ways to begin (approved by the client 07/10) ----------
 // Fill these when the studio has them; anything empty is simply not shown.
 export const contactChannels: {
-  /** Calendly / Cal.com event link for the 20-minute introductory call, e.g. "https://cal.com/kartu/intro" */
+  /** Public booking page for the 20-minute introductory call (Microsoft Bookings since 10/11; Calendly / Cal.com also supported) */
   booking: string;
   /** WhatsApp Business number in international format without "+" or spaces, e.g. "447700900123" */
   whatsapp: string;
   /** Telegram username without "@", e.g. "kartu_studio" */
   telegram: string;
-} = { booking: "", whatsapp: "447768392053", telegram: "annaprycheva" }; // WhatsApp: +44 (0) 7768 392053 (client, 07/10); Telegram: @annaprycheva (client, 11/10)
+} = { booking: "https://bookings.cloud.microsoft/book/KART@kartuinteriors.com/", whatsapp: "447768392053", telegram: "annaprycheva" }; // WhatsApp: +44 (0) 7768 392053 (client, 07/10); Telegram: @annaprycheva (client, 11/10)
 
 export const conversation = {
   call: {

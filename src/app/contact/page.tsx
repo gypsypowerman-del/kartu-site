@@ -7,7 +7,9 @@ import { contactChannels as CH, conversation as C, studioEmail as EMAIL } from "
 
 export const metadata: Metadata = pageMeta({ path: "/contact/", og: "contact", title: "Contact", description: "Start a conversation with KARTÚ — interior design studio based in London, working across the UK and internationally." });
 
-// Until the booking tool is connected, "Book an introductory call" opens an email with the same three questions.
+// The 20-minute call is booked on the studio's own booking page (Microsoft Bookings, client 10/11), opened in a new tab:
+// no third-party calendar or its cookies load on our page (no cookie banner at launch). Without a booking link,
+// "Request a call" opens an email with the same three questions.
 const callRequest =
   `mailto:${EMAIL}?subject=${encodeURIComponent("Introductory call")}&body=` +
   encodeURIComponent(
@@ -21,7 +23,6 @@ export default function ContactPage() {
   const whatsapp = CH.whatsapp ? `https://wa.me/${CH.whatsapp}?text=${encodeURIComponent(C.message.first)}` : "";
   const telegram = CH.telegram ? `https://t.me/${CH.telegram}` : "";
   const hasMessengers = Boolean(whatsapp || telegram);
-  const embed = CH.booking ? bookingEmbed(CH.booking) : "";
   return (
     <>
       <Nav current="contact" />
@@ -45,9 +46,15 @@ export default function ContactPage() {
               <h2 className="conv-way__title">{C.call.title}</h2>
               <p className="conv-way__meta">{C.call.meta}</p>
               <p className="conv-way__text">{C.call.text}</p>
-              <a className="text-link conv-way__action" href={embed ? "#book" : callRequest}>
-                {embed ? "Choose a time" : "Request a call"}
-              </a>
+              {CH.booking ? (
+                <a className="text-link conv-way__action" href={CH.booking} target="_blank" rel="noopener noreferrer">
+                  Choose a time
+                </a>
+              ) : (
+                <a className="text-link conv-way__action" href={callRequest}>
+                  Request a call
+                </a>
+              )}
             </FadeUp>
             {hasMessengers && (
               <FadeUp className="conv-way">
@@ -87,35 +94,9 @@ export default function ContactPage() {
             </section>
           </div>
 
-          {embed && (
-            <section id="book" className="conv-book" aria-labelledby="book-title">
-              <div className="conv-book__intro">
-                <h2 id="book-title" className="conv-book__title">{C.call.title}</h2>
-                <p className="conv-book__meta">{C.call.meta}</p>
-                <p className="conv-book__text">{C.call.text}</p>
-              </div>
-              <iframe className="conv-book__embed" src={embed} title="Book an introductory call with KARTÚ" loading="lazy" />
-            </section>
-          )}
         </Wrap>
       </main>
       <Footer />
     </>
   );
-}
-
-/** Inline embed URL for Calendly or Cal.com, themed in KARTÚ colours (white, ink, black accent). */
-function bookingEmbed(url: string) {
-  const u = new URL(url);
-  if (u.hostname.includes("calendly.com")) {
-    u.searchParams.set("hide_gdpr_banner", "1");
-    u.searchParams.set("background_color", "ffffff");
-    u.searchParams.set("text_color", "2a2a2a");
-    u.searchParams.set("primary_color", "000000");
-  } else {
-    u.searchParams.set("embed", "true");
-    u.searchParams.set("theme", "light");
-    u.searchParams.set("layout", "month_view");
-  }
-  return u.toString();
 }

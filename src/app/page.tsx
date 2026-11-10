@@ -5,7 +5,7 @@ import IntroScreen from "@/sections/home/IntroScreen";
 import HomeHero from "@/sections/home/HomeHero";
 import HomeProjects from "@/sections/home/HomeProjects";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
-import { projects, services } from "@/content/site";
+import { homeOrder, projects, services } from "@/content/site";
 import { pageImages } from "@/content/page-images";
 
 export const metadata: Metadata = pageMeta({ path: "/", og: "home" });
@@ -20,7 +20,11 @@ export default function HomePage() {
       <main id="main">
         <HomeHero />
         {/* Client 11/10: the rail carries every project, not a selection of three */}
-        <HomeProjects projects={projects.map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))} />
+        <HomeProjects
+          projects={homeOrder
+            .map((slug) => projects.find((p) => p.slug === slug)!)
+            .map(({ slug, title, concept, thumb }) => ({ slug, title, concept, thumb }))}
+        />
 
         <section className="home-studio" aria-labelledby="home-studio-title">
           {/* Client 11/10: the section is titled by its own name, like Projects and Services.
