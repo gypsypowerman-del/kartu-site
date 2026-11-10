@@ -4,7 +4,10 @@ London interior design studio, two founders. Brand idea: "duality and dialogue";
 Source of truth for design: the approved **KARTÚ Design System** (claude.ai artifact). Do not invent new visual language.
 
 ## Stack
-- Next.js (App Router) + TypeScript, static-first. Deploy: Vercel.
+- Next.js (App Router) + TypeScript, static-first (`output: "export"` → `out/`).
+- **Live: https://kartuinteriors.com on Cloudflare Pages** (since 10/11/2026). Project `kartu-site` in the account "Jurgita.macnaughton@hotmail.co.uk's Account" (the project lead is a member). Every push to `main` builds and deploys automatically: build `npm run build`, output `out`, env `SITE_URL=https://kartuinteriors.com`, `NODE_VERSION=22`. Fallback URL: kartu-site.pages.dev. The Cloudflare GitHub app has access to this one repo only.
+- DNS (same Cloudflare zone): `@` and `www` CNAME → kartu-site.pages.dev (proxied). Redirect rule "www → kartuinteriors.com": `*://www.kartuinteriors.com/*` → `https://kartuinteriors.com/${2}`, 301, query string kept. **Never touch the Microsoft 365 mail records** (MX, SPF TXT, autodiscover CNAME, MS= verification TXT).
+- GitHub Pages workflow still builds a noindex review preview at gypsypowerman-del.github.io/kartu-site.
 - Content: `src/content/site.ts` (final client copy — never rewrite it). CMS (Sanity or Payload) comes later; keep content access behind `src/content/*` so swapping is local.
 - Styles: tokens in `src/styles/tokens.css`. Components use CSS Modules or token-based inline styles. **No hard-coded colours, fonts or font sizes** — always a `var(--…)` token.
 
@@ -47,7 +50,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 ## Workflow
 - Build one section at a time; check at 1440px and 390px (Playwright screenshots) before moving on.
 - Never commit secrets. Contact form posts to `NEXT_PUBLIC_FORM_ENDPOINT` (GitHub Actions variable `FORM_ENDPOINT`, e.g. Formspree). Without it the form opens a prefilled mailto. **Never show a success state without a real 2xx response.**
-- **Production build needs `SITE_URL`** (the real domain): canonical, og:url/og:image, robots.txt and sitemap.xml are built from it, and the build fails without it. Preview builds set `NEXT_PUBLIC_PREVIEW=1` (noindex + robots disallow). On Vercel set `SITE_URL` and `NEXT_PUBLIC_FORM_ENDPOINT`; never `BASE_PATH`/`NEXT_PUBLIC_PREVIEW`. Local QA: `NEXT_PUBLIC_PREVIEW=1 npm run build`.
+- **Production build needs `SITE_URL`** (the real domain): canonical, og:url/og:image, robots.txt and sitemap.xml are built from it, and the build fails without it. Preview builds set `NEXT_PUBLIC_PREVIEW=1` (noindex + robots disallow). On Cloudflare Pages set `SITE_URL` (done) and `NEXT_PUBLIC_FORM_ENDPOINT` (Formspree, pending); never `BASE_PATH`/`NEXT_PUBLIC_PREVIEW`. Local QA: `NEXT_PUBLIC_PREVIEW=1 npm run build`.
 - Fonts: Latin subsets in `public/fonts/` (`npm run fonts`, originals in `fonts-src/`), declared in `layout.tsx` with the base path; Futura PT 300 + Agatho are preloaded. Studio email lives in `studioEmail` (site.ts).
 - Header and hero copy align with the page grid (`.wrap`) at every width; rules and photos stay full-bleed.
 - Share previews: `node scripts/og.mjs` regenerates `public/og/*.jpg` (1200×630) and the favicon. Set `SITE_URL` to the real domain at launch (canonical/og:url).
@@ -93,7 +96,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Booking: Microsoft Bookings since 10/11 (`contactChannels.booking`) — opens in a new tab, no iframe, so no third-party cookies on our pages; the Privacy Policy names it automatically. (WhatsApp +44 7768 392053 set 07/10; Telegram @annaprycheva set 11/10 — it renders in card 02 "Message us" beside WhatsApp, and the Privacy Policy messengers line picks it up automatically.)
 - Not yet approved from the 07/10 proposal (branch `proposal/start-a-conversation`): "What happens next" + reply time, prompts at the end of projects / Services / Studio, two links in the contact band.
 - Hero video: spec delivered; set `heroVideo` in `src/content/page-images.ts` when the files arrive.
-- Form provider + reply-time line on Contact (new copy, needs approval).
+- Form provider: Formspree chosen 10/11 — the project lead creates the account on hello@kartuinteriors.com and sends the form URL → add `NEXT_PUBLIC_FORM_ENDPOINT` in Cloudflare Pages (Settings → Variables) and redeploy. Reply-time line on Contact still needs copy approval.
 - Home service names differ from the 5 stage names on Services (client copy — flag, don't rename).
 - Hero image crop and scrim strength on Home.
 - Font web licence + WOFF2 sign-off.
