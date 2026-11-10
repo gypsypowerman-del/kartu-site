@@ -13,7 +13,7 @@ export const projects: Project[] = [
     "index": "/images/photos/shepherds-bush-02.jpg",
     "indexImages": [
       "/images/photos/shepherds-bush-01.jpg",
-      "/images/photos/shepherds-bush-09.jpg"
+      "/images/photos/shepherds-bush-06.jpg"
     ],
     "hero": "/images/photos/shepherds-bush-01.jpg",
     "conceptName": "Home of Hidden Charms",
@@ -107,14 +107,15 @@ export const projects: Project[] = [
     "year": "2026",
     "size": "83 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
-    "thumb": "/images/photos/beregovoy-16.jpg",
+    "thumb": "/images/photos/beregovoy-08.jpg",
     "index": "/images/photos/beregovoy-09.jpg",
     "indexImages": [
-      "/images/photos/beregovoy-02.jpg",
-      "/images/photos/beregovoy-08.jpg",
-      "/images/photos/beregovoy-16.jpg"
+      "/images/photos/beregovoy-01.jpg",
+      "/images/photos/beregovoy-04.jpg",
+      "/images/photos/beregovoy-06.jpg"
     ],
     "hero": "/images/photos/beregovoy-03.jpg",
+    "storyImage": "/images/photos/beregovoy-08.jpg",
     "conceptName": "The Eye Has to Travel",
     "concept": "A canvas for the eye to explore.",
     "conceptText": "Inspired by Diana Vreeland’s words, “The eye has to travel,” we imagined the home as a canvas for the eye to explore. Light walls become a quiet backdrop, with points along the journey formed by objects, textures, fabrics, patterns, scents and details. The eye follows the lines, while the hand discovers the textures. Italy meets France, with British influences woven in and Moscow adding its own rhythm.",
@@ -258,7 +259,7 @@ export const projects: Project[] = [
     "index": "/images/photos/city-bay-14.jpg",
     "indexImages": [
       "/images/photos/city-bay-13.jpg",
-      "/images/photos/city-bay-14.jpg"
+      "/images/photos/city-bay-17.jpg"
     ],
     "hero": "/images/photos/city-bay-13.jpg",
     "conceptName": "Scandi Moonlight",
@@ -335,11 +336,11 @@ export const projects: Project[] = [
     "year": "2025",
     "size": "120 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
-    "thumb": "/images/photos/family-house-14.jpg",
+    "thumb": "/images/photos/family-house-12.jpg",
     "index": "/images/photos/family-house-12.jpg",
     "indexImages": [
-      "/images/photos/family-house-13.jpg",
-      "/images/photos/family-house-12.jpg"
+      "/images/photos/family-house-17.jpg",
+      "/images/photos/family-house-18.jpg"
     ],
     "hero": "/images/photos/family-house-13.jpg",
     "conceptName": "Elegant Sanctuary",
@@ -421,10 +422,10 @@ export const projects: Project[] = [
     "size": "60 sqm",
     "scope": "Full-Service Interior Design — Concept Development, Spatial Planning, Design Development & Documentation, Procurement & Implementation Support",
     "thumb": "/images/photos/sea-side-01.jpg",
-    "index": "/images/photos/sea-side-04.jpg",
+    "index": "/images/photos/sea-side-02.jpg",
     "indexImages": [
-      "/images/photos/sea-side-06.jpg",
-      "/images/photos/sea-side-05.jpg"
+      "/images/photos/sea-side-08.jpg",
+      "/images/photos/sea-side-02.jpg"
     ],
     "hero": "/images/photos/sea-side-01.jpg",
     "conceptName": "Designed by Nature",
@@ -437,7 +438,8 @@ export const projects: Project[] = [
       "/images/photos/sea-side-04.jpg",
       "/images/photos/sea-side-05.jpg",
       "/images/photos/sea-side-06.jpg",
-      "/images/photos/sea-side-07.jpg"
+      "/images/photos/sea-side-07.jpg",
+      "/images/photos/sea-side-08.jpg"
     ],
     "layout": [
       [

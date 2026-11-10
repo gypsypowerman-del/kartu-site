@@ -6,6 +6,7 @@ import photoMeta from "./photo-meta.json";
 import type { Project } from "./types";
 
 const sb = (n: number) => `/images/photos/shepherds-bush-${String(n).padStart(2, "0")}.jpg`;
+const ss = (n: number) => `/images/photos/sea-side-${String(n).padStart(2, "0")}.jpg`;
 
 export type PanelKind = "intro" | "concept" | "story";
 export type PanelTone = "khaki" | "black" | "sky";
@@ -38,6 +39,20 @@ export const immersive: Record<string, ImmersiveRow[]> = {
     { kind: "row", images: [sb(20), sb(21)] },
     { kind: "row", images: [sb(22), sb(23), sb(24)] },
   ],
+  // client 10/11 — her sequence, by original file name:
+  // 558397436…_n beside the project intro → landscape 3.jpg → sofa portrait beside Concept → landscape 2.jpg →
+  // (the two photos she didn't place) → Project Story unchanged → landscape at the end.
+  // Her list asked for "landscape 2" twice (steps 4 and 6); the only landscape left is 1.jpg (dining/kitchen),
+  // so it closes the page — confirm with the client.
+  "sea-side": [
+    { kind: "intro", image: ss(2) }, // 558397436…_n
+    { kind: "full", image: ss(8) }, // 3.jpg
+    { kind: "text", image: ss(5), panel: "concept", tone: "black", side: "left" }, // sofa portrait
+    { kind: "full", image: ss(1) }, // 2.jpg
+    { kind: "row", images: [ss(4), ss(3)] }, // 559380628…_n, 558931645…_n — not in her list, kept
+    { kind: "text", image: ss(7), panel: "story", tone: "sky", side: "right" }, // as before
+    { kind: "full", image: ss(6) }, // 1.jpg (see note above)
+  ],
 };
 
 const META = photoMeta as Record<string, { w: number; h: number }>;
@@ -66,8 +81,10 @@ export function buildImmersive(p: Project): ImmersiveRow[] {
   };
   const conceptImg = take(0);
   if (conceptImg) rows.push({ kind: "text", image: conceptImg, panel: "concept", tone: "black", side: "left" });
+  // a client-chosen story photo is shown there only (never twice on the page)
+  const chosen = p.storyImage && seq.includes(p.storyImage) ? seq.splice(seq.indexOf(p.storyImage), 1)[0] : null;
   const mid = Math.floor(seq.length / 2);
-  const storyImg = take(mid);
+  const storyImg = chosen ?? take(mid);
   const storyAt = storyImg ? Math.min(mid, seq.length) : -1; // story panel goes before this gallery position
 
   let three = false; // alternate pair / trio for runs of portraits

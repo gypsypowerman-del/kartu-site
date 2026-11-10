@@ -19,6 +19,8 @@ export type Project = {
   hero: string;
   /** CSS object-position for the hero crop (measured from the client's mock-ups) */
   heroPosition?: string;
+  /** Photo beside the Project Story panel (client choice). Default: a portrait from mid-gallery. */
+  storyImage?: string;
   conceptName: string;
   concept: string;
   conceptText: string;
