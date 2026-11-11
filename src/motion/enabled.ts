@@ -10,12 +10,25 @@ export const INTRO_CLASS = "has-intro";
 export const INTRO_KEY = "kartu-entered";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
+/** The intro counts as seen for 30 minutes after the visitor's last page view on the site.
+ *  (It used to be "once per browser session" via sessionStorage — but iPhone Safari keeps a tab's
+ *  session for days, so a phone that had entered once never saw the intro again. Lesson 11/11.)
+ *  Stored as a timestamp in localStorage, refreshed on every page view, so browsing never re-triggers it. */
+export const INTRO_TTL_MS = 30 * 60 * 1000;
+
 /** Runs in <head> before first paint:
  *  1. motion gate (see above);
- *  2. intro screen: shown when a visit starts on the home page (once per browser session).
- *     Arriving on any other page counts as having entered, so going "home" later never shows it.
+ *  2. intro screen: shown when a visit starts on the home page and the visitor has not been on the
+ *     site in the last 30 minutes. Arriving on any other page counts as having entered.
  *     Skipped for automated browsers, like motion, so tools capture the real page. */
-export const motionBootScript = `(function(){try{var d=document.documentElement,w=navigator.webdriver;if(!w&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){d.classList.add('${MOTION_CLASS}')}var p=location.pathname,b='${base}',home=p===b+'/'||p===b||p===b+'/index.html',seen=false;try{seen=sessionStorage.getItem('${INTRO_KEY}')==='1'}catch(e){}if(home&&!seen&&!w){d.classList.add('${INTRO_CLASS}');document.addEventListener('click',function(e){var t=e.target;if(!window.__kartuIntroReady&&t&&t.closest&&t.closest('.intro__enter')){d.classList.remove('${INTRO_CLASS}');try{sessionStorage.setItem('${INTRO_KEY}','1')}catch(x){}}},true)}else{try{sessionStorage.setItem('${INTRO_KEY}','1')}catch(e){}}}catch(e){}})();`;
+export const motionBootScript = `(function(){try{var d=document.documentElement,w=navigator.webdriver;if(!w&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){d.classList.add('${MOTION_CLASS}')}var p=location.pathname,b='${base}',home=p===b+'/'||p===b||p===b+'/index.html',k='${INTRO_KEY}',now=Date.now(),seen=false;function mark(){try{localStorage.setItem(k,String(Date.now()))}catch(e){}}try{var t=+localStorage.getItem(k);seen=t>0&&now-t<${INTRO_TTL_MS}}catch(e){}if(home&&!seen&&!w){d.classList.add('${INTRO_CLASS}');document.addEventListener('click',function(e){var t=e.target;if(!window.__kartuIntroReady&&t&&t.closest&&t.closest('.intro__enter')){d.classList.remove('${INTRO_CLASS}');mark()}},true)}else{mark()}}catch(e){}})();`;
+
+/** Records that the visitor has entered (or is still browsing). */
+export function markEntered() {
+  try {
+    localStorage.setItem(INTRO_KEY, String(Date.now()));
+  } catch {}
+}
 
 /** Scroll-driven image motion (blind reveals, parallax, pinned scene) runs on desktop only:
  *  wide screen + mouse/trackpad. Phones and tablets get static photos (client request 07/10);

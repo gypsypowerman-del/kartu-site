@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/content/assets";
-import { ENTER_EVENT, INTRO_CLASS, INTRO_KEY, introActive } from "@/motion/enabled";
+import { ENTER_EVENT, INTRO_CLASS, introActive, markEntered } from "@/motion/enabled";
 
 const FADE_MS = 500; // --duration-base: a very short, quiet fade
 
@@ -26,9 +26,7 @@ export default function IntroScreen() {
   function enter() {
     if (leaving) return;
     setLeaving(true);
-    try {
-      sessionStorage.setItem(INTRO_KEY, "1");
-    } catch {}
+    markEntered();
     window.dispatchEvent(new Event(ENTER_EVENT));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // keyboard visitors continue from the top of the page (skip link), not from the hidden button

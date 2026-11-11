@@ -57,7 +57,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - When a correction is given, add the lesson to this file so it isn't repeated.
 
 ## Client debrief 06/10 — decisions now in the build
-- Intro screen before Home: taupe (#A3968E, the brand colour shown in the debrief), white logo centred, click to enter (short fade), no auto-redirect. Shown once per browser session when the visit starts on Home (`src/sections/home/IntroScreen.tsx`, gate in `motionBootScript`).
+- Intro screen before Home: taupe (#A3968E, the brand colour shown in the debrief), white logo centred, click to enter (short fade), no auto-redirect. Shown when a visit starts on Home and the visitor hasn't viewed any page in the last 30 minutes (`INTRO_TTL_MS`, timestamp in localStorage, refreshed on every page view; `src/sections/home/IntroScreen.tsx`, gate in `motionBootScript`). **Lesson 11/11:** it used to be once per browser session (sessionStorage), but iPhone Safari keeps a tab's session for days, so phones that had entered once never saw the intro again.
 - City/country is never displayed (cards, scene, project meta, next-project band, meta descriptions). `location` stays in data only.
 - Photos keep their original proportions wherever the client picked them (Home scene, Home studio split = 9385, Projects index). Don't crop to squares.
 - Underlined text links sit directly under their text, 30px gap (Home scene, Home studio, Home services, contact band).
