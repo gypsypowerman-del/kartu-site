@@ -63,7 +63,17 @@ export default function HomeHero() {
         {heroVideo ? (
           <HeroVideo ref={video} onState={setPaused} />
         ) : (
-          <Photo src={pageImages["home-hero"]} alt="KARTÚ interior, Shepherd's Bush Maisonette" priority sizes="(max-aspect-ratio: 16/9) 189vh, 100vw" position="center 38%" className="photo--fill" />
+          <Photo
+            src={pageImages["home-hero"]}
+            alt="KARTÚ interior, Shepherd's Bush Maisonette"
+            priority
+            sizes="(max-aspect-ratio: 16/9) 189vh, 100vw"
+            position="center 38%"
+            className="photo--fill"
+            // phones get a portrait crop of the same frame (11/11): ~90 KB instead of the 2400px landscape file.
+            // Cut at x = 62% × (2400 − 1012) so it lines up exactly with the phone object-position (62% 60%).
+            art={{ stem: "home-hero-m", widths: [640, 1012], media: "(max-width: 560px) and (max-aspect-ratio: 3/4)", sizes: "75vh" }}
+          />
         )}
       </div>
       <div className="hero__scrim" />

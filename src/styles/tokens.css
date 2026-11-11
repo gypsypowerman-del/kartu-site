@@ -31,13 +31,16 @@
   --border-input-focus:var(--kartu-black);
   --focus-ring:var(--kartu-terracotta);
   --button-hover:var(--kartu-terracotta);
-  --hero-scrim:linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.12) 38%,rgba(0,0,0,.62) 100%);
+  /* 11/11: stronger at the top (menu) and around the title line — measured ≥4.5:1 menu, ≥3:1 title at 320–1440px */
+  --hero-scrim:linear-gradient(180deg,rgba(0,0,0,.46) 0%,rgba(0,0,0,.16) 20%,rgba(0,0,0,.30) 45%,rgba(0,0,0,.66) 100%);
 
   /* Type */
   --font-display:"Agatho",Georgia,"Times New Roman",serif;
   --font-display-caps:"Agatho Caps",Georgia,serif;
   --font-sans:"Futura PT","Futura","Century Gothic",sans-serif;
   --weight-light:300; --weight-book:400; --weight-medium:500; --weight-demi:600;
+  /* running text (paragraphs, labels, footer): Light 300 on large screens, Book 400 on phones (11/11 — Light reads too thin at phone sizes) */
+  --weight-text:var(--weight-light);
 
   --text-hero:62px; --text-h1:54px; --text-h1-page:46px; --text-h1-compact:40px;
   --text-cta-band:44px; --text-h2:40px; --text-h3:34px; --text-h3-stage:26px;
@@ -57,16 +60,16 @@
   --type-h3-stage:var(--weight-light) var(--text-h3-stage)/var(--leading-display) var(--font-display);
   --type-subtitle:var(--weight-book) var(--text-subtitle)/1.3 var(--font-sans);
   --type-cta-band:var(--weight-light) var(--text-cta-band)/var(--leading-display) var(--font-display);
-  --type-lead:var(--weight-light) var(--text-lead)/var(--leading-body) var(--font-sans);
-  --type-body-lg:var(--weight-light) var(--text-body-lg)/var(--leading-body) var(--font-sans);
-  --type-body:var(--weight-light) var(--text-body)/var(--leading-body) var(--font-sans);
-  --type-row:var(--weight-light) var(--text-row)/var(--leading-body) var(--font-sans);
+  --type-lead:var(--weight-text) var(--text-lead)/var(--leading-body) var(--font-sans);
+  --type-body-lg:var(--weight-text) var(--text-body-lg)/var(--leading-body) var(--font-sans);
+  --type-body:var(--weight-text) var(--text-body)/var(--leading-body) var(--font-sans);
+  --type-row:var(--weight-text) var(--text-row)/var(--leading-body) var(--font-sans);
   --type-card-title:var(--weight-book) var(--text-card-title)/var(--leading-body) var(--font-sans);
-  --type-footer:var(--weight-light) var(--text-footer)/var(--leading-body) var(--font-sans);
+  --type-footer:var(--weight-text) var(--text-footer)/var(--leading-body) var(--font-sans);
   --type-cta:var(--weight-book) var(--text-cta)/var(--leading-cta) var(--font-sans);
   --type-nav:var(--weight-book) var(--text-nav)/var(--leading-body) var(--font-sans);
-  --type-small:var(--weight-light) var(--text-small)/var(--leading-body) var(--font-sans);
-  --type-label:var(--weight-light) var(--text-label)/var(--leading-body) var(--font-sans);
+  --type-small:var(--weight-text) var(--text-small)/var(--leading-body) var(--font-sans);
+  --type-label:var(--weight-text) var(--text-label)/var(--leading-body) var(--font-sans);
 
   /* Spacing */
   --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px; --space-6:32px;
@@ -106,7 +109,11 @@
   :root{
     --page-gutter:24px; --section-padding:72px; --grid-gap:24px; --logo-width:104px; --footer-symbol:84px;
     --text-hero:38px; --text-h1:36px; --text-h1-page:32px; --text-h1-compact:32px; --text-h2:30px;
-    --text-h3:28px; --text-cta-band:30px; --text-lead:17px;
+    --text-h3:28px; --text-cta-band:30px; --text-lead:18px;
     --text-subtitle:24px;
+    /* phone reading sizes (11/11): body 17, labels and small print 14–15, menu and links 16 */
+    --weight-text:var(--weight-book);
+    --text-body:17px; --text-body-lg:17px; --text-row:17px; --text-footer:15px;
+    --text-small:15px; --text-label:14px; --text-cta:16px; --text-nav:16px;
   }
 }

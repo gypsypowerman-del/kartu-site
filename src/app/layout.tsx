@@ -30,7 +30,12 @@ const FONTS: [family: string, file: string, weight: number][] = [
   ["Futura PT", "futura-pt-500", 500],
   ["Futura PT", "futura-pt-600", 600],
 ];
-const PRELOAD = ["futura-pt-300", "agatho-light"];
+// Futura 400 is used everywhere (menu, links) and for running text on phones; 300 only for running text on larger screens (11/11).
+const PRELOAD: { f: string; media?: string }[] = [
+  { f: "futura-pt-400" },
+  { f: "futura-pt-300", media: "(min-width: 561px)" },
+  { f: "agatho-light" },
+];
 const fontFaces = FONTS.map(
   ([family, file, weight]) =>
     `@font-face{font-family:"${family}";src:url("${BASE}/fonts/${file}.woff2") format("woff2");font-weight:${weight};font-style:normal;font-display:swap}`,
@@ -57,8 +62,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         {/* Sets html.js-motion before first paint — see src/motion/enabled.ts */}
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
-        {PRELOAD.map((f) => (
-          <link key={f} rel="preload" href={`${BASE}/fonts/${f}.woff2`} as="font" type="font/woff2" crossOrigin="anonymous" />
+        {PRELOAD.map(({ f, media }) => (
+          <link key={f} rel="preload" href={`${BASE}/fonts/${f}.woff2`} as="font" type="font/woff2" crossOrigin="anonymous" media={media} />
         ))}
         <style dangerouslySetInnerHTML={{ __html: fontFaces }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organisation) }} />

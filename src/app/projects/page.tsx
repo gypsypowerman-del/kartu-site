@@ -44,7 +44,9 @@ export default function ProjectsPage() {
                   {/* the photographs repeat the title link for the pointer only; keyboard and screen readers use the title */}
                   <Link href={href} className="pi-row__images" tabIndex={-1} aria-hidden="true">
                     {images.map((src, k) => {
+                      // photos share 9 of 12 columns on desktop (~72vw) and the full width on phones (~88vw after gutters and seams)
                       const share = Math.round((photoRatio(src) / total) * 72);
+                      const shareM = Math.round((photoRatio(src) / total) * 88);
                       return (
                         <div
                           key={src}
@@ -52,7 +54,7 @@ export default function ProjectsPage() {
                           style={{ flex: `${photoRatio(src)} 1 0` }}
                         >
                           <RevealImage>
-                            <Photo src={src} alt="" sizes={`(min-width: 901px) ${share}vw, 92vw`} priority={i === 0 && k < 2} />
+                            <Photo src={src} alt="" sizes={`(min-width: 901px) ${share}vw, ${shareM}vw`} priority={i === 0 && k < 2} />
                           </RevealImage>
                         </div>
                       );

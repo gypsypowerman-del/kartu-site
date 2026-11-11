@@ -1,4 +1,4 @@
-import { pageMeta } from "@/content/seo";
+import { abs, pageMeta } from "@/content/seo";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
@@ -99,8 +99,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const next = projects[(i + 1) % projects.length];
   const alt = immersiveRows(p); // all projects use the immersive layout (decision 07/10)
 
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Projects", item: abs("/projects/") },
+      { "@type": "ListItem", position: 2, name: p.title, item: abs(`/projects/${p.slug}/`) },
+    ],
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <Nav current="projects" />
       <main id="main">
         {alt ? (

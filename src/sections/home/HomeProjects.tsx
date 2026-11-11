@@ -148,7 +148,7 @@ export default function HomeProjects({ projects }: { projects: Pick<Project, "sl
               className="projects-rail__card"
               onFocus={() => rail.current?.scrollTo({ left: i * step(), behavior: "smooth" })}
             >
-              <Photo src={p.thumb} alt="" ratio="3/4" priority={i < 2} sizes="(min-width:901px) 32vw, 78vw" />
+              <Photo src={p.thumb} alt="" ratio="3/4" sizes="(min-width:901px) 32vw, 78vw" />
               <span className="projects-rail__name">{p.title}</span>
               <span className="projects-rail__concept">{p.concept}</span>
             </Link>

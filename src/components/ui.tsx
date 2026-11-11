@@ -59,6 +59,7 @@ export function Photo({
   sizes = "100vw",
   className = "",
   position,
+  art,
 }: {
   src: string;
   alt: string;
@@ -67,6 +68,8 @@ export function Photo({
   sizes?: string;
   className?: string;
   position?: string;
+  /** Art direction: a pre-cropped file served instead when `media` matches (e.g. a portrait crop for phones). */
+  art?: { stem: string; widths: number[]; media: string; sizes: string };
 }) {
   const stemName = src.split("/").pop()!.replace(/\.\w+$/, "");
   const m = META[stemName];
@@ -85,6 +88,16 @@ export function Photo({
   const set = (ext: string) => widths.map((w) => `${stem}-${w}.${ext} ${w}w`).join(", ");
   return (
     <picture className={`photo ${className}`} style={style}>
+      {art &&
+        ["avif", "webp"].map((ext) => (
+          <source
+            key={ext}
+            media={art.media}
+            type={`image/${ext}`}
+            sizes={art.sizes}
+            srcSet={art.widths.map((w) => `${asset(`/images/photos/${art.stem}`)}-${w}.${ext} ${w}w`).join(", ")}
+          />
+        ))}
       <source type="image/avif" srcSet={set("avif")} sizes={sizes} />
       <source type="image/webp" srcSet={set("webp")} sizes={sizes} />
       {/* eslint-disable-next-line @next/next/no-img-element */}

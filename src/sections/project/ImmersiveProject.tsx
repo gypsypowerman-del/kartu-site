@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Photo, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import type { ImmersiveRow, PanelKind, PanelTone } from "@/content/immersive";
@@ -17,7 +18,10 @@ function Panel({ p, kind, tone, h1 }: { p: Project; kind: PanelKind; tone: Panel
       {kind === "intro" && (
         <>
           <div className="imm-panel__top">
-            <div className="imm-panel__label">Project</div>
+            {/* breadcrumb (11/11): the old "Project" label now links back to the index; the h1 below is the current page */}
+            <nav aria-label="Breadcrumb" className="imm-panel__label imm-crumbs">
+              <Link href="/projects/">Projects</Link>
+            </nav>
             <RevealLines as={h1 ? "h1" : "h2"} lines={[p.title]} className="imm-panel__title" immediate />
             <FadeUp>
               <p className="imm-panel__lead">{p.concept}</p>
@@ -43,13 +47,13 @@ function Panel({ p, kind, tone, h1 }: { p: Project; kind: PanelKind; tone: Panel
       )}
       {kind === "concept" && (
         <FadeUp className="imm-panel__text">
-          <div className="imm-panel__label">Concept — {p.conceptName}</div>
+          <h2 className="imm-panel__label">Concept — {p.conceptName}</h2>
           <p className="imm-panel__body">{p.conceptText}</p>
         </FadeUp>
       )}
       {kind === "story" && (
         <FadeUp className="imm-panel__text">
-          <div className="imm-panel__label">Project Story</div>
+          <h2 className="imm-panel__label">Project Story</h2>
           <p className="imm-panel__body">{p.story}</p>
         </FadeUp>
       )}
