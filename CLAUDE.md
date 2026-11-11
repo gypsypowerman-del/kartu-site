@@ -96,7 +96,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Projects page: all photos in a row at **equal height** (the 0.8 landscape scale is gone); order `indexOrder` in site.ts: SB, Jewellery, City Bay, Family House, Riverside, Sea-side (Home keeps `homeOrder`).
 - Photos beside Concept / Story panels are framed at least 3:4 (`PANEL_PHOTO_MIN` in ImmersiveProject) — a 1:2 portrait read as a sliver next to the panel. Wider photos keep their proportions. This is the one exception to "never cropped", asked for by the client.
 - Sea-side sequence: intro 02 · 08 (3.jpg) · Concept + 05 · 06 (1.jpg) · Story + 07 · row 04/07/09 · 01 (2.jpg); 03 removed. Her row "4, 5, kitchen" repeats 5.jpg = the Story photo — flagged.
-- Riverside sequence is written in immersive.ts as `riverside-apartment-pending` until Гостевая 20000 / 40000 (emailed) are added as beregovoy-21 / -22; then rename the key. Her list puts Гостевая 20000 both by the intro and in the guest row — flagged. Коридор 10000 (hall 10000 = 14) removed.
+- Riverside sequence live (11/11): Гостевая 20000 (sideboard + pictures) = beregovoy-21, Гостевая 40000 (sofa by the window) = beregovoy-22, both 2000×2500 renders from the client's email. Her list puts Гостевая 20000 both by the intro and in the guest row — flagged. Коридор 10000 (hall 10000 = 14) removed.
 - Riverside folder names (English now): Спальня = Spalna, Гардеробная мастер = garderob, Мастер СУ 10000 = Master 10000 (17), Мастер СУ 30000 = Master bath 30000 (18), Гостевая ванная = guest bathroom (10000 → 10, 40000 → 11), Коридор = hall (10000 → 14, 30000 → 15, 50000 → 16).
 
 ## Open client decisions (do not resolve silently)

@@ -57,8 +57,7 @@ export const immersive: Record<string, ImmersiveRow[]> = {
   // Спальня = Spalna, Гардеробная = garderob, Мастер СУ = Master / Master bath, Гостевая ванная = guest bathroom,
   // Коридор = hall. Гостевая 20000 / 40000 arrived by email → beregovoy-21 / -22.
   // NB her list puts Гостевая 20000 both beside the intro and in the guest-room row — flagged to the client.
-  // waiting for Гостевая 20000 / 40000 (beregovoy-21 / -22) — rename the key to "riverside-apartment" to switch it on
-  "riverside-apartment-pending": [
+  "riverside-apartment": [
     { kind: "intro", image: bg(21) }, // Гостевая 20000
     { kind: "text", image: bg(3), panel: "concept", tone: "black", side: "left" }, // unchanged
     { kind: "row", images: [bg(2), bg(1)] }, // unchanged
