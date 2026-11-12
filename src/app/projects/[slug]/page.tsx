@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Footer, Grid12, Nav, NextProject, Photo, ProjectMeta, Wrap, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
-import { projects } from "@/content/site";
+import { indexOrder, projects } from "@/content/site";
 import { immersiveRows } from "@/content/immersive";
 import type { PairVariant, Placement, Project } from "@/content/types";
 import ImmersiveProject from "@/sections/project/ImmersiveProject";
@@ -96,7 +96,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const i = projects.findIndex((p) => p.slug === slug);
   if (i < 0) notFound();
   const p = projects[i];
-  const next = projects[(i + 1) % projects.length];
+  // Next project follows the Projects page order (client 12/11), wrapping from the last to the first
+  const order = indexOrder.map((s) => projects.find((q) => q.slug === s)!).filter(Boolean);
+  const next = order[(order.findIndex((q) => q.slug === slug) + 1) % order.length];
   const alt = immersiveRows(p); // all projects use the immersive layout (decision 07/10)
 
   const crumbs = {

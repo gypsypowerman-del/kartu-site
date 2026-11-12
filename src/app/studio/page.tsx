@@ -57,7 +57,7 @@ export default function StudioPage() {
                 Both originally from Lithuania, we found the name for the studio in our native language. We create together as founders, and we create together with our clients. We see
                 every project as a dialogue rather than the expression of a single point of view.
               </p>
-              <p>That dialogue extends into the way we design. KARTÚ creates interiors through dialogue — bringing together emotion and structure, intuition and strategy, people and space.</p>
+              <p>That dialogue extends into the way we design. KARTÚ creates interiors, bringing together emotion and structure, intuition and strategy, people and space.</p>
             </FadeUp>
             <FadeUp className="studio-columns__b">
               <p>

@@ -263,8 +263,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   .gallery-row{margin-bottom:var(--grid-gap)}
 }
 
-.next-project{display:block;background:var(--surface-block);padding:96px 0;transition:opacity var(--duration-hover) var(--ease-default)}
-.next-project:hover{opacity:var(--hover-opacity-band)}
+.next-project{position:relative;display:block;background:var(--surface-block);padding:96px 0}
+.next-project__link::before{content:"";position:absolute;inset:0}
+.next-project__label,.next-project__title{transition:opacity var(--duration-hover) var(--ease-default)}
+.next-project:has(.next-project__link:hover) .next-project__label,.next-project:has(.next-project__link:hover) .next-project__title{opacity:var(--hover-opacity-band)}
+.next-project__contact{position:relative;z-index:1;margin-top:24px} /* + the title's 6px = the 30px link gap */
 .next-project__label{font:var(--type-label);color:var(--text-muted);margin-bottom:12px}
 .next-project__title{font:var(--type-h3);margin:0 0 6px}
 
@@ -387,7 +390,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 /* shown only when html.has-intro is set before first paint (see src/motion/enabled.ts) */
 .intro{display:none}
 html.has-intro,html.has-intro body{overflow:hidden}
-html.has-intro .intro{display:flex;position:fixed;inset:0;z-index:200;align-items:center;justify-content:center;background:var(--kartu-taupe);opacity:1;transition:opacity var(--duration-base) var(--ease-in-out)}
+html.has-intro .intro{display:flex;position:fixed;inset:0;z-index:200;cursor:pointer;align-items:center;justify-content:center;background:var(--kartu-taupe);opacity:1;transition:opacity var(--duration-base) var(--ease-in-out)}
 html.has-intro .intro--leaving{opacity:0;pointer-events:none}
 .intro__enter{display:block;background:none;border:0;padding:24px;margin:0;cursor:pointer;line-height:0;transition:opacity var(--duration-hover) var(--ease-default)}
 .intro__enter img{width:clamp(150px,15vw,232px);height:auto}

@@ -234,11 +234,21 @@ export function ProjectMeta({ items, className = "" }: { items: { label: string;
 
 export function NextProject({ slug, title }: { slug: string; title: string }) {
   return (
-    <Link href={`/projects/${slug}/`} className="next-project">
+    // client 12/11: a "Get in touch" link under the next project's name, styled like the contact band's.
+    // Two links can't nest, so the band is a section: the title link stretches over the band
+    // (whole band stays clickable), and the contact link sits above it.
+    <section className="next-project">
       <Wrap>
         <div className="next-project__label">Next project</div>
-        <h2 className="next-project__title">{title}</h2>
+        <h2 className="next-project__title">
+          <Link href={`/projects/${slug}/`} className="next-project__link">
+            {title}
+          </Link>
+        </h2>
+        <div className="next-project__contact">
+          <TextLink href="/contact/">Get in touch</TextLink>
+        </div>
       </Wrap>
-    </Link>
+    </section>
   );
 }

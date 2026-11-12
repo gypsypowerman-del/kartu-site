@@ -47,7 +47,7 @@ export function RevealLines({
         ease: EASE,
         stagger: 0.09,
         delay,
-        scrollTrigger: immediate ? undefined : { trigger: el, start: "top 85%", once: true },
+        scrollTrigger: immediate ? undefined : { trigger: el, start: "top 85%", toggleActions: "play none none none" },
       });
     });
     return () => mm.revert();
@@ -79,7 +79,7 @@ export function FadeUp({ children, className, style, delay = 0 }: { children: Re
         duration: 1,
         ease: EASE,
         delay,
-        scrollTrigger: { trigger: el, start: "top 90%", once: true },
+        scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" },
       });
     });
     return () => mm.revert();
@@ -106,7 +106,7 @@ export function RevealImage({ children, className, style }: { children: ReactNod
       if (!motionEnabled()) return;
       const tl = gsap.timeline({
         defaults: { duration: 1.3, ease: "power4.inOut" },
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
         onComplete: () => gsap.set([inner, media].filter(Boolean), { clearProps: "transform" }),
       });
       tl.from(inner, { yPercent: 100 }, 0);

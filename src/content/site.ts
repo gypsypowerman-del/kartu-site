@@ -544,6 +544,10 @@ export const founders: { name: string; bio: string; photo: string | null }[] = [
 /** The studio's public email — used by the footer, Contact and the form fallback. */
 export const studioEmail = "hello@kartuinteriors.com";
 
+/** Contact-form service (Formspree, set up by the studio 12/11). Public by design — it is the form's action URL,
+ *  not a secret. NEXT_PUBLIC_FORM_ENDPOINT, if set at build time, overrides it. */
+export const formEndpoint = "https://formspree.io/f/mljbeven";
+
 // ---------- Contact: three ways to begin (approved by the client 07/10) ----------
 // Fill these when the studio has them; anything empty is simply not shown.
 export const contactChannels: {

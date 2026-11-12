@@ -113,3 +113,13 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Gallery alt texts are generic ("<Project> — view N"); short descriptions per photo would help accessibility/SEO (content task).
 - Motion layer vs client brief §8.3 (see Motion above).
 - Home hero: approved crop of 9153 (door jamb removed); hero video deferred, markup should stay video-ready.
+
+## Client revisions 12/11 (reply to the audit email)
+- **Lesson — "Application error" on Next project (intermittent since early versions):** GSAP 3.15 crashes inside `ScrollTrigger.refresh` (`Cannot read properties of undefined (reading 'end')`) when triggers with `once: true` kill themselves while a new page is creating its triggers (client-side navigation from the bottom of a long page). Reproduced 1/1 on desktop SB → next. **Never use `once: true`**; reveals use `toggleActions: "play none none none"` (same look, trigger stays alive until unmount). QA script: scroll to bottom, click Next project 7× in a row, watch `pageerror`.
+- Next project follows `indexOrder` (Projects page order), last wraps to first.
+- Next project band: "Get in touch" `TextLink` → /contact/ under the title (title link stretches over the band; links never nest).
+- Intro: fades by itself after `INTRO_MS` (1.75s from page load); a click anywhere skips it. Boot script removes it too if React is late.
+- Sea-side: kitchen render (09) beside Project Story; row below = 04/07 (5.jpg now shows once).
+- Studio: "KARTÚ creates interiors, bringing together…" ("through dialogue" removed at the client's request).
+- Form: `formEndpoint` in site.ts = Formspree (studio account); `NEXT_PUBLIC_FORM_ENDPOINT` still overrides.
+- Privacy address: client wants it removed unless required. E-Commerce Regs 2002 reg 6 asks for a geographic address on a business website (not necessarily home; a business/virtual office address works) → kept for now, options sent to the project lead.

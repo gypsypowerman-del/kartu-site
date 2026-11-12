@@ -43,14 +43,14 @@ export const immersive: Record<string, ImmersiveRow[]> = {
   // Sea-side, client 10/11 (second round) — by original file name:
   // 558397436…_n beside the intro · 3.jpg · Concept + sofa portrait (framed 3:4) · 1.jpg · Project Story as before ·
   // row 4.jpg / 5.jpg / "Warm Rustic Green Kitchen Interior" · 2.jpg last. 558931645…_n (03) removed.
-  // NB 5.jpg IS the Project Story photo (07), so her row shows it a second time — flagged to the client.
+  // 12/11: 5.jpg showed twice (Story + row) — the client moved the kitchen render beside the Story instead.
   "sea-side": [
     { kind: "intro", image: ss(2) }, // 558397436…_n
     { kind: "full", image: ss(8) }, // 3.jpg
     { kind: "text", image: ss(5), panel: "concept", tone: "black", side: "left" }, // sofa portrait
     { kind: "full", image: ss(6) }, // 1.jpg
-    { kind: "text", image: ss(7), panel: "story", tone: "sky", side: "right" }, // 5.jpg, unchanged
-    { kind: "row", images: [ss(4), ss(7), ss(9)] }, // 4.jpg, 5.jpg, kitchen render
+    { kind: "text", image: ss(9), panel: "story", tone: "sky", side: "right" }, // kitchen render (client 12/11: moved up from the row, so 5.jpg shows once)
+    { kind: "row", images: [ss(4), ss(7)] }, // 4.jpg, 5.jpg
     { kind: "full", image: ss(1) }, // 2.jpg
   ],
   // Riverside, client 10/11 (second round). Folder names are now English: Гостевая = living,

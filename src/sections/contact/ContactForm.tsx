@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { studioEmail as EMAIL } from "@/content/site";
-/** Form service URL (e.g. Formspree/Basin), set at build time. Until it is set,
- *  the form hands the message to the visitor's email app — it never fakes a "sent". */
-const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+import { formEndpoint, studioEmail as EMAIL } from "@/content/site";
+/** Form service URL (Formspree, `formEndpoint` in site.ts; the build-time variable overrides it).
+ *  Without one the form hands the message to the visitor's email app — it never fakes a "sent". */
+const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || formEndpoint;
 
 type State = "idle" | "sending" | "sent" | "mailto" | "error";
 
