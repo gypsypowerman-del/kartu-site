@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { altFor } from "@/content/alt-text";
 import { Photo, photoRatio } from "@/components/ui";
 import { FadeUp, RevealImage, RevealLines } from "@/motion/reveal";
 import type { ImmersiveRow, PanelKind, PanelTone } from "@/content/immersive";
@@ -74,14 +75,17 @@ function Img({ src, alt, share, priority, minRatio }: { src: string; alt: string
 
 export default function ImmersiveProject({ p, rows }: { p: Project; rows: ImmersiveRow[] }) {
   let n = 0;
-  const alt = () => `${p.title} — view ${++n}`;
+  const alt = (src: string) => {
+    n++;
+    return altFor(src) ?? `${p.title} — view ${n}`;
+  };
   return (
     <div className="imm">
       {rows.map((row, k) => {
         if (row.kind === "full") {
           return (
             <div key={k} className="imm-row imm-row--full">
-              <Img src={row.image} alt={alt()} share={1} />
+              <Img src={row.image} alt={alt(row.image)} share={1} />
             </div>
           );
         }
@@ -89,7 +93,7 @@ export default function ImmersiveProject({ p, rows }: { p: Project; rows: Immers
           // the client's crop of the hero (same band as the classic template)
           return (
             <div key={k} className="imm-row imm-row--banner project-hero">
-              <Photo src={row.image} alt={alt()} priority sizes="100vw" position={row.position} />
+              <Photo src={row.image} alt={alt(row.image)} priority sizes="100vw" position={row.position} />
             </div>
           );
         }
@@ -98,7 +102,7 @@ export default function ImmersiveProject({ p, rows }: { p: Project; rows: Immers
           return (
             <div key={k} className={`imm-row imm-row--${row.images.length}`}>
               {row.images.map((s) => (
-                <Img key={s} src={s} alt={alt()} share={photoRatio(s) / sum} />
+                <Img key={s} src={s} alt={alt(s)} share={photoRatio(s) / sum} />
               ))}
             </div>
           );
@@ -106,7 +110,7 @@ export default function ImmersiveProject({ p, rows }: { p: Project; rows: Immers
         const minRatio = row.kind === "text" ? PANEL_PHOTO_MIN : undefined;
         const r = Math.max(photoRatio(row.image), minRatio ?? 0);
         const share = r / (r + PANEL_RATIO);
-        const image = <Img src={row.image} alt={alt()} share={share} priority={row.kind === "intro"} minRatio={minRatio} />;
+        const image = <Img src={row.image} alt={alt(row.image)} share={share} priority={row.kind === "intro"} minRatio={minRatio} />;
         const panel =
           row.kind === "intro" ? <Panel p={p} kind="intro" tone="khaki" h1 /> : <Panel p={p} kind={row.panel} tone={row.tone} />;
         const textFirst = row.kind === "text" && row.side === "left";

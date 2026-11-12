@@ -109,8 +109,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Font web licence + WOFF2 sign-off.
 - Sea-side Residence: 11/10 four photos replaced by the client's better files (folder 1.jpg→01, 4.jpg→04, 1.jpg dining→06, 5.jpg→07; same 2048px max but far less compression). 02, 03, 05 still the low-res originals; 3.jpg (wide living room) unused — 05 is a portrait crop of that scene. Full-size originals (>3000px) still welcome.
 - Place names inside client concept/story copy (Beregovoy: Italy/France/Moscow; Shepherd's Bush: "London exterior") vs the "no city/country" rule — confirm with the client; don't edit silently.
-- Privacy Policy (client copy): published address in Offord D’Arcy (Cambridgeshire) and "… MacNaughton is the data controller" (are?) — confirm. The Messaging/Booking section is generated from `contactChannels` (added 11/10 with the project lead's OK).
-- Gallery alt texts are generic ("<Project> — view N"); short descriptions per photo would help accessibility/SEO (content task).
+- Privacy Policy (client copy): "… MacNaughton is the data controller" (are?) — confirm. Address stays (client 12/11). The Messaging/Booking section is generated from `contactChannels` (added 11/10 with the project lead's OK).
 - Motion layer vs client brief §8.3 (see Motion above).
 - Home hero: approved crop of 9153 (door jamb removed); hero video deferred, markup should stay video-ready.
 
@@ -123,3 +122,5 @@ Use the same names in components, CSS classes and when discussing fixes.
 - Studio: "KARTÚ creates interiors, bringing together…" ("through dialogue" removed at the client's request).
 - Form: `formEndpoint` in site.ts = Formspree (studio account); `NEXT_PUBLIC_FORM_ENDPOINT` still overrides.
 - Privacy address: client wants it removed unless required. E-Commerce Regs 2002 reg 6 asks for a geographic address on a business website (not necessarily home; a business/virtual office address works) → kept for now, options sent to the project lead.
+- Alt text (client approved 12/11, shortened set): `src/content/alt-text.ts`, keyed by web file name; ImmersiveProject uses `altFor(src)`, falling back to "<Project> — view N" for photos without an entry. **Every new project photo gets an entry** (English, ~6 words, what is shown — no place names).
+- Privacy address: the client decided to keep it (12/11).
