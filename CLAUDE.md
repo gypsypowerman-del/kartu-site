@@ -117,7 +117,7 @@ Use the same names in components, CSS classes and when discussing fixes.
 - **Lesson — "Application error" on Next project (intermittent since early versions):** GSAP 3.15 crashes inside `ScrollTrigger.refresh` (`Cannot read properties of undefined (reading 'end')`) when triggers with `once: true` kill themselves while a new page is creating its triggers (client-side navigation from the bottom of a long page). Reproduced 1/1 on desktop SB → next. **Never use `once: true`**; reveals use `toggleActions: "play none none none"` (same look, trigger stays alive until unmount). QA script: scroll to bottom, click Next project 7× in a row, watch `pageerror`.
 - Next project follows `indexOrder` (Projects page order), last wraps to first.
 - Next project band: "Get in touch" `TextLink` → /contact/ under the title (title link stretches over the band; links never nest).
-- Intro: fades by itself after `INTRO_MS` (1.75s from page load); a click anywhere skips it. Boot script removes it too if React is late.
+- Intro: fades by itself after `INTRO_MS` = 3.2s from page load (never less than `INTRO_MIN_MS` 2.4s after the page is ready); a click/tap anywhere skips it. Client 12/11: 1.75s felt "almost instant". Boot script removes it if React is very late.
 - Sea-side: kitchen render (09) beside Project Story; row below = 04/07 (5.jpg now shows once).
 - Studio: "KARTÚ creates interiors, bringing together…" ("through dialogue" removed at the client's request).
 - Form: `formEndpoint` in site.ts = Formspree (studio account); `NEXT_PUBLIC_FORM_ENDPOINT` still overrides.

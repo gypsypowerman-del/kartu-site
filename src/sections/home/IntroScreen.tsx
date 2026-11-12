@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/content/assets";
-import { ENTER_EVENT, INTRO_CLASS, INTRO_MS, introActive, markEntered } from "@/motion/enabled";
+import { ENTER_EVENT, INTRO_CLASS, INTRO_MIN_MS, INTRO_MS, introActive, markEntered } from "@/motion/enabled";
 
 const FADE_MS = 500; // --duration-base: a very short, quiet fade
 
@@ -20,7 +20,7 @@ export default function IntroScreen() {
     // keep keyboard and screen-reader focus on the intro while it is shown
     const others = Array.from(document.body.children).filter((el) => el !== ref.current && el.tagName !== "SCRIPT") as HTMLElement[];
     others.forEach((el) => (el.inert = true)); // the first Tab lands on the logo; no forced focus ring on arrival
-    const timer = window.setTimeout(() => enterRef.current(), Math.max(0, INTRO_MS - performance.now()));
+    const timer = window.setTimeout(() => enterRef.current(), Math.max(INTRO_MIN_MS, INTRO_MS - performance.now()));
     return () => {
       window.clearTimeout(timer);
       others.forEach((el) => (el.inert = false));

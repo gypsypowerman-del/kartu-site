@@ -16,16 +16,18 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
  *  Stored as a timestamp in localStorage, refreshed on every page view, so browsing never re-triggers it. */
 export const INTRO_TTL_MS = 30 * 60 * 1000;
 
-/** How long the intro stays before it fades by itself (client 12/11: 1.5–2 s; a click anywhere skips it).
- *  Counted from the start of page load, so a slow script never adds to the wait. */
-export const INTRO_MS = 1750;
+/** How long the intro stays before it fades by itself; a click or tap anywhere skips it.
+ *  Client 12/11: 1.75 s read as "almost instant" (the logo also had to wait for the page to load),
+ *  so it is now 3.2 s from page load, and never less than INTRO_MIN_MS once the page is ready. */
+export const INTRO_MS = 3200;
+export const INTRO_MIN_MS = 2400;
 
 /** Runs in <head> before first paint:
  *  1. motion gate (see above);
  *  2. intro screen: shown when a visit starts on the home page and the visitor has not been on the
  *     site in the last 30 minutes. Arriving on any other page counts as having entered.
  *     Skipped for automated browsers, like motion, so tools capture the real page. */
-export const motionBootScript = `(function(){try{var d=document.documentElement,w=navigator.webdriver;if(!w&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){d.classList.add('${MOTION_CLASS}')}var p=location.pathname,b='${base}',home=p===b+'/'||p===b||p===b+'/index.html',k='${INTRO_KEY}',now=Date.now(),seen=false;function mark(){try{localStorage.setItem(k,String(Date.now()))}catch(e){}}try{var t=+localStorage.getItem(k);seen=t>0&&now-t<${INTRO_TTL_MS}}catch(e){}if(home&&!seen&&!w){d.classList.add('${INTRO_CLASS}');var off=function(){if(!window.__kartuIntroReady&&d.classList.contains('${INTRO_CLASS}')){d.classList.remove('${INTRO_CLASS}');mark()}};document.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest('.intro'))off()},true);setTimeout(off,${INTRO_MS}+600)}else{mark()}}catch(e){}})();`;
+export const motionBootScript = `(function(){try{var d=document.documentElement,w=navigator.webdriver;if(!w&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches){d.classList.add('${MOTION_CLASS}')}var p=location.pathname,b='${base}',home=p===b+'/'||p===b||p===b+'/index.html',k='${INTRO_KEY}',now=Date.now(),seen=false;function mark(){try{localStorage.setItem(k,String(Date.now()))}catch(e){}}try{var t=+localStorage.getItem(k);seen=t>0&&now-t<${INTRO_TTL_MS}}catch(e){}if(home&&!seen&&!w){d.classList.add('${INTRO_CLASS}');var off=function(){if(!window.__kartuIntroReady&&d.classList.contains('${INTRO_CLASS}')){d.classList.remove('${INTRO_CLASS}');mark()}};document.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest('.intro'))off()},true);setTimeout(off,${INTRO_MS}+3000)}else{mark()}}catch(e){}})();`;
 
 /** Records that the visitor has entered (or is still browsing). */
 export function markEntered() {
